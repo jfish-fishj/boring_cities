@@ -36,7 +36,14 @@ cities = [
     'sf',
     'boston',
     'nyc',
-    'houston'
+    'houston',
+    'miami',
+    'sd',
+    'atl',
+    'charlotte',
+    'delaware',
+    'mpls',
+    'chicago'
 ]
 # set up directories
 def make_data_dict(make_directories=True, use_seagate=False, filePrefix=filePrefix):
@@ -45,8 +52,15 @@ def make_data_dict(make_directories=True, use_seagate=False, filePrefix=filePref
         filePrefix = '/Volumes/Seagate Portable Drive/boring_cities'
     for data_stage in data_stages:
         data_dict[data_stage] = {}
+        if make_directories is True:
+            mkdir = filePrefix + f'/data/{data_stage}'
+            if os.path.exists(mkdir) is False:
+                os.mkdir(mkdir)
         for city in cities:
             data_dict[data_stage][city] = {}
+            mkdir = filePrefix + f'/data/{data_stage}/{city}'
+            if os.path.exists(mkdir) is False:
+                os.mkdir(mkdir)
             for data_type in data_types:
                 directory = filePrefix + f'/data/{data_stage}/{city}/{data_type}/'
                 data_dict[data_stage][city][data_type] = directory
@@ -54,3 +68,6 @@ def make_data_dict(make_directories=True, use_seagate=False, filePrefix=filePref
                     if os.path.exists(directory) is False:
                         os.mkdir(directory)
     return data_dict
+
+if __name__ == "__main__":
+    data_dict = make_data_dict(use_seagate=True)

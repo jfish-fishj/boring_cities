@@ -70,7 +70,6 @@ first_name_frequencies = {k: (first_name_frequencies_female.get(k, 0) + first_na
 def clean_name_vectorized(dataframe, column, prefix=False):
     """Takes a dataframe and a column and cleans the strings including removing periods, apostrophies, weird spaces"""
     if dataframe[column].isnull().all()==True:
-        #write_to_log('{} is completely NA... Not attempting to clean'.format(column))
         if prefix != False:
             new_column = prefix + column
             dataframe[new_column] = dataframe[column]
@@ -262,7 +261,7 @@ def string_standardize_name(dataframe, column, prefix=False):
                            "FAMILY": ["FAM"],
                            "INVESTMENTS": ["INVESMENT|INVESTMENT|INVES"],
                            "TRUSTEES": ["TRSTE?E?S"],
-                            "TRUSTEE":['TRU?STEE','tree'],
+                            "TRUSTEE":['TRU?STEE'],
                            "AUTHORITY": ["AUTH"],
                            "BOSTON": ["BOSTO?N?",'bos$'],
                            "BOSTON HOUSING AUTHORITY": ["BOSTON HOUSING AUTH|BHA"],
@@ -373,9 +372,6 @@ def classify_name(dataframe, name_cols,type_col = 'type_name', weight_format=Fal
             # where we already think the name is a person check to make sure it contains one of the names listed in 
             # census names dict
             # if it does keep it as a person else business
-            print(r'\b|\b'.join(fn_filter_dict.keys()))
-            print(r'\b|\b'.join(ln_filter_dict.keys()))
-            print(dataframe_dd[dataframe_dd[type_col]=='person'].shape[0])
             dataframe_dd[type_col] = np.where(
                 (dataframe_dd[type_col] == 'person') &
                 ((dataframe_dd['temp_name'].str.contains(r'|\b'.join(fn_filter_dict.keys()), regex=True, flags=re.IGNORECASE)) &
@@ -383,7 +379,6 @@ def classify_name(dataframe, name_cols,type_col = 'type_name', weight_format=Fal
                 'person',
                 'business'
             )
-            print(dataframe_dd[dataframe_dd[type_col] == 'person'].shape[0])
         dataframe_dd.drop(columns='temp_name', inplace=True)
         dataframe = pd.merge(dataframe, dataframe_dd, how='left', on=name_cols)
         return dataframe
@@ -1280,7 +1275,7 @@ def parse_and_split(dataframe, name_col, firstName_col, lastName_col, initial_co
 
 def clean_business_name(df, business_name_col, numbers_format=False):
     # df[business_name_col] = df[business_name_col].apply(remove_commas)
-    df[business_name_col] = df[business_name_col].str.replace(r'&|,|-|:|;|\?|\.', ' ')
+    df[business_name_col] = df[business_name_col].str.replace(r',|-|:|;|\?|\.', ' ')
     df[business_name_col] = df[business_name_col].str.replace(r'(\s)(no\s|number\s|unit\s)([0-9]+)', r'g<1>#\g<3>')
     df[business_name_col] = df[business_name_col].str.replace(r'(\b)(the)(\b)', r'\g<1>')
     df[business_name_col] = df[business_name_col].str.replace(r'\s{2,}', ' ')
@@ -1288,6 +1283,7 @@ def clean_business_name(df, business_name_col, numbers_format=False):
     df[business_name_col] = df[business_name_col].str.replace(r'\b(tr)\b', r' trust ')
     df[business_name_col] = df[business_name_col].str.replace(r'\s{2,}', ' ')
     df[business_name_col] = df[business_name_col].str.replace(r'\b(mort|mrtg|mrtge|mtge)\b', 'mortgage')
+    df[business_name_col] = df[business_name_col].str.replace(r'(.+)\s(#?[0-9]+)$', r'\g<1>')
     df[business_name_col] = df[business_name_col].str.strip()
     # replace empty strings w/ np.nan
     df[business_name_col] = df[business_name_col].replace(r'^(\s+)?$', np.nan)
@@ -1429,6 +1425,20 @@ def make_business_short_name_col(df, business_short_name_col, business_name_col,
         r'estate of power|(life\s?)?estate(\sof)?|co-?op[rative]{5,9}|trust|(city|town)\sof|limited|llp|partnership|company)\b',
         "",
         flags=re.IGNORECASE)
+    # remove words that come after store
+    df[business_short_name_col] = df[business_short_name_col].str.replace(
+        r'^(.+)\s(stores?.+)$',r'\g<1>',
+        flags=re.IGNORECASE)
+    # remove cities (note this assumes an exhaustive list of cities and needs to always be thoroughly checked on new data
+    # but its good for going from starbucks of pasadena -> starbucks
+    cities = pd.read_csv(filePrefix + "/name_parser/city_list.csv")
+    cities = cities[cities['count'] >= 1000]
+    city_list = '|'.join(cities['primary_addr_city'])
+    df[business_short_name_col] = df[business_short_name_col].str.replace(
+        f'^(.+)\s((of\s)?{city_list})$', r'\g<1>',
+        flags=re.IGNORECASE)
+
+
     df[business_short_name_col] = df[business_short_name_col].str.replace(r' {2,}', r' ')
     df[business_short_name_col] = df[business_short_name_col].str.strip()
     df[business_short_name_col] = df[business_short_name_col].str.replace(r'^([a-z\s]+)(\s)(city|town)$', r'\g<1>')
@@ -1533,7 +1543,6 @@ def make_business_proper_name_col(df, business_proper_name_col, business_name_co
                                       inplace=True)
     return df
 
-
 def make_alphabetized_name(df, name_column, alphabetized_col):
     df['splitCol'] = df[name_column].str.split(' ')
     df['splitCol'] = df['splitCol'].sort_values().apply(lambda x: sorted(x))
@@ -1543,8 +1552,8 @@ def make_alphabetized_name(df, name_column, alphabetized_col):
     df.drop(columns=['splitCol'], inplace=True)
     return df
 
-def parse_business(df, business_name_col, business_main_type_col, business_sub_type_col,
-                   business_short_name_col, numbers_format,  business_proper_name_col='business_proper_name',
+def parse_business(df, business_name_col, business_main_type_col = 'business_main_type', business_sub_type_col = 'business_sub_type',
+                   business_short_name_col ='business_short_name', numbers_format=False,  business_proper_name_col='business_proper_name',
                    alphabetized_col='alphabetizedName', log=False):
     for col in [business_short_name_col, business_sub_type_col, business_main_type_col]:
         if col not in list(df.columns):

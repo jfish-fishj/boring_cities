@@ -400,6 +400,7 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
                 parsed_st_num1_col, parsed_ss_col]:
         dataframe[col] = np.nan
     final_shape = dataframe_full.shape[0]
+    print(f'dataframe shape is {final_shape}')
     if initial_shape != final_shape:
         write_to_log('initial shape is {} and final shape is {}'.format(initial_shape,final_shape))
         raise ValueError('Initial and final shapes do not agree! Copy was not deep enough')
@@ -553,6 +554,8 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
         dataframe[parsed_zip_col] = '_' + dataframe[parsed_zip_col]
         dataframe[parsed_zip_col] = dataframe[parsed_zip_col].str.replace(r'^(_)\s?([0-9]{4})$', r'\g<1>0\g<2>')
 
+
+
     # extract unit_col from address column
     dataframe[parsed_unit_col] = np.where(
         dataframe[parsed_unit_col] == '',
@@ -561,194 +564,195 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
     )
     # dataframe['fillUnit'] = dataframe[address_col].str.extract(unit,flags=re.IGNORECASE).iloc[:,0]
     # try a bunch of different units
-    dataframe[parsed_unit_col] = dataframe[parsed_unit_col].fillna(
-        dataframe[address_col].str.extract(unit,
-                                           flags=re.IGNORECASE).iloc[:, 0])
-    dataframe[parsed_unit_col] = dataframe[parsed_unit_col].fillna(
-                                               dataframe[address_col].str.extract(unit2,
-                                                                                   flags=re.IGNORECASE).iloc[:,0])
-    dataframe[parsed_unit_col] = dataframe[parsed_unit_col].fillna(
-        dataframe[address_col].str.extract(r'\su[-:\s]{1,3}([0-9]+[a-z]+)',
-                                           flags=re.IGNORECASE).iloc[:, 0])
-    dataframe[parsed_unit_col] = dataframe[parsed_unit_col].fillna(
-        dataframe[address_col].str.extract(r'\su[-:\s]{1,3}([0-9]+)',
-                                           flags=re.IGNORECASE).iloc[:, 0])
-    dataframe[parsed_unit_col] = dataframe[parsed_unit_col].fillna(
-        dataframe[address_col].str.extract(r'1-([0-9]+[a-z]+)',
-                                           flags=re.IGNORECASE).iloc[:, 0])
-    # replace unit_col column w/ empty string
-    dataframe[new_address_col] = dataframe[address_col].str.replace(unit, '')
-    dataframe[new_address_col] = dataframe[new_address_col].str.strip()
-    if (dataframe[new_address_col].isna().sum()) > (dataframe[address_col].isna().sum()):
-        raise ValueError
-    state_names = [keys for keys in state_dict.keys()] + [values for values in state_dict.values()]
-    # clean the city column
-    if dataframe[parsed_city_col].isna().all() == False:
-        # parse state from city col
-        dataframe[parsed_state_col] = dataframe[parsed_state_col].fillna(dataframe[parsed_city_col].
-                                                                         str.extract('\s({})(\s|$)'.format('|'.join(state_names)),
-                                                                                   flags=re.IGNORECASE).iloc[:,0])
-        # remove state from city
-        dataframe[parsed_city_col] = dataframe[parsed_city_col].str.replace(r'(.+)[,\s]({})(\s|$)'.
-                                                                            format('|'.join(state_names)), r'\g<1>', flags=re.IGNORECASE)
-    # parse state from full address
-    dataframe[parsed_state_col]=    dataframe[parsed_state_col].fillna(dataframe[address_col].str.extract('({})'.format('|\b'.join(state_names)),
-                                                                              flags=re.IGNORECASE).iloc[:, 0])
-    # standardize parsed state names
-    if dataframe[parsed_state_col].isna().all() == False:
-        for key in state_dict.keys():
-            dataframe[parsed_state_col] = np.where(
-                dataframe[parsed_state_col].isna(),
-                dataframe[parsed_state_col],
-                dataframe[parsed_state_col].str.replace('{}'.format(state_dict[key]), key)
+    if dataframe[address_col].isna().all() == False:
+        dataframe[parsed_unit_col] = dataframe[parsed_unit_col].fillna(
+            dataframe[address_col].str.extract(unit,
+                                               flags=re.IGNORECASE).iloc[:, 0])
+        dataframe[parsed_unit_col] = dataframe[parsed_unit_col].fillna(
+                                                   dataframe[address_col].str.extract(unit2,
+                                                                                       flags=re.IGNORECASE).iloc[:,0])
+        dataframe[parsed_unit_col] = dataframe[parsed_unit_col].fillna(
+            dataframe[address_col].str.extract(r'\su[-:\s]{1,3}([0-9]+[a-z]+)',
+                                               flags=re.IGNORECASE).iloc[:, 0])
+        dataframe[parsed_unit_col] = dataframe[parsed_unit_col].fillna(
+            dataframe[address_col].str.extract(r'\su[-:\s]{1,3}([0-9]+)',
+                                               flags=re.IGNORECASE).iloc[:, 0])
+        dataframe[parsed_unit_col] = dataframe[parsed_unit_col].fillna(
+            dataframe[address_col].str.extract(r'1-([0-9]+[a-z]+)',
+                                               flags=re.IGNORECASE).iloc[:, 0])
+        # replace unit_col column w/ empty string
+        dataframe[new_address_col] = dataframe[address_col].str.replace(unit, '')
+        dataframe[new_address_col] = dataframe[new_address_col].str.strip()
+        if (dataframe[new_address_col].isna().sum()) > (dataframe[address_col].isna().sum()):
+            raise ValueError
+        state_names = [keys for keys in state_dict.keys()] + [values for values in state_dict.values()]
+        # clean the city column
+        if dataframe[parsed_city_col].isna().all() == False:
+            # parse state from city col
+            dataframe[parsed_state_col] = dataframe[parsed_state_col].fillna(dataframe[parsed_city_col].
+                                                                             str.extract('\s({})(\s|$)'.format('|'.join(state_names)),
+                                                                                       flags=re.IGNORECASE).iloc[:,0])
+            # remove state from city
+            dataframe[parsed_city_col] = dataframe[parsed_city_col].str.replace(r'(.+)[,\s]({})(\s|$)'.
+                                                                                format('|'.join(state_names)), r'\g<1>', flags=re.IGNORECASE)
+        # parse state from full address
+        dataframe[parsed_state_col]=    dataframe[parsed_state_col].fillna(dataframe[address_col].str.extract('({})'.format('|\b'.join(state_names)),
+                                                                                  flags=re.IGNORECASE).iloc[:, 0])
+        # standardize parsed state names
+        if dataframe[parsed_state_col].isna().all() == False:
+            for key in state_dict.keys():
+                dataframe[parsed_state_col] = np.where(
+                    dataframe[parsed_state_col].isna(),
+                    dataframe[parsed_state_col],
+                    dataframe[parsed_state_col].str.replace('{}'.format(state_dict[key]), key)
 
-        )
+            )
 
-    added_cols = [parsed_st_num1_col, parsed_st_name_col, parsed_ss_col]
-    dataframe1 = dataframe[~dataframe[added_cols].notna().all(1)]
-    dataframe0 = dataframe[dataframe[added_cols].notna().all(1)]
-    dataframe0['parsed_from'] = 'already_parsed'
-    df_list.append(dataframe0)
+        added_cols = [parsed_st_num1_col, parsed_st_name_col, parsed_ss_col]
+        dataframe1 = dataframe[~dataframe[added_cols].notna().all(1)]
+        dataframe0 = dataframe[dataframe[added_cols].notna().all(1)]
+        dataframe0['parsed_from'] = 'already_parsed'
+        df_list.append(dataframe0)
 
 
-    def parse_from_legal_description(dataframe, log=False):
-        st_sfx_la = r'(aly|ave|byu|blf|blvd|cl|cswy|ctr|cir|cv|crk|cres|xing|curv|dr|est|expy|ext|frk|ft|fwy|gdn|gtwy|hvn|' \
-                 r'hwy|hl|jct|ky|lks|ln|lgt|lp|mall|mnr|mdw|msn|mtn|pkwy|pass|path|plz|pt|prt|rst|rdge|rd|rte|rw|shr|' \
-                 r'sq|st|strm|trak|turnpike|vly|vws|walk|way)'
-        st_name_la  = r'([a-z\s-]+)'
-        dataframe_no_ld = dataframe[dataframe[legal_description_col].isna()]
-        dataframe_yes_ld = dataframe[~dataframe[legal_description_col].isna()]
-        if is_string_dtype(dataframe[legal_description_col]):
-            split3 = dataframe_yes_ld[legal_description_col].str.extract(r'(#)\s?([0-9a-z-]{1,6})', flags=re.IGNORECASE)
-            dataframe_yes_ld[parsed_unit_col].fillna(split3[1], inplace=True)
-            split4 =  dataframe_yes_ld[legal_description_col].str.extract(r'\b([0-9a-z-]+)\sof\s([0-9]+)', flags=re.IGNORECASE)
-            dataframe_yes_ld[parsed_unit_col].fillna(split4[0], inplace=True)
-            dataframe_yes_ld[parsed_st_num1_col].fillna(split4[1])
-            dataframe_yes_ld['new' + legal_description_col] = dataframe_yes_ld[legal_description_col].str.replace(
-                'of\s', '', flags=re.IGNORECASE)
-            dataframe_yes_ld['new' + legal_description_col] = dataframe_yes_ld['new' + legal_description_col].str.replace(r'#\s?[0-9a-z]{1,5}', '', flags=re.IGNORECASE)
-            # parse where string contains num? st suffix
-            split1 = dataframe_yes_ld['new' +legal_description_col].str.extract(st_num + r'?-?' + st_num + r'?\b' + r'([nsewrl])?\s?' + st_name_la +
-                                                                  r'\s' + st_sfx_la, flags=re.IGNORECASE
-                                                                  )
-            dataframe_yes_ld[parsed_st_num1_col].fillna(split1[0], inplace= True)
-            dataframe_yes_ld[parsed_st_num2_col].fillna(split1[1], inplace=True)
-            dataframe_yes_ld[parsed_sd_col].fillna(split1[2], inplace=True)
-            dataframe_yes_ld[parsed_st_name_col].fillna(split1[3], inplace=True)
-            dataframe_yes_ld[parsed_ss_col].fillna(split1[4], inplace=True)
-            # parse where string contains #unit? <some word> + condo
-            split2 = dataframe_yes_ld['new' +legal_description_col].str.extract(
-                r'(of\s)?#?([0-9]+[a-z]?)?\s?(of\s)?([a-z\s]+)\scondo', flags=re.IGNORECASE)
-            dataframe_yes_ld[parsed_unit_col].fillna(split2[1], inplace=True)
-            dataframe_yes_ld[parsed_address_name].fillna(split2[3], inplace=True)
-            dataframe_yes_ld.drop(columns = ['new' + legal_description_col], inplace=True)
-            dataframe_yes_ld['parsed_from'] = 'legal_desc'
-        else:
-            if log is not False:
-                print('not parsing legal address column')
-        dataframe = pd.concat([dataframe_yes_ld, dataframe_no_ld])
-        return dataframe
-        # drop duplicates based on address & legal address column
-    # dataframe2.drop_duplicates(subset=[new_address_col, legal_description_col], inplace=True)
-    # extract where format is num st sfx unit, but unit does not need a # signifier
-    split0 = dataframe1[new_address_col].str.extract(
-        st_num + r'-?\s?' + st_num + r'?\s' + st_d + r'?[\s-]?' + st_name + r'\s' + st_sfx + r'[-\s,]{1,3}' +
-        r'#?([0-9-]{1,4}-?[a-z]?|[a-z]-?[0-9]{1,4}|[up][0-9]{1,4}[abcd]|un\s[0-9abcd]{1,4}|[abcd])' + r'([^0-9]+)?',
-                                                                                                            flags=re.IGNORECASE)
-    dataframe1[parsed_st_num1_col].fillna(split0[0], inplace=True)
-    dataframe1[parsed_st_num2_col].fillna(split0[1], inplace=True)
-    dataframe1[parsed_sd_col].fillna(split0[2], inplace=True)
-    dataframe1[parsed_st_name_col].fillna(split0[3], inplace=True)
-    dataframe1[parsed_ss_col].fillna(split0[4], inplace=True)
-    dataframe1[parsed_unit_col].fillna(split0[5], inplace=True)
+        def parse_from_legal_description(dataframe, log=False):
+            st_sfx_la = r'(aly|ave|byu|blf|blvd|cl|cswy|ctr|cir|cv|crk|cres|xing|curv|dr|est|expy|ext|frk|ft|fwy|gdn|gtwy|hvn|' \
+                     r'hwy|hl|jct|ky|lks|ln|lgt|lp|mall|mnr|mdw|msn|mtn|pkwy|pass|path|plz|pt|prt|rst|rdge|rd|rte|rw|shr|' \
+                     r'sq|st|strm|trak|turnpike|vly|vws|walk|way)'
+            st_name_la  = r'([a-z\s-]+)'
+            dataframe_no_ld = dataframe[dataframe[legal_description_col].isna()]
+            dataframe_yes_ld = dataframe[~dataframe[legal_description_col].isna()]
+            if is_string_dtype(dataframe[legal_description_col]):
+                split3 = dataframe_yes_ld[legal_description_col].str.extract(r'(#)\s?([0-9a-z-]{1,6})', flags=re.IGNORECASE)
+                dataframe_yes_ld[parsed_unit_col].fillna(split3[1], inplace=True)
+                split4 =  dataframe_yes_ld[legal_description_col].str.extract(r'\b([0-9a-z-]+)\sof\s([0-9]+)', flags=re.IGNORECASE)
+                dataframe_yes_ld[parsed_unit_col].fillna(split4[0], inplace=True)
+                dataframe_yes_ld[parsed_st_num1_col].fillna(split4[1])
+                dataframe_yes_ld['new' + legal_description_col] = dataframe_yes_ld[legal_description_col].str.replace(
+                    'of\s', '', flags=re.IGNORECASE)
+                dataframe_yes_ld['new' + legal_description_col] = dataframe_yes_ld['new' + legal_description_col].str.replace(r'#\s?[0-9a-z]{1,5}', '', flags=re.IGNORECASE)
+                # parse where string contains num? st suffix
+                split1 = dataframe_yes_ld['new' +legal_description_col].str.extract(st_num + r'?-?' + st_num + r'?\b' + r'([nsewrl])?\s?' + st_name_la +
+                                                                      r'\s' + st_sfx_la, flags=re.IGNORECASE
+                                                                      )
+                dataframe_yes_ld[parsed_st_num1_col].fillna(split1[0], inplace= True)
+                dataframe_yes_ld[parsed_st_num2_col].fillna(split1[1], inplace=True)
+                dataframe_yes_ld[parsed_sd_col].fillna(split1[2], inplace=True)
+                dataframe_yes_ld[parsed_st_name_col].fillna(split1[3], inplace=True)
+                dataframe_yes_ld[parsed_ss_col].fillna(split1[4], inplace=True)
+                # parse where string contains #unit? <some word> + condo
+                split2 = dataframe_yes_ld['new' +legal_description_col].str.extract(
+                    r'(of\s)?#?([0-9]+[a-z]?)?\s?(of\s)?([a-z\s]+)\scondo', flags=re.IGNORECASE)
+                dataframe_yes_ld[parsed_unit_col].fillna(split2[1], inplace=True)
+                dataframe_yes_ld[parsed_address_name].fillna(split2[3], inplace=True)
+                dataframe_yes_ld.drop(columns = ['new' + legal_description_col], inplace=True)
+                dataframe_yes_ld['parsed_from'] = 'legal_desc'
+            else:
+                if log is not False:
+                    print('not parsing legal address column')
+            dataframe = pd.concat([dataframe_yes_ld, dataframe_no_ld])
+            return dataframe
+            # drop duplicates based on address & legal address column
+        # dataframe2.drop_duplicates(subset=[new_address_col, legal_description_col], inplace=True)
+        # extract where format is num st sfx unit, but unit does not need a # signifier
+        split0 = dataframe1[new_address_col].str.extract(
+            st_num + r'-?\s?' + st_num + r'?\s' + st_d + r'?[\s-]?' + st_name + r'\s' + st_sfx + r'[-\s,]{1,3}' +
+            r'#?([0-9-]{1,4}-?[a-z]?|[a-z]-?[0-9]{1,4}|[up][0-9]{1,4}[abcd]|un\s[0-9abcd]{1,4}|[abcd])' + r'([^0-9]+)?',
+                                                                                                                flags=re.IGNORECASE)
+        dataframe1[parsed_st_num1_col].fillna(split0[0], inplace=True)
+        dataframe1[parsed_st_num2_col].fillna(split0[1], inplace=True)
+        dataframe1[parsed_sd_col].fillna(split0[2], inplace=True)
+        dataframe1[parsed_st_name_col].fillna(split0[3], inplace=True)
+        dataframe1[parsed_ss_col].fillna(split0[4], inplace=True)
+        dataframe1[parsed_unit_col].fillna(split0[5], inplace=True)
 
-    dataframe2 = dataframe1[~dataframe1[added_cols].notna().all(1)]
-    dataframe1 = dataframe1[dataframe1[added_cols].notna().all(1)]
+        dataframe2 = dataframe1[~dataframe1[added_cols].notna().all(1)]
+        dataframe1 = dataframe1[dataframe1[added_cols].notna().all(1)]
 
-    dataframe1['parsed_from'] = 'num_st_sfx_u'
-    df_list.append(dataframe1)
+        dataframe1['parsed_from'] = 'num_st_sfx_u'
+        df_list.append(dataframe1)
 
-    # extract where format is num num? st sfx zipcode?
-    split1 = dataframe2[new_address_col].str.extract(st_num + r'-?\s?' + st_num + r'?\s' + st_d + r'?[\s-]?' + st_name +
-                                                     r'\s' + st_sfx + r'\s?' + r'#?([0-9-]{1,4}-?[a-z]?|[a-z]-?[0-9]{1,4}|[up][0-9]{1,4}[abcd]|un\s[0-9abcd]{1,4})' + '?'
-                                                    r',?\b' + zipcode + '?', flags=re.IGNORECASE)
-    dataframe2[parsed_st_num1_col].fillna(split1[0], inplace=True)
-    dataframe2[parsed_st_num2_col].fillna(split1[1], inplace=True)
-    dataframe2[parsed_sd_col].fillna(split1[2], inplace=True)
-    dataframe2[parsed_st_name_col].fillna(split1[3], inplace=True)
-    dataframe2[parsed_ss_col].fillna(split1[4], inplace=True)
-    dataframe2[parsed_unit_col].fillna(split1[5], inplace=True)
-    dataframe2[parsed_zip_col].fillna(split1[6], inplace=True)
-    if legal_description_col is not False:
-        dataframe2 =parse_from_legal_description(dataframe=dataframe2)
+        # extract where format is num num? st sfx zipcode?
+        split1 = dataframe2[new_address_col].str.extract(st_num + r'-?\s?' + st_num + r'?\s' + st_d + r'?[\s-]?' + st_name +
+                                                         r'\s' + st_sfx + r'\s?' + r'#?([0-9-]{1,4}-?[a-z]?|[a-z]-?[0-9]{1,4}|[up][0-9]{1,4}[abcd]|un\s[0-9abcd]{1,4})' + '?'
+                                                        r',?\b' + zipcode + '?', flags=re.IGNORECASE)
+        dataframe2[parsed_st_num1_col].fillna(split1[0], inplace=True)
+        dataframe2[parsed_st_num2_col].fillna(split1[1], inplace=True)
+        dataframe2[parsed_sd_col].fillna(split1[2], inplace=True)
+        dataframe2[parsed_st_name_col].fillna(split1[3], inplace=True)
+        dataframe2[parsed_ss_col].fillna(split1[4], inplace=True)
+        dataframe2[parsed_unit_col].fillna(split1[5], inplace=True)
+        dataframe2[parsed_zip_col].fillna(split1[6], inplace=True)
+        if legal_description_col is not False:
+            dataframe2 =parse_from_legal_description(dataframe=dataframe2)
 
-    dataframe3 = dataframe2[~dataframe2[added_cols].notna().all(1)]
-    dataframe2 = dataframe2[dataframe2[added_cols].notna().all(1)]
-    dataframe2['parsed_from'] = 'num_st_sfx'
-    df_list.append(dataframe2)
+        dataframe3 = dataframe2[~dataframe2[added_cols].notna().all(1)]
+        dataframe2 = dataframe2[dataframe2[added_cols].notna().all(1)]
+        dataframe2['parsed_from'] = 'num_st_sfx'
+        df_list.append(dataframe2)
 
-    # extract where format is num st_d? st
-    split2 = dataframe3[new_address_col].str.extract(r'^' + st_num + r'-?\s?' + st_num  + r'?\s' + st_d +'?' + st_name + '\s?,?\s?#?([0-9a-z\s]{1,4})?$', flags=re.IGNORECASE)
-    dataframe3[parsed_st_num1_col].fillna(split2[0], inplace=True)
-    dataframe3[parsed_st_num2_col].fillna(split2[1], inplace=True)
-    dataframe3[parsed_sd_col].fillna(split2[2], inplace=True)
-    dataframe3[parsed_st_name_col].fillna(split2[3], inplace=True)
-    dataframe3[parsed_unit_col].fillna(split2[4], inplace=True)
-    dataframe4 = dataframe3[~dataframe3[[parsed_st_num1_col, parsed_st_name_col]].notna().all(1)]
-    dataframe3 = dataframe3[dataframe3[[parsed_st_num1_col, parsed_st_name_col]].notna().all(1)]
-    dataframe3['parsed_from'] = 'num_st'
-    df_list.append(dataframe3)
+        # extract where format is num st_d? st
+        split2 = dataframe3[new_address_col].str.extract(r'^' + st_num + r'-?\s?' + st_num  + r'?\s' + st_d +'?' + st_name + '\s?,?\s?#?([0-9a-z\s]{1,4})?$', flags=re.IGNORECASE)
+        dataframe3[parsed_st_num1_col].fillna(split2[0], inplace=True)
+        dataframe3[parsed_st_num2_col].fillna(split2[1], inplace=True)
+        dataframe3[parsed_sd_col].fillna(split2[2], inplace=True)
+        dataframe3[parsed_st_name_col].fillna(split2[3], inplace=True)
+        dataframe3[parsed_unit_col].fillna(split2[4], inplace=True)
+        dataframe4 = dataframe3[~dataframe3[[parsed_st_num1_col, parsed_st_name_col]].notna().all(1)]
+        dataframe3 = dataframe3[dataframe3[[parsed_st_num1_col, parsed_st_name_col]].notna().all(1)]
+        dataframe3['parsed_from'] = 'num_st'
+        df_list.append(dataframe3)
 
-    # extract where format is st_st_sfx
-    split3 = dataframe4[new_address_col].str.extract('^' + st_d + r'?\s?' + st_name + r'\s' + st_sfx + r'\s?[,-]?\s?$', flags=re.IGNORECASE)
-    dataframe4[parsed_sd_col].fillna(split3[0], inplace=True)
-    dataframe4[parsed_st_name_col].fillna(split3[1], inplace=True)
-    dataframe4[parsed_ss_col].fillna(split3[2], inplace=True)
-    dataframe5 = dataframe4[~dataframe4[[parsed_ss_col, parsed_st_name_col]].notna().all(1)]
-    dataframe4 = dataframe4[dataframe4[[parsed_ss_col, parsed_st_name_col]].notna().all(1)]
-    dataframe4['parsed_from'] = 'st_st_sfx'
-    df_list.append(dataframe4)
+        # extract where format is st_st_sfx
+        split3 = dataframe4[new_address_col].str.extract('^' + st_d + r'?\s?' + st_name + r'\s' + st_sfx + r'\s?[,-]?\s?$', flags=re.IGNORECASE)
+        dataframe4[parsed_sd_col].fillna(split3[0], inplace=True)
+        dataframe4[parsed_st_name_col].fillna(split3[1], inplace=True)
+        dataframe4[parsed_ss_col].fillna(split3[2], inplace=True)
+        dataframe5 = dataframe4[~dataframe4[[parsed_ss_col, parsed_st_name_col]].notna().all(1)]
+        dataframe4 = dataframe4[dataframe4[[parsed_ss_col, parsed_st_name_col]].notna().all(1)]
+        dataframe4['parsed_from'] = 'st_st_sfx'
+        df_list.append(dataframe4)
 
-    # extract where format is st_st_sfx_unit
-    split4 = dataframe5[new_address_col].str.extract('^' + st_d + r'?\s?' + st_name +
-                                                     r'\s' + st_sfx + r'\s' + unit2 + '.+$', flags=re.IGNORECASE)
-    dataframe5[parsed_sd_col].fillna(split4[0], inplace=True)
-    dataframe5[parsed_st_name_col].fillna(split4[1], inplace=True)
-    dataframe5[parsed_ss_col].fillna(split4[2], inplace=True)
-    dataframe5[parsed_unit_col].fillna(split4[3], inplace=True)
-    dataframe6 = dataframe5[~dataframe5[[parsed_ss_col, parsed_st_name_col]].notna().all(1)]
-    dataframe5 = dataframe5[dataframe5[[parsed_ss_col, parsed_st_name_col]].notna().all(1)]
-    dataframe5['parsed_from'] = 'st_st_sfx_unit'
-    df_list.append(dataframe5)
+        # extract where format is st_st_sfx_unit
+        split4 = dataframe5[new_address_col].str.extract('^' + st_d + r'?\s?' + st_name +
+                                                         r'\s' + st_sfx + r'\s' + unit2 + '.+$', flags=re.IGNORECASE)
+        dataframe5[parsed_sd_col].fillna(split4[0], inplace=True)
+        dataframe5[parsed_st_name_col].fillna(split4[1], inplace=True)
+        dataframe5[parsed_ss_col].fillna(split4[2], inplace=True)
+        dataframe5[parsed_unit_col].fillna(split4[3], inplace=True)
+        dataframe6 = dataframe5[~dataframe5[[parsed_ss_col, parsed_st_name_col]].notna().all(1)]
+        dataframe5 = dataframe5[dataframe5[[parsed_ss_col, parsed_st_name_col]].notna().all(1)]
+        dataframe5['parsed_from'] = 'st_st_sfx_unit'
+        df_list.append(dataframe5)
 
-    split5 = dataframe6[new_address_col].str.extract('^' + st_d + r'?\s?' + st_name +
-                                                     r'\s' + st_sfx + '\s.+$', flags=re.IGNORECASE)
-    dataframe6[parsed_sd_col].fillna(split5[0], inplace=True)
-    dataframe6[parsed_st_name_col].fillna(split5[1], inplace=True)
-    dataframe6[parsed_ss_col].fillna(split5[2], inplace=True)
-    dataframe7 = dataframe6[~dataframe6[[parsed_ss_col, parsed_st_name_col]].notna().all(1)]
-    dataframe6 = dataframe6[dataframe6[[parsed_ss_col, parsed_st_name_col]].notna().all(1)]
-    dataframe6['parsed_from'] = 'st_st_sfx_otherStuff'
-    df_list.append(dataframe6)
+        split5 = dataframe6[new_address_col].str.extract('^' + st_d + r'?\s?' + st_name +
+                                                         r'\s' + st_sfx + '\s.+$', flags=re.IGNORECASE)
+        dataframe6[parsed_sd_col].fillna(split5[0], inplace=True)
+        dataframe6[parsed_st_name_col].fillna(split5[1], inplace=True)
+        dataframe6[parsed_ss_col].fillna(split5[2], inplace=True)
+        dataframe7 = dataframe6[~dataframe6[[parsed_ss_col, parsed_st_name_col]].notna().all(1)]
+        dataframe6 = dataframe6[dataframe6[[parsed_ss_col, parsed_st_name_col]].notna().all(1)]
+        dataframe6['parsed_from'] = 'st_st_sfx_otherStuff'
+        df_list.append(dataframe6)
 
-    # extract where format is (.+)way
-    # has to be done like this because broadway doesnt have a st sfx
-    split6 = dataframe7[new_address_col].str.extract('^' + st_num + r'?\s?' + '([a-z]+way)' + '\s?' +
-                                                     r'#?\s?([0-9-]+-?[a-z]?|[a-z]-?[0-9]+|[up][0-9]?[abcd]|un\s[0-9abcd])' + '?')
-    dataframe7[parsed_st_name_col].fillna(split6[1], inplace=True)
-    dataframe7[parsed_st_num1_col].fillna(split6[0], inplace=True)
-    dataframe7[parsed_unit_col].fillna(split6[2], inplace=True)
-#     dataframe7.drop(columns=['temp_col'], inplace=True)
-    dataframe_not_parsed = dataframe7[~dataframe7[[parsed_st_num1_col, parsed_st_name_col]].notna().all(1)]
-    dataframe7 = dataframe7[dataframe7[[parsed_st_num1_col, parsed_st_name_col]].notna().all(1)]
-    dataframe7['parsed_from'] = 'way'
-    dataframe_not_parsed['parsed_from'] = 'not parsed'
-    df_list.append(dataframe7)
-    # append not parsed df
-    # df_list.append(dataframe_not_parsed)
+        # extract where format is (.+)way
+        # has to be done like this because broadway doesnt have a st sfx
+        split6 = dataframe7[new_address_col].str.extract('^' + st_num + r'?\s?' + '([a-z]+way)' + '\s?' +
+                                                         r'#?\s?([0-9-]+-?[a-z]?|[a-z]-?[0-9]+|[up][0-9]?[abcd]|un\s[0-9abcd])' + '?')
+        dataframe7[parsed_st_name_col].fillna(split6[1], inplace=True)
+        dataframe7[parsed_st_num1_col].fillna(split6[0], inplace=True)
+        dataframe7[parsed_unit_col].fillna(split6[2], inplace=True)
+    #     dataframe7.drop(columns=['temp_col'], inplace=True)
+        dataframe_not_parsed = dataframe7[~dataframe7[[parsed_st_num1_col, parsed_st_name_col]].notna().all(1)]
+        dataframe7 = dataframe7[dataframe7[[parsed_st_num1_col, parsed_st_name_col]].notna().all(1)]
+        dataframe7['parsed_from'] = 'way'
+        dataframe_not_parsed['parsed_from'] = 'not parsed'
+        df_list.append(dataframe7)
 
-    dataframe = pd.concat(df_list)
-    end_shape = dataframe.shape[0]
+        dataframe = pd.concat(df_list)
+    else:
+        dataframe[new_address_col] = dataframe[address_col]
+        dataframe_not_parsed = pd.DataFrame(columns = dataframe.columns)
     if is_string_dtype(dataframe[parsed_st_num1_col]):
         dataframe[parsed_st_num1_col] = dataframe[parsed_st_num1_col].str.replace('-','')
     if is_string_dtype(dataframe[parsed_st_num1_col]):
@@ -823,8 +827,11 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
         dataframe_full = pd.merge(dataframe_full, dataframe, how='left',
                                   on=[address_col, st_name_col, st_num_col,
                                       st_sfx_col, st_d_col, unit_col, zipcode_col, city_col, state_col, st_num2_col], indicator=True)
+    print(f'dataframe shape is {dataframe.shape[0]}')
+    print(f'dataframe_full shape is {dataframe_full.shape[0]}')
     if dataframe_full['_merge'].isin(['left_only']).any():
         print(dataframe_full['_merge'].isin(['left_only']).sum())
+        print(dataframe_full[dataframe_full['_merge'].isin(['left_only'])])
         raise ValueError('Some addresses didnt get merged right, buddy')
     if dataframe_full.shape[0] != initial_shape:
         print(dataframe_full.shape[0], initial_shape)
