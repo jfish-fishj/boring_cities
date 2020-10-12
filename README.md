@@ -14,6 +14,9 @@ takes in business location data and cleans and standardizes it
 takes business location data and turns it into panel data. It also creates misc variables like if a business is publically traded 
 and how many other locations exist in a given year
 
+## clean parcel data
+INCOMPLETE, but has skeleton needed for cleaning parcel data. Is a to-do as I figure out how I want to integrate parcel data.
+
 ## helper functions
 contains useful functions like logging that are used in all scripts
 
