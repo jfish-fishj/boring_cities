@@ -19,6 +19,12 @@ name_parser_files = {
         'last names':(filePrefix + '/name_parser/dist_all_last.txt'),
     }
 
+classifier_files = {
+    'sample images': '/Volumes/Seagate Portable Drive/boring_cities/data/raw/sf/phonebook/samples/',
+    'phone books': '/Volumes/Seagate Portable Drive/boring_cities/data/raw/sf/phonebook/phonebooks/',
+    'training data':'/Volumes/Seagate Portable Drive/boring_cities/data/raw/sf/phonebook/training_data/training_data.csv'
+}
+
 data_stages = [
     'raw',
     'intermediate',
@@ -43,7 +49,8 @@ cities = [
     'charlotte',
     'delaware',
     'mpls',
-    'chicago'
+    'chicago',
+    'seattle'
 ]
 # set up directories
 def make_data_dict(make_directories=True, use_seagate=False, filePrefix=filePrefix):

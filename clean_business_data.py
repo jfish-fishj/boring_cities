@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 from helper_functions import write_to_log, make_year_var, WTL_TIME
 from data_constants import make_data_dict, filePrefix, name_parser_files
-from name_parsing import parse_and_clean_name, classify_name, clean_name
+from name_parsing import parse_and_clean_name, classify_name, clean_name, combine_names
 from address_parsing import clean_parse_address
 from pathos.multiprocessing import ProcessingPool as Pool
 import os
@@ -130,11 +130,12 @@ def clean_chicago_bus(chicago_bus):
 
 # san diego
 def clean_sd_bus(sd_bus):
-    sd_bus = parallelize_dataframe(df=sd_bus, func=clean_parse_parallel, n_cores=4)
     # make year variables from dates
     sd_bus = make_year_var(df=sd_bus, date_col='location_start_date', new_col='location_start_year')
     sd_bus = make_year_var(df=sd_bus, date_col='location_end_date', new_col='location_end_year')
-
+    combine_names(dataframe=sd_bus, name_cols=['primary_address_n1', 'primary_address_sn', 'primary_address_ss'],
+                           newCol='primary_address_fa')
+    sd_bus = parallelize_dataframe(df=sd_bus, func=clean_parse_parallel, n_cores=4)
     # quality control logs
     # aggregations by starting year
     sd_start_year_agg = sd_bus.groupby('location_start_year').agg(**{
@@ -161,11 +162,12 @@ if __name__ == "__main__":
             data_dict['raw']['sf']['business location'] + '/Registered_Business_Locations_-_San_Francisco.csv', nrows=50)
     # raw business data
     la_bus = pd.read_csv(data_dict['raw']['la']['business location'] + '/Listing_of_All_Businesses.csv', nrows=50)
-    chicago_bus = pd.read_csv(data_dict['raw']['chicago']['business location'] + '/Business_Licenses.csv')
+    chicago_bus = pd.read_csv(data_dict['raw']['chicago']['business location'] + '/Business_Licenses.csv', nrows=50)
     # san diego comes split apart so read in and concat
     sd_file_list = os.listdir(data_dict['raw']['sd']['business location'] )
     sd_df_list = [pd.read_csv(data_dict['raw']['sd']['business location'] + f'{file}') for file in sd_file_list]
     sd_bus = pd.concat(sd_df_list)
+
     # rename columns for cleaning
     sf_rename_dict = {
         'Location Id': 'location_id',
@@ -259,5 +261,5 @@ if __name__ == "__main__":
     sd_bus = add_cols_from_other_df(df1=sd_bus, df_list=dfs_to_add)
     chicago_bus = add_cols_from_other_df(df1=chicago_bus, df_list=dfs_to_add)
     # cleaning functions
-    clean_sd_bus(sd_bus=sd_bus, )
-    clean_chicago_bus(chicago_bus=chicago_bus)
+    clean_sd_bus(sd_bus=sd_bus)
+    # clean_chicago_bus(chicago_bus=chicago_bus)

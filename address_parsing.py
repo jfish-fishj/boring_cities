@@ -383,19 +383,19 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
                     '{} is numeric, not attempting to remove whitespace'.format(col))
     # dataframe_full = dataframe.drop(columns=[unit_col, zipcode_col, city_col]).copy(deep=True)
     dataframe_full = dataframe.copy(deep=True)
-
+    merge_cols = [address_col, st_name_col,unit_col, st_num_col, st_sfx_col, st_d_col,
+                    zipcode_col, city_col,state_col, st_num2_col]
     initial_shape = dataframe_full.shape[0]
     if legal_description_col is not False:
         dataframe = dataframe[[address_col, unit_col, st_num_col, st_name_col, st_sfx_col,
                                st_d_col,zipcode_col, city_col, legal_description_col, state_col, st_num2_col]]
         dataframe.drop_duplicates(
-            subset=[address_col, st_name_col,unit_col, st_num_col, st_sfx_col, st_d_col,
-                    zipcode_col, city_col, legal_description_col, state_col, st_num2_col], inplace=True)
+            subset=merge_cols + [legal_description_col], inplace=True)
     else:
         dataframe = dataframe[
             [address_col, unit_col, st_num_col, st_name_col, st_sfx_col, st_d_col, zipcode_col, city_col, state_col, st_num2_col]]
         dataframe.drop_duplicates(
-            subset=[address_col, st_name_col, st_num_col, st_sfx_col, st_d_col, zipcode_col, city_col, state_col, st_num2_col], inplace=True)
+            subset=merge_cols, inplace=True)
     for col in [parsed_zip_col, parsed_sd_col, parsed_unit_col, parsed_address_name, parsed_st_name_col, parsed_st_num2_col,
                 parsed_st_num1_col, parsed_ss_col]:
         dataframe[col] = np.nan
@@ -820,16 +820,12 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
 
     if legal_description_col is not False:
         dataframe_full = pd.merge(dataframe_full, dataframe, how='left',
-                              on=[address_col, st_name_col, st_num_col,
-                                  st_sfx_col, st_d_col, legal_description_col,
-                                  unit_col, zipcode_col, city_col, state_col, st_num2_col], indicator=True)
+                              on=merge_cols + [legal_description_col], indicator=True)
     else:
         dataframe_full = pd.merge(dataframe_full, dataframe, how='left',
-                                  on=[address_col, st_name_col, st_num_col,
-                                      st_sfx_col, st_d_col, unit_col, zipcode_col, city_col, state_col, st_num2_col], indicator=True)
-    print(f'dataframe shape is {dataframe.shape[0]}')
-    print(f'dataframe_full shape is {dataframe_full.shape[0]}')
+                                  on=merge_cols, indicator=True)
     if dataframe_full['_merge'].isin(['left_only']).any():
+        dataframe_full.to_csv("/Users/joefish/Downloads/df_bad.csv", mode='w')
         print(dataframe_full['_merge'].isin(['left_only']).sum())
         print(dataframe_full[dataframe_full['_merge'].isin(['left_only'])])
         raise ValueError('Some addresses didnt get merged right, buddy')
@@ -839,9 +835,6 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
     dataframe_full.drop(columns=['_merge'], inplace=True)
     dataframe_full[prefix + 'fullAddress'] = dataframe_full[prefix + 'fullAddress'].str.replace('\.0', '')
     return dataframe_full
-
-def uncount_address(df, id_col, n1_col, n2_col):
-    pass
 
 
 def make_full_address(df, address_cols = None, addr_col='parsed_fullAddress', fill='empty'):
