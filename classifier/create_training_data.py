@@ -1,3 +1,11 @@
+"""
+In progress file that takes images of phonebooks, uses googles tesseract to read them as text,
+trains a random forest classifier to parse the text file into useful data
+
+
+"""
+
+
 import pytesseract
 import random
 import cv2
@@ -112,7 +120,7 @@ if __name__ == "__main__":
     # create_training_data(classifier_files['sample images'])
     df = pd.read_csv('/Volumes/Seagate Portable Drive/boring_cities/data/raw/sf/phonebook/training_data/training_data.csv',encoding = "ISO-8859-1")
     df = df[df['classification'].isin(['complete', 'ignore', 'header', 'partition', 'ignore'])]
-    print(df['classification'].value_counts())
+
     text = TextClassifier( method='', type = '')
     new_df = text.create_variables(df=df, text='text')
     factor = pd.factorize(new_df['classification'])
