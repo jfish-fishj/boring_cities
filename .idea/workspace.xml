@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32c665b1-7adb-4fc5-acb7-034cc96442bb" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classifier/create_training_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/classifier/create_training_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clean_business_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/clean_business_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clean_phonebook_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/clean_phonebook_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_constants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/make_business_vars.py" beforeDir="false" afterPath="$PROJECT_DIR$/make_business_vars.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/name_parsing.py" beforeDir="false" afterPath="$PROJECT_DIR$/name_parsing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/qc/chi_start_year_agg.csv" beforeDir="false" afterPath="$PROJECT_DIR$/qc/chi_start_year_agg.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,62 +20,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/address_parsing.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="418" column="98" selection-start-line="410" selection-start-column="4" selection-end-line="418" selection-end-column="98" />
-              <folding>
-                <element signature="e#184#193#0" expanded="true" />
-                <element signature="e#664#10370#0" />
-                <element signature="e#10558#15948#0" />
-                <element signature="e#16019#16268#0" />
-                <element signature="e#16536#18180#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/clean_business_data.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-515">
-              <caret line="124" column="32" selection-start-line="124" selection-start-column="32" selection-end-line="124" selection-end-column="32" />
-              <folding>
-                <element signature="e#54#73#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/classifier/create_training_data.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="73" selection-start-line="2" selection-start-column="73" selection-end-line="2" selection-end-column="73" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/clean_phonebook_data.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="15" selection-end-column="37" />
-              <folding>
-                <element signature="e#0#13#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data_constants.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" column="99" selection-start-line="23" selection-start-column="99" selection-end-line="23" selection-end-column="99" />
+            <state relative-caret-position="22">
+              <caret line="54" column="13" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -77,7 +32,7 @@
         <entry file="file://$PROJECT_DIR$/helper_functions.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="855">
-              <caret line="57" column="14" lean-forward="true" selection-start-line="57" selection-start-column="14" selection-end-line="57" selection-end-column="14" />
+              <caret line="57" column="14" selection-start-line="57" selection-start-column="14" selection-end-line="57" selection-end-column="14" />
               <folding>
                 <element signature="e#35#49#0" expanded="true" />
               </folding>
@@ -86,10 +41,46 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/clean_permit_data.py">
+        <entry file="file://$PROJECT_DIR$/clean_business_data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="10" selection-start-line="10" selection-end-line="10" />
+            <state relative-caret-position="-1341">
+              <caret line="189" column="105" selection-start-line="189" selection-start-column="105" selection-end-line="189" selection-end-column="105" />
+              <folding>
+                <element signature="e#54#73#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/make_business_vars.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-877">
+              <caret line="147" column="106" selection-start-line="147" selection-start-column="106" selection-end-line="147" selection-end-column="106" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/name_parsing.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="291">
+              <caret line="1572" selection-start-line="1572" selection-end-line="1572" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/business_location_summary_stats.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="16" selection-start-line="16" selection-end-line="16" />
+              <folding>
+                <element signature="e#43#62#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -105,9 +96,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>parse_and_clean</find>
-      <find>tirta</find>
-      <find>contains</find>
       <find>contain</find>
       <find>kite</find>
       <find>r_endVar</find>
@@ -135,6 +123,9 @@
       <find>asso</find>
       <find>primary_addr_</find>
       <find>print</find>
+      <find>address_sn</find>
+      <find>mail_addr_</find>
+      <find>__</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -147,20 +138,21 @@
         <option value="$PROJECT_DIR$/business_location_summary_stats.py" />
         <option value="$PROJECT_DIR$/clean_parcel_data.py" />
         <option value="$PROJECT_DIR$/stock/nasdaq/nasdaqlisted.txt" />
-        <option value="$PROJECT_DIR$/make_business_vars.py" />
-        <option value="$PROJECT_DIR$/name_parsing.py" />
         <option value="$PROJECT_DIR$/clean_permit_data.py" />
-        <option value="$PROJECT_DIR$/clean_business_data.py" />
         <option value="$PROJECT_DIR$/address_parsing.py" />
+        <option value="$PROJECT_DIR$/make_phonebook_data.py" />
         <option value="$PROJECT_DIR$/data_constants.py" />
         <option value="$PROJECT_DIR$/clean_phonebook_data.py" />
         <option value="$PROJECT_DIR$/classifier/create_training_data.py" />
+        <option value="$PROJECT_DIR$/name_parsing.py" />
+        <option value="$PROJECT_DIR$/make_business_vars.py" />
+        <option value="$PROJECT_DIR$/clean_business_data.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="46" />
-    <option name="y" value="23" />
+    <option name="x" value="58" />
+    <option name="y" value="92" />
     <option name="width" value="1916" />
     <option name="height" value="978" />
   </component>
@@ -180,7 +172,7 @@
             <path>
               <item name="boring_cities" type="b2602c69:ProjectViewProjectNode" />
               <item name="boring_cities" type="462c0819:PsiDirectoryNode" />
-              <item name="classifier" type="462c0819:PsiDirectoryNode" />
+              <item name="qc" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -191,7 +183,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -205,7 +197,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.create_training_data">
+  <component name="RunManager" selected="Python.make_business_vars">
     <configuration name="clean_business_data" type="PythonConfigurationType" factoryName="Python" singleton="false" temporary="true">
       <module name="boring_cities" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -320,11 +312,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.create_training_data" />
-        <item itemvalue="Python.clean_phonebook_data" />
+        <item itemvalue="Python.make_business_vars" />
         <item itemvalue="Python.clean_business_data" />
         <item itemvalue="Python.data_constants" />
-        <item itemvalue="Python.make_business_vars" />
+        <item itemvalue="Python.clean_phonebook_data" />
+        <item itemvalue="Python.create_training_data" />
       </list>
     </recent_temporary>
   </component>
@@ -351,13 +343,13 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="46" y="23" width="1916" height="978" extended-state="0" />
+    <frame x="-1909" y="156" width="1916" height="978" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2764141" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2764141" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="0" sideWeight="0.6574173" visible="true" weight="0.3295711" />
+      <window_info active="true" anchor="bottom" id="Run" order="0" sideWeight="0.6574173" visible="true" weight="0.3295711" />
       <window_info anchor="bottom" id="Debug" order="1" sideWeight="0.49733192" weight="0.39954853" />
       <window_info anchor="bottom" id="Version Control" order="2" sideWeight="0.49839914" weight="0.3295711" />
       <window_info anchor="bottom" id="Python Console" order="3" weight="0.3295711" />
@@ -406,22 +398,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/make_business_vars.py</url>
-          <line>120</line>
+          <line>124</line>
           <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/clean_business_data.py</url>
-          <line>155</line>
+          <line>180</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/clean_business_data.py</url>
-          <line>249</line>
+          <line>287</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/clean_business_data.py</url>
-          <line>263</line>
+          <line>305</line>
           <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -431,13 +423,38 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/clean_business_data.py</url>
-          <line>171</line>
+          <line>197</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/clean_business_data.py</url>
           <line>150</line>
           <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/clean_phonebook_data.py</url>
+          <line>52</line>
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/clean_phonebook_data.py</url>
+          <line>76</line>
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/clean_phonebook_data.py</url>
+          <line>59</line>
+          <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/clean_phonebook_data.py</url>
+          <line>95</line>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/clean_business_data.py</url>
+          <line>250</line>
+          <option name="timeStamp" value="60" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -451,6 +468,32 @@
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
+      <expression>
+        <expression-string>def iteratively_process_partial(df, max_partial):
+    while max_partial &gt; 0:
+        df[n_text] = np.where(
+                (df['running_partial'].shift(1) == max_partial) &amp; (df[classification_col].shift(1) == 'partial'),
+                df[n_text]*df[n_text].shift(1)
+            )
+        max_partial = max_partial - 1
+    return df</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>max_partial = df[df[classification_col]=='partial']['running_partial'].max()
+    def iteratively_process_partial(df, max_partial):
+        while max_partial &gt; 0:
+            df[n_text] = np.where(
+                (df['running_partial'].shift(1) == max_partial) &amp; (df[classification_col].shift(1) == 'partial'),
+                df[n_text]*df[n_text].shift(1)
+            )
+            max_partial = max_partial - 1
+        return df
+    df = iteratively_process_partial(df, max_partial)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>import io
 df['raw_string'] = df[stripped_text].apply(io.StringIO)</expression-string>
@@ -539,58 +582,6 @@ dataframe_dd['name5'] = np.where(
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>def filterTheDict(dictObj, callback):
-                newDict = dict()
-                # Iterate over all the items in dictionary
-                for (key, value) in dictObj.items():
-                    # Check if item satisfies the given condition then add to new dict
-                    if callback((key, value)):
-                        newDict[key] = value
-                return newDict
-fn_filter_dict = filterTheDict(first_name_frequencies, lambda elem:elem[0] &gt; 0.0005)
-ln_filter_dict = filterTheDict(first_name_frequencies, lambda elem: elem[0] &gt; 0.005)
-            # where we already think the name is a person check to make sure it contains one of the names listed in
-            # census names dict
-            # if it does keep it as a person else business
-dataframe_dd['name5'] = np.where(
-                (dataframe_dd[type_col] == 'person') &amp;
-                (dataframe_dd['temp_name'].str.contains('|'.join(fn_filter_dict))) &amp;
-                (dataframe_dd['temp_name'].str.contains('|'.join(ln_filter_dict))),
-                'person',
-                'business'
-            )
-        dataframe_dd</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>with open(file=name_parser_files['female first names'], mode='r') as infile:
-    reader = csv.reader(infile, delimiter=',')
-    first_name_frequencies_female = {rows[0]: float(rows[1]) for rows in reader}
-with open(name_parser_files['male first names'], mode='r') as infile:
-    reader = csv.reader(infile, delimiter=',')
-    first_name_frequencies_male = {rows[0]: float(rows[1]) for rows in reader}
-with open(name_parser_files['last names'], mode='r') as infile:
-    reader = csv.reader(infile, delimiter='\t')
-    last_name_frequencies = {rows[0]: float(rows[1]) for rows in reader}
-first_name_frequencies = {
-    k: (first_name_frequencies_female.get(k, 0) + first_name_frequencies_male.get(k, 0)) / 2
-    for k in set(first_name_frequencies_female) | set(first_name_frequencies_male)}</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>dataframe_dd['new4'] = np.where(
-                (dataframe_dd[type_col] == 'person') &amp;
-               (dataframe_dd['temp_name'].str.contains(first_name_regex[0:100], regex=True) ) &amp;
-               (dataframe_dd['temp_name'].str.contains(last_name_regex[0:100], regex=True) ),
-                'person',
-                'business'
-            )</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
     </expressions>
     <expressions id="watch">
       <expression>
@@ -641,52 +632,47 @@ first_name_frequencies = {
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>model.predict()</expression-string>
+        <expression-string>df[classification_col].value_counts()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>df[df['first_character'].str.contains('[0-9]', na=False)]</expression-string>
+        <expression-string>df[df[classification_col] == value]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>df['first_character'].str.contains('[0-9]', na=False)</expression-string>
+        <expression-string>df['header'] = np.where(df[classification_col]=='header', df[text_col], np.nan)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>df['first_character'].value_counts()</expression-string>
+        <expression-string>df2 = df[df[classification_col] !='header']</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>(df[df['first_character']==' ']['text'])</expression-string>
+        <expression-string>df['header'].fillna(method='ffill', inplace=True)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>(df[df['first_character']=='']['text'])</expression-string>
+        <expression-string>df2 = iteratively_process_partial(df, max_partial)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>(df[df['first_character']==0]['text'])</expression-string>
+        <expression-string>df['shift_'] = df[n_text].shift(-1)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>print(df[df['first_character']==0]['text'])</expression-string>
+        <expression-string>df['shift'] = df[n_text].shift(1)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>print(df[df['first_characrer']==0]['text'])</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>dataframe[dataframe['cleaned_primary_address_fa'].str.contains('del rio', na=False)].sort_values('primary_address_n1')</expression-string>
+        <expression-string>df[~((df['running_partial'] == max_partial) &amp; (df[classification_col]=='partial'))]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -711,13 +697,6 @@ first_name_frequencies = {
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
           <caret line="5272" selection-start-line="5272" selection-end-line="5272" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="309" selection-start-line="309" selection-end-line="309" />
         </state>
       </provider>
     </entry>
@@ -746,16 +725,6 @@ first_name_frequencies = {
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/business_location_summary_stats.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-          <folding>
-            <element signature="e#43#62#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -860,16 +829,6 @@ first_name_frequencies = {
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/name_parsing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5700">
-          <caret line="386" column="4" selection-start-line="386" selection-start-column="4" selection-end-line="386" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/qc/chi_start_year_agg.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -877,36 +836,10 @@ first_name_frequencies = {
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/make_business_vars.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="517">
-          <caret line="163" selection-start-line="163" selection-end-line="163" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/qc/la_start_year_agg.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1015" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/qc/sf_start_year_agg.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="287">
           <caret line="95" column="10" selection-start-line="95" selection-start-column="5" selection-end-line="95" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/address_parsing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="418" column="98" selection-start-line="410" selection-start-column="4" selection-end-line="418" selection-end-column="98" />
-          <folding>
-            <element signature="e#184#193#0" expanded="true" />
-            <element signature="e#664#10370#0" />
-            <element signature="e#10558#15948#0" />
-            <element signature="e#16019#16268#0" />
-            <element signature="e#16536#18180#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -924,42 +857,39 @@ first_name_frequencies = {
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/clean_business_data.py">
+    <entry file="file://$PROJECT_DIR$/make_phonebook_data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-515">
-          <caret line="124" column="32" selection-start-line="124" selection-start-column="32" selection-end-line="124" selection-end-column="32" />
-          <folding>
-            <element signature="e#54#73#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="30">
+          <caret line="2" selection-start-line="2" selection-end-line="3" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data_constants.py">
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharmCE2019.1/python_stubs/-1199943126/builtins.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="99" selection-start-line="23" selection-start-column="99" selection-end-line="23" selection-end-column="99" />
+        <state relative-caret-position="89">
+          <caret line="2978" column="8" selection-start-line="2978" selection-start-column="8" selection-end-line="2978" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/clean_phonebook_data.py">
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/pickle.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/pandas/core/groupby/groupby.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="15" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="169">
+          <caret line="579" selection-start-line="579" selection-end-line="579" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/helper_functions.py">
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/codecs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="57" column="14" lean-forward="true" selection-start-line="57" selection-start-column="14" selection-end-line="57" selection-end-column="14" />
-          <folding>
-            <element signature="e#35#49#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="169">
+          <caret line="309" selection-start-line="309" selection-end-line="309" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qc/la_start_year_agg.csv">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/clean_permit_data.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -968,13 +898,101 @@ first_name_frequencies = {
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharmCE2019.1/python_stubs/-1199943126/cv2/cv2/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-401">
+          <caret line="7600" column="4" selection-start-line="7600" selection-start-column="4" selection-end-line="7600" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/helper_functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="855">
+          <caret line="57" column="14" selection-start-line="57" selection-start-column="14" selection-end-line="57" selection-end-column="14" />
+          <folding>
+            <element signature="e#35#49#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/address_parsing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="418" column="98" selection-start-line="410" selection-start-column="4" selection-end-line="418" selection-end-column="98" />
+          <folding>
+            <element signature="e#184#193#0" expanded="true" />
+            <element signature="e#664#10370#0" />
+            <element signature="e#10558#15948#0" />
+            <element signature="e#16019#16268#0" />
+            <element signature="e#16536#18180#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/classifier/create_training_data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="73" selection-start-line="2" selection-start-column="73" selection-end-line="2" selection-end-column="73" />
+        <state relative-caret-position="-65">
+          <caret line="41" column="34" selection-start-line="41" selection-start-column="34" selection-end-line="41" selection-end-column="34" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#180#198#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clean_phonebook_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="29" column="30" selection-start-line="29" selection-start-column="30" selection-end-line="29" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data_constants.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="54" column="13" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/business_location_summary_stats.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+          <folding>
+            <element signature="e#43#62#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/qc/seattle_start_year_agg.csv">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/name_parsing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="1572" selection-start-line="1572" selection-end-line="1572" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clean_business_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1341">
+          <caret line="189" column="105" selection-start-line="189" selection-start-column="105" selection-end-line="189" selection-end-column="105" />
+          <folding>
+            <element signature="e#54#73#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/make_business_vars.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-877">
+          <caret line="147" column="106" selection-start-line="147" selection-start-column="106" selection-end-line="147" selection-end-column="106" />
         </state>
       </provider>
     </entry>
