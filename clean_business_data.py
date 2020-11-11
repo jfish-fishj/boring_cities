@@ -55,10 +55,10 @@ def clean_parse_parallel(df):
     )
     # mailing address
     df =clean_parse_address(
-        dataframe=df, address_col='mail_addr_fa', city='mail_addr_city',st_name="address_sn", st_sfx="mail_address_ss",
+        dataframe=df, address_col='mail_address_fa', city='mail_address_city',st_name="mail_address_sn", st_sfx="mail_address_ss",
         st_d="mail_address_sd", unit='mail_address_u',
         st_num='mail_address_n',country='mail_address_country', state='mail_address_state', st_num2 ='mail_address_n2',
-        zipcode='mail_addr_zip', prefix2='mail_cleaned_', prefix1='cleaned_', raise_error_on_na=False
+        zipcode='mail_address_zip', prefix2='mail_cleaned_', prefix1='cleaned_', raise_error_on_na=False
     )
     return df
 
@@ -152,6 +152,31 @@ def clean_sd_bus(sd_bus):
 
     sd_bus.to_csv(data_dict['intermediate']['sd']['business location'] + '/business_location.csv', index=False)
 
+def clean_seattle_bus(df):
+    # make year variables from dates
+    df = make_year_var(df=df, date_col='location_start_date', new_col='location_start_year')
+    df = make_year_var(df=df, date_col='location_end_date', new_col='location_end_year')
+    # split city state zip into 3 columns
+    address_split = df['primary_address_city_state_zip'].str.extract('(.+),\s(WA)\s([0-9]+)')
+    df['primary_address_city'] = address_split[0]
+    df['primary_address_state'] = address_split[1]
+    df['primary_address_zip'] = address_split[2]
+    df = parallelize_dataframe(df=df, func=clean_parse_parallel, n_cores=4)
+    # quality control logs
+    # aggregations by starting year
+    seattle_start_year_agg = df.groupby('location_start_year').agg(**{
+        'num_businesses': ('location_id', 'count'),
+        'num_sole_prop': ('is_business', lambda x: (x == 'person').sum()),
+        'num_missing_naics': ('naics', lambda x: x.isna().sum()),
+        'num_missing_pa': ('naics', lambda x: x.isna().sum()),
+        'num_missing_ma': ('naics', lambda x: x.isna().sum()),
+        'num_ended': ('location_end_year', lambda x: x.notnull().sum()),
+    }
+                                                                  )
+
+    seattle_start_year_agg.to_csv(filePrefix + "/qc/seattle_start_year_agg.csv")
+
+    df.to_csv(data_dict['intermediate']['seattle']['business location'] + '/business_location.csv', index=False)
 
 if __name__ == "__main__":
     write_to_log(f'Starting clean business data at {WTL_TIME}')
@@ -162,11 +187,12 @@ if __name__ == "__main__":
             data_dict['raw']['sf']['business location'] + '/Registered_Business_Locations_-_San_Francisco.csv', nrows=50)
     # raw business data
     la_bus = pd.read_csv(data_dict['raw']['la']['business location'] + '/Listing_of_All_Businesses.csv', nrows=50)
-    chicago_bus = pd.read_csv(data_dict['raw']['chicago']['business location'] + '/Business_Licenses.csv', nrows=50)
+    chicago_bus = pd.read_csv(data_dict['raw']['chicago']['business location'] + '/Business_Licenses.csv')
     # san diego comes split apart so read in and concat
     sd_file_list = os.listdir(data_dict['raw']['sd']['business location'] )
-    sd_df_list = [pd.read_csv(data_dict['raw']['sd']['business location'] + f'{file}') for file in sd_file_list]
+    sd_df_list = [pd.read_csv(data_dict['raw']['sd']['business location'] + f'{file}', nrows=50) for file in sd_file_list]
     sd_bus = pd.concat(sd_df_list)
+    seattle_bus = pd.read_csv(data_dict['raw']['seattle']['business location'] + '/2020LISTOFALLBUSINESSESPDR.csv', nrows=50)
 
     # rename columns for cleaning
     sf_rename_dict = {
@@ -182,10 +208,10 @@ if __name__ == "__main__":
         'Business End Date': 'business_end_date',
         'Location Start Date': 'location_start_date',
         'Location End Date': 'location_end_date',
-        'Mail Address': 'mail_addr_fa',
-        'Mail City': 'mail_addr_city',
-        'Mail Zipcode': 'mail_addr_zip',
-        'Mail State': 'mail_addr_state',
+        'Mail Address': 'mail_address_fa',
+        'Mail City': 'mail_address_city',
+        'Mail Zipcode': 'mail_address_zip',
+        'Mail State': 'mail_address_state',
         'NAICS Code': 'naics',
         'NAICS Code Description': 'naics_descr',
         # ignore all columns not in rename dict
@@ -212,7 +238,7 @@ if __name__ == "__main__":
         'ID': 'location_id',
         'ACCOUNT NUMBER': 'business_id',
         'LEGAL NAME': 'business_name',
-        'DOING BUSINESS AS': 'dba_name',
+        'DOING BUSINESS AS NAME': 'dba_name',
         'ADDRESS': 'primary_address_fa',
         'CITY': 'primary_address_city',
         'STATE': 'primary_address_state',
@@ -231,19 +257,31 @@ if __name__ == "__main__":
         'ZIP CODE': 'primary_address_zip',
         'LOCATION START DATE': 'location_start_date',
         'LOCATION END DATE': 'location_end_date',
-        'MAILING ADDRESS': 'mail_addr_fa',
-        'MAILING CITY': 'mail_addr_city',
-        'MAILING ZIP CODE': 'mail_addr_zip',
+        'MAILING ADDRESS': 'mail_address_fa',
+        'MAILING CITY': 'mail_address_city',
+        'MAILING ZIP CODE': 'mail_address_zip',
         'NAICS': 'naics',
         'PRIMARY NAICS DESCRIPTION': 'naics_descr',
         # ignore all columns not in rename dict
+    }
+    seattle_rename_dict = {
+        'Customer #': 'business_id',
+        'Legal Name': 'business_name',
+        'Trade Name': 'dba_name',
+        'open_date': 'location_start_date',
+        'close_date': 'location_end_date',
+        'naics_code': 'naics',
+        'DESCRIPTION': 'naics_descr',
+        'street_address': 'primary_address_fa',
+        'city_state_zip': 'primary_address_city_state_zip'
     }
     # rename cols
     la_bus.rename(columns=la_rename_dict, inplace=True)
     sf_bus.rename(columns=sf_rename_dict, inplace=True)
     sd_bus.rename(columns=sd_rename_dict, inplace=True)
     chicago_bus.rename(columns=chi_rename_dict, inplace=True)
-    # filter columns
+    seattle_bus.rename(columns=seattle_rename_dict, inplace=True)
+    # # filter columns
     la_bus = la_bus[la_rename_dict.values()]
     sf_bus = sf_bus[sf_rename_dict.values()]
     sd_bus = sd_bus[sd_rename_dict.values()]
@@ -253,13 +291,18 @@ if __name__ == "__main__":
         sf_bus,
         chicago_bus,
         sd_bus,
-        la_bus
+        la_bus,
+        seattle_bus
     ]
     # add all col names
     la_bus = add_cols_from_other_df(df1=la_bus, df_list=dfs_to_add)
     sf_bus = add_cols_from_other_df(df1=sf_bus, df_list=dfs_to_add)
     sd_bus = add_cols_from_other_df(df1=sd_bus, df_list=dfs_to_add)
     chicago_bus = add_cols_from_other_df(df1=chicago_bus, df_list=dfs_to_add)
+    seattle_bus = add_cols_from_other_df(df1=seattle_bus, df_list=dfs_to_add)
     # cleaning functions
-    clean_sd_bus(sd_bus=sd_bus)
-    # clean_chicago_bus(chicago_bus=chicago_bus)
+    # clean_la_bus(la_bus)
+    # clean_sf_bus(sf_bus)
+    # clean_sd_bus(sd_bus=sd_bus)
+    clean_chicago_bus(chicago_bus=chicago_bus)
+    # clean_seattle_bus(df=seattle_bus)

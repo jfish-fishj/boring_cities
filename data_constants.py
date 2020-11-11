@@ -20,10 +20,12 @@ name_parser_files = {
     }
 
 classifier_files = {
-    'sample images': '/Volumes/Seagate Portable Drive/boring_cities/data/raw/sf/phonebook/samples/',
+    'sample images': '/Volumes/Seagate Portable Drive/boring_cities/data/raw/sf/phonebook/sanfranciscosanf1982rlpo_95_206/',
     'phone books': '/Volumes/Seagate Portable Drive/boring_cities/data/raw/sf/phonebook/phonebooks/',
-    'training data':'/Volumes/Seagate Portable Drive/boring_cities/data/raw/sf/phonebook/training_data/training_data.csv'
+    'training data':'/Volumes/Seagate Portable Drive/boring_cities/data/raw/sf/phonebook/training_data/training_data.csv',
+    'random forest': '/Users/joefish/Documents/GitHub/boring_cities/classifier/random_forest.joblib'
 }
+
 
 data_stages = [
     'raw',
@@ -52,6 +54,8 @@ cities = [
     'chicago',
     'seattle'
 ]
+
+
 # set up directories
 def make_data_dict(make_directories=True, use_seagate=False, filePrefix=filePrefix):
     data_dict = {}

@@ -1543,6 +1543,7 @@ def make_business_proper_name_col(df, business_proper_name_col, business_name_co
                                       inplace=True)
     return df
 
+
 def make_alphabetized_name(df, name_column, alphabetized_col):
     df['splitCol'] = df[name_column].str.split(' ')
     df['splitCol'] = df['splitCol'].sort_values().apply(lambda x: sorted(x))
@@ -1552,9 +1553,15 @@ def make_alphabetized_name(df, name_column, alphabetized_col):
     df.drop(columns=['splitCol'], inplace=True)
     return df
 
+
 def parse_business(df, business_name_col, business_main_type_col = 'business_main_type', business_sub_type_col = 'business_sub_type',
                    business_short_name_col ='business_short_name', numbers_format=False,  business_proper_name_col='business_proper_name',
-                   alphabetized_col='alphabetizedName', log=False):
+                   alphabetized_col='alphabetizedName', log=False, use_business_name_as_base=False):
+    if use_business_name_as_base is True:
+        business_main_type_col = business_name_col + "_main_type"
+        business_sub_type_col = business_name_col + "_sub_type"
+        business_short_name_col = business_name_col + "_short_name"
+        business_proper_name_col = business_name_col + "_proper_name"
     for col in [business_short_name_col, business_sub_type_col, business_main_type_col]:
         if col not in list(df.columns):
             # write_to_log('adding {}'.format(col))
