@@ -216,15 +216,15 @@ def string_standardize_column_vectorized(dataframe, address_column, prefix, log=
         '1': ['one'],
         '2': ['two'],
         '100': ['hundred'],
-        '1st': ['first'],
-        '2nd':['second'],
-        '3rd':['third'],
-        '4th':['fourth'],
-        '5th':['fifth'],
-        '6th':['sixth'],
-        '7th':['seventh'],
-        '8th':['eighth'],
-        '9th':['ninth'],
+        '1st': ['first', '01st'],
+        '2nd':['second', '02nd'],
+        '3rd':['third', '03rd'],
+        '4th':['fourth', '04th'],
+        '5th':['fifth', '05th'],
+        '6th':['sixth', '06th'],
+        '7th':['seventh', '07th'],
+        '8th':['eighth', '08th'],
+        '9th':['ninth', '09th'],
         '10th':['tenth'],
         'AL': ['Alabama'],
         'AK': ['Alaska'],
@@ -492,23 +492,18 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
     # do additional parsing from parsed columns (i.e st suffix from st name, st num 1 & 2 from st_num) standardize strings
     if is_string_dtype(dataframe[st_num_col]):
 
-        dataframe[prefix + st_num_col] = np.where(dataframe[st_num_col].isna(),
+        dataframe['TEMP'] = np.where(dataframe[st_num_col].isna(),
                                           dataframe[st_num_col],
                                           dataframe[st_num_col].astype(str)
                                           )
-        split1 = dataframe[prefix +st_num_col].str.extract(st_num + '\s?[-&]?\s?' + st_num + '?', flags=re.IGNORECASE)
+        split1 = dataframe['TEMP'].str.extract(st_num + '\s?[-&]?\s?' + st_num + '?', flags=re.IGNORECASE)
         dataframe[parsed_st_num1_col].fillna(split1[0], inplace=True)
         dataframe[parsed_st_num2_col].fillna(split1[1], inplace=True)
-        dataframe.drop(columns=[prefix + st_num_col], inplace=True)
-    else:
-        dataframe[prefix + st_num_col] = np.where(dataframe[st_num_col].isna(),
-                                                  dataframe[st_num_col],
-                                                  dataframe[st_num_col].astype(str)
-                                                  )
+        dataframe.drop(columns=['TEMP'], inplace=True)
         # dataframe[parsed_st_num2_col] = np.nan
 
     dataframe[parsed_st_num1_col] = np.where(dataframe[parsed_st_num1_col].isna(),
-                                             dataframe[st_num_col],
+                                             dataframe[st_num_col].astype(str),
                                              dataframe[parsed_st_num1_col]
                                              )
     # clean columns
@@ -530,6 +525,13 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
         dataframe[parsed_st_name_col].fillna(split2[0], inplace=True)
         dataframe[parsed_ss_col].fillna(split2[1], inplace=True)
         dataframe[parsed_st_name_col] = dataframe[parsed_st_name_col].str.replace(st_name + '\s' + st_sfx, r'\g<1>', flags=re.IGNORECASE)
+        dataframe[parsed_st_name_col] = dataframe[parsed_st_name_col].str.replace('\s{2,}', ' ', flags=re.IGNORECASE)
+        dataframe[parsed_st_name_col] = dataframe[parsed_st_name_col].str.strip()
+    # see if you can parse directional from st_suffix column
+    if is_string_dtype(dataframe[parsed_st_name_col]):
+        split2 = dataframe[parsed_st_name_col].str.extract("(\s|^)([nsew])(\s|$)")
+        dataframe[parsed_sd_col].fillna(split2[2], inplace=True)
+        dataframe[parsed_st_name_col] = dataframe[parsed_st_name_col].str.replace("(\s|^)([nsew])(\s|$)", r"\g<3>")
         dataframe[parsed_st_name_col] = dataframe[parsed_st_name_col].str.replace('\s{2,}', ' ', flags=re.IGNORECASE)
         dataframe[parsed_st_name_col] = dataframe[parsed_st_name_col].str.strip()
     # clean zipcode column

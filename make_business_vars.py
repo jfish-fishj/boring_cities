@@ -8,7 +8,7 @@ writes business dataframe to csv
 import pandas as pd
 import numpy as np
 import re
-from helper_functions import write_to_log, WTL_TIME
+from helper_functions import write_to_log, WTL_TIME, fuzzy_merge, get_nearest_address
 from data_constants import make_data_dict, filePrefix, name_parser_files
 from name_parsing import parse_and_clean_name, classify_name, clean_name, parse_business
 from address_parsing import clean_parse_address
@@ -32,7 +32,6 @@ def make_panel(df, start_year, end_year, current_year = 2020, keep_cum_count=Fal
         df = df[df[start_year] <= current_year]
     # fill in end year with current year if missing
     df[end_year] = df[end_year].fillna(current_year)
-
     # make a number of years var
     df['numYears'] = df[end_year] - df[start_year] + 1
     df = df[df['numYears'] > 0]
@@ -93,6 +92,68 @@ def make_business_vars(df, id_col, time_col='year'):
 def get_property_charateristics(df, city, address_cols):
     pass
 
+def merge_addresses(bus_df, add_df, fuzzy = False,nearest_n1 = False, expand_addresses=False):
+    og_cols = bus_df.columns
+    add_merge_cols = [
+        "parsed_addr_n1",
+        "parsed_addr_sn",
+        "parsed_addr_ss",
+    ]
+    bus_merge_cols = [
+        "primary_cleaned_addr_n1",
+        "primary_cleaned_addr_sn",
+        "primary_cleaned_addr_ss",
+    ]
+    bus_df[bus_merge_cols] = bus_df[bus_merge_cols].fillna("").astype(str)
+    for col in bus_merge_cols:
+        bus_df[col] = bus_df[col].str.replace('\.0+', "")
+
+    add_df[add_merge_cols] = add_df[add_merge_cols].fillna("").astype(str)
+    for col in add_merge_cols:
+        add_df[col] = add_df[col].str.replace('\.0+', "")
+
+    bus_df = bus_df.merge(
+        add_df[add_merge_cols + ["lat","long","parcelID"]].drop_duplicates(subset =add_merge_cols ), how = "left",
+        left_on = bus_merge_cols,
+        right_on = add_merge_cols,
+        indicator = True,
+        suffixes=['', '_from_address']
+    )
+    # try nearest parcel matching
+    if nearest_n1 is not False:
+        # filter for addresses that havent been merged
+        lo = bus_df[bus_df['_merge'] == "left_only"]
+        nlo = bus_df[bus_df['_merge'] != "left_only"][og_cols]  # reset columns so we dont get suffixes
+        nlo = get_nearest_address(
+            df1 = nlo, df2 = add_df,
+            left_cols=["primary_cleaned_addr_sn","primary_cleaned_addr_ss"],
+            right_cols=["parsed_addr_sn", "parsed_addr_ss"],
+            n1_col_left='primary_cleaned_addr_n1',
+            n1_col_right='parsed_addr_n1',
+            threshold=5,
+            indicator=True,
+            suffixes=['', '_from_address']
+        )
+        bus_df = pd.concat([lo, nlo])
+
+    if fuzzy is not False:
+        # filter for addresses that havent been merged
+        lo = bus_df[bus_df['_merge'] == "left_only"]
+        nlo = bus_df[bus_df['_merge'] != "left_only"][og_cols] # reset columns so we dont get suffixes
+        nlo = fuzzy_merge(
+            df1 = nlo, df2 = add_df,
+            left_cols=['primary_cleaned_addr_n1',"primary_cleaned_addr_ss"],
+            right_cols=['parsed_addr_n1', "parsed_addr_ss"],
+            left_fuzzy_col = "primary_cleaned_addr_sn",
+            right_fuzzy_col = "parsed_addr_sn",
+            threshold=.9,
+            indicator=True,
+            suffixes=['', '_from_address']
+        )
+        bus_df = pd.concat([lo, nlo])
+
+    # try fuzzy matching on street name
+    return bus_df
 
 # function that checks if business name is listed in nasdaq or nyse
 def make_publically_traded_vars(df, name_col, publically_traded_col='is_publically_traded'):
@@ -135,6 +196,12 @@ def make_publically_traded_vars(df, name_col, publically_traded_col='is_publical
     return df
 
 
+def misc_san_diego_address_cleaning(add_df):
+    # change things like el camino s -> el camino
+    add_df["parsed_addr_sn"] = add_df["parsed_addr_sn"].str.replace("(\s|^)([nsew])(\s|$)", r"\g<3>")
+    return add_df
+
+
 if __name__ == "__main__":
 
     write_to_log(f'Starting clean business data at {WTL_TIME}')
@@ -142,9 +209,14 @@ if __name__ == "__main__":
     data_dict = make_data_dict(use_seagate=True)
 
     # read in CLEANED business data
-    sf_bus = pd.read_csv(data_dict['intermediate']['sf']['business location'] + '/business_location.csv')
-    la_bus = pd.read_csv(data_dict['intermediate']['la']['business location'] + '/business_location.csv')
+    # sf_bus = pd.read_csv(data_dict['intermediate']['sf']['business location'] + '/business_location.csv')
+    # sf_add = pd.read_csv(data_dict['intermediate']['sf']['parcel'] + '/addresses.csv')
+    # sf_bus = merge_addresses(sf_bus, sf_add)
+    # sf_bus = merge_addresses(sf_bus, sf_add)
+    # la_bus = pd.read_csv(data_dict['intermediate']['la']['business location'] + '/business_location.csv')
     sd_bus = pd.read_csv(data_dict['intermediate']['sd']['business location'] + '/business_location.csv')
+    sd_add = pd.read_csv(data_dict['intermediate']['sd']['parcel'] + '/addresses.csv')
+    sd_bus = merge_addresses(sd_bus, sd_add, fuzzy=False, nearest_n1=True)
     chi_bus = pd.read_csv(data_dict['intermediate']['chicago']['business location'] + '/business_location.csv')
     seattle_bus = pd.read_csv(data_dict['intermediate']['seattle']['business location'] + '/business_location.csv')
 
@@ -165,7 +237,7 @@ if __name__ == "__main__":
                                  use_business_name_as_base=True)
     seattle_bus = parse_business(df=seattle_bus, business_name_col='cleaned_dba_name', use_business_name_as_base=True)
 
-    # filter sf_bus and la_bus to be not businesses that I think are sole proprietorships
+    # filter dfs to be not businesses that I think are sole proprietorships
     sf_bus = sf_bus[sf_bus['is_business'] == 'business']
     la_bus = la_bus[la_bus['is_business'] == 'business']
     seattle_bus = seattle_bus[seattle_bus['is_business'] == 'business']
@@ -209,7 +281,7 @@ if __name__ == "__main__":
     la_bus = make_panel(
         df=la_bus, start_year='location_start_year', end_year='location_end_year', keep_cum_count=True
     )
-
+    # chicago is already psuedo panel
     chi_bus = make_panel(
         df=chi_bus, start_year='location_start_year', end_year='location_end_year', keep_cum_count=True
     )
