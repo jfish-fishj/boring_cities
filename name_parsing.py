@@ -401,7 +401,6 @@ def combine_names(dataframe, name_cols = ['firstName', 'lastName'], newCol = "co
         dataframe[newCol] = dataframe[newCol].replace(fill, np.nan)
         dataframe.drop(columns=temp_cols[0], inplace=True)
     else:
-        sum_na = sum(dataframe[newCol].isna())
         dataframe[newCol] = dataframe[newCol].replace(fill, np.nan)
         dataframe[newCol] = dataframe[newCol].replace(r'^\s+$', np.nan)
         temp_cols = []
@@ -420,7 +419,6 @@ def combine_names(dataframe, name_cols = ['firstName', 'lastName'], newCol = "co
         dataframe[newCol] = dataframe[newCol].str.strip()
         dataframe[newCol] = dataframe[newCol].replace(r'^\s+$', np.nan)
         dataframe[newCol] = dataframe[newCol].replace(fill, np.nan)
-        final_sum_na = sum(dataframe[newCol].isna())
 
 
 def is_first_name(strng):
