@@ -16,6 +16,7 @@ from helper_functions import write_to_log
 # get rid of setting with copy warnings
 pd.set_option('mode.chained_assignment', None)
 
+
 # function for cleaning address columns (remove commas, change unit -> #, get rid of weird characters
 def clean_unit_vectorized(dataframe, column, prefix=False):
     """Takes a pandas dataframe and performs any vectorizable string cleaning operations. Does not
@@ -61,10 +62,12 @@ def clean_unit_vectorized(dataframe, column, prefix=False):
         dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(r'\s{2,}', " ", regex=True,
                                                                         flags=re.IGNORECASE)
 
-        dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(r"([0-9]+)(\s-\s|\s-|-\s)([0-9]+)", r"\g<1>-\g<3>", regex=True,
+        dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(r"([0-9]+)(\s-\s|\s-|-\s)([0-9]+)",
+                                                                        r"\g<1>-\g<3>", regex=True,
                                                                         flags=re.IGNORECASE)
 
-        dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(r'([\s^-])(rm\s|space\s|room\s|units?\b|suite\b|apt\b|un\s|ste\b|number\b|no\b)', r'\g<1>#', regex=True)
+        dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(
+            r'([\s^-])(rm\s|space\s|room\s|units?\b|suite\b|apt\b|un\s|ste\b|number\b|no\b)', r'\g<1>#', regex=True)
 
         dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(
             r'\s(rm|room|unit|suite|apt|un|ste|number\b|no\b)(\s)([0-9a-zA-Z]+)', r'#\g<3>', regex=True)
@@ -75,9 +78,10 @@ def clean_unit_vectorized(dataframe, column, prefix=False):
         dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(r'##', r'#', regex=True)
         dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(r'#\s', '#', regex=True, flags=re.IGNORECASE)
 
-        dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(r'([^#])([0-9]{1,})([abcefgijklmopquvwxyz]{2,})',
-                                                                        r'\g<1>\g<2> \g<3>', regex=True,
-                                                                        flags=re.IGNORECASE)
+        dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(
+            r'([^#])([0-9]{1,})([abcefgijklmopquvwxyz]{2,})',
+            r'\g<1>\g<2> \g<3>', regex=True,
+            flags=re.IGNORECASE)
         dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(r'([a-z])(#)',
                                                                         r'\g<1> \g<2>', regex=True,
                                                                         flags=re.IGNORECASE)
@@ -122,7 +126,9 @@ def clean_unit_vectorized(dataframe, column, prefix=False):
         # dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(r'([0-9])(\s)([sthnd]{2})(\s)',
         #                                                                 r'\g<1>\g<3>', regex=True,
         #                                                                 flags=re.IGNORECASE)
-        dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(r'(#)([a-z]{1,2})(\s)([0-9]+)', r"\g<1>\g<2>\g<4>", regex=True, flags=re.IGNORECASE)
+        dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(r'(#)([a-z]{1,2})(\s)([0-9]+)',
+                                                                        r"\g<1>\g<2>\g<4>", regex=True,
+                                                                        flags=re.IGNORECASE)
 
         dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(r'(\s$|^\s)', '', regex=True,
                                                                         flags=re.IGNORECASE)
@@ -134,9 +140,9 @@ def clean_unit_vectorized(dataframe, column, prefix=False):
         dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(r'(p\.?o\.?)\s?(box)', 'po box', regex=True,
                                                                         flags=re.IGNORECASE)
         dataframe_dd[new_column] = dataframe_dd[new_column].replace(r'', np.nan, regex=True,
-                                                )
+                                                                    )
         dataframe_dd[new_column] = dataframe_dd[new_column].replace(r'nan', np.nan, regex=False,
-                                                )
+                                                                    )
         dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(r'(\s?,?\s?baltimore,?\s?(md|maryland)?)$', r"",
                                                                         regex=True, flags=re.IGNORECASE)
         dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(r'(\s(1st|2nd|3rd)\sfloor)$', r"",
@@ -152,20 +158,21 @@ def clean_unit_vectorized(dataframe, column, prefix=False):
             dataframe.drop(columns=new_column, inplace=True)
         return dataframe
 
+
 # function for standardizing strings in address columns i.e. street - > st and avenue - > ave
 def string_standardize_column_vectorized(dataframe, address_column, prefix, log=False):
     """Standardizes strings to be in accordance with US Postal Standards."""
     # create column with prefix and old column name
     if prefix is not False:
-        newCol = prefix+address_column
+        newCol = prefix + address_column
     else:
-        newCol = 'temp_' + address_column    ##print('{} dtype is {}'.format(newCol,dataframe[newCol].dtype))
+        newCol = 'temp_' + address_column  ##print('{} dtype is {}'.format(newCol,dataframe[newCol].dtype))
     if dataframe[address_column].isna().all() == True:
         if log is not False:
             write_to_log('{} is completely NA... Not attempting to clean'.format(address_column))
         return dataframe
     if is_string_dtype(dataframe[address_column]) == False:
-        #print('dataframe dtype is %s' % dataframe[newCol].dtype)
+        # print('dataframe dtype is %s' % dataframe[newCol].dtype)
         return dataframe
     dataframe_dd = dataframe[[address_column]].drop_duplicates(subset=address_column)
     dataframe_dd[newCol] = dataframe_dd[address_column]
@@ -174,7 +181,7 @@ def string_standardize_column_vectorized(dataframe, address_column, prefix, log=
         'aly': ['allee', 'alle?y'],
         'ave': ['av', 'ave?nu?e?'],
         'blvd': ['boulevard', 'boulv?'],
-        'brg': ['br',  'bri?dge?'],
+        'brg': ['br', 'bri?dge?'],
         'canyn': ['canyon', 'cnyn'],
         "condo": ["CONDOMINIUM|CO?NDO?MI?NI?U?MS?|CONDOS|CONDOS|COND"],
         'ctr': ['cent?', 'center', 'ce?ntre?'],
@@ -193,39 +200,39 @@ def string_standardize_column_vectorized(dataframe, address_column, prefix, log=
         'hwy': ['highway', 'highwy', 'hiway', 'hiwy', 'hway', 'hw'],
         'jct': ['ju?ncti?o?n'],
         'ln': ['lan?e?', ],
-        'lp':   ['lo?o?p'],
-        'mt': ['mntain', 'mntn', 'mountain', 'mountin', 'mtin', 'mtn','mount'],
+        'lp': ['lo?o?p'],
+        'mt': ['mntain', 'mntn', 'mountain', 'mountin', 'mtin', 'mtn', 'mount'],
         'n': ['north', 'no'],  # no can unfortunately be number or north depending
         'rd': ['road'],
-        'pk':['park'],
+        'pk': ['park'],
         'pl': ['place'],
         'plz': ['plaza'],
         'pkwy': ['parkway'],
-        'rdge':['ridge'],
+        'rdge': ['ridge'],
         'riv': ['rive?r'],
         'rte': ['route'],
-        'rw':['row?'],
+        'rw': ['row?'],
         'sq': ['squ?a?re?'],
         'ste': ['suite'],
         'st': ['street', 'str', 'saint'],
         's': ['south', 'so'],
         'ter': ['terr', 'terrace', 'ter$', 'te'],
-        'tl':['trail'],
+        'tl': ['trail'],
         'w': ['west'],
-        'way':['wy'],
+        'way': ['wy'],
         '1': ['one'],
         '2': ['two'],
         '100': ['hundred'],
         '1st': ['first', '01st'],
-        '2nd':['second', '02nd'],
-        '3rd':['third', '03rd'],
-        '4th':['fourth', '04th'],
-        '5th':['fifth', '05th'],
-        '6th':['sixth', '06th'],
-        '7th':['seventh', '07th'],
-        '8th':['eighth', '08th'],
-        '9th':['ninth', '09th'],
-        '10th':['tenth'],
+        '2nd': ['second', '02nd'],
+        '3rd': ['third', '03rd'],
+        '4th': ['fourth', '04th'],
+        '5th': ['fifth', '05th'],
+        '6th': ['sixth', '06th'],
+        '7th': ['seventh', '07th'],
+        '8th': ['eighth', '08th'],
+        '9th': ['ninth', '09th'],
+        '10th': ['tenth'],
         'AL': ['Alabama'],
         'AK': ['Alaska'],
         'AS': ['American Samoa'],
@@ -285,8 +292,8 @@ def string_standardize_column_vectorized(dataframe, address_column, prefix, log=
         # boston specific
         'comm': ['co?mm[onwealth]{1,7}'],
         'center': ['centre'],
-        'whaler':['whalers'],
-        'lake shore':['lakehore'],
+        'whaler': ['whalers'],
+        'lake shore': ['lakehore'],
         # baltimore specific
         'cold spring': ['coldspring']
     }  # update as needed
@@ -306,16 +313,17 @@ def string_standardize_column_vectorized(dataframe, address_column, prefix, log=
         dataframe.drop(columns={newCol}, inplace=True)
     return dataframe
 
+
 def clean_address_col(dataframe, address_col, prefix='cleaned'):
     dataframe = clean_unit_vectorized(dataframe, address_col, prefix=prefix)
     if prefix is False:
         prefix = ''
-    dataframe = string_standardize_column_vectorized(dataframe, address_column=prefix+address_col,prefix=False)
+    dataframe = string_standardize_column_vectorized(dataframe, address_column=prefix + address_col, prefix=False)
     return dataframe
 
 
-def clean_parse_address(dataframe, address_col,unit, st_num, st_name, st_sfx, st_d,
-                       zipcode, city, country,state,st_num2, prefix1 = 'cleaned_' , prefix2='parsed_',
+def clean_parse_address(dataframe, address_col, unit, st_num, st_name, st_sfx, st_d,
+                        zipcode, city, country, state, st_num2, prefix1='cleaned_', prefix2='parsed_',
                         legal_description=False, raise_error_on_na=True):
     for cols in [unit, st_num, st_name, st_sfx, st_d, zipcode, city, country, address_col]:
         if cols not in dataframe.columns:
@@ -328,24 +336,31 @@ def clean_parse_address(dataframe, address_col,unit, st_num, st_name, st_sfx, st
     # dataframe = clean_address_col(dataframe, st_sfx, prefix=prefix1)
     if legal_description is not False:
         dataframe = clean_address_col(dataframe, legal_description, prefix=prefix1)
-        dataframe = parse_address(dataframe=dataframe, address_col=prefix1 + address_col, unit_col=unit, st_num_col=st_num,
-                                  st_name_col=st_name, st_sfx_col= st_sfx, st_d_col=st_d, zipcode_col=zipcode, city_col=city,
-                                  prefix=prefix2, legal_description_col=prefix1 + legal_description, state_col=state, st_num2_col = st_num2,
+        dataframe = parse_address(dataframe=dataframe, address_col=prefix1 + address_col, unit_col=unit,
+                                  st_num_col=st_num,
+                                  st_name_col=st_name, st_sfx_col=st_sfx, st_d_col=st_d, zipcode_col=zipcode,
+                                  city_col=city,
+                                  prefix=prefix2, legal_description_col=prefix1 + legal_description, state_col=state,
+                                  st_num2_col=st_num2,
                                   raise_error_on_na=raise_error_on_na
                                   )
     else:
-        dataframe = parse_address(dataframe=dataframe, address_col=prefix1 +address_col, unit_col=unit, st_num_col=st_num,
-                                  st_name_col=st_name, st_sfx_col=st_sfx, st_d_col=st_d, zipcode_col=zipcode, city_col=city,
-                                  prefix=prefix2, legal_description_col=legal_description, state_col=state, st_num2_col = st_num2,
+        dataframe = parse_address(dataframe=dataframe, address_col=prefix1 + address_col, unit_col=unit,
+                                  st_num_col=st_num,
+                                  st_name_col=st_name, st_sfx_col=st_sfx, st_d_col=st_d, zipcode_col=zipcode,
+                                  city_col=city,
+                                  prefix=prefix2, legal_description_col=legal_description, state_col=state,
+                                  st_num2_col=st_num2,
                                   raise_error_on_na=raise_error_on_na
                                   )
     return dataframe
 
-# 
-def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_sfx_col, st_d_col,
-                       zipcode_col, city_col,state_col,st_num2_col ,
-                  prefix='parsed_', legal_description_col = False, raise_error_on_na=True):
-    col_list = [address_col, unit_col, st_num_col, st_name_col,st_num2_col,
+
+#
+def parse_address(dataframe, address_col, unit_col, st_num_col, st_name_col, st_sfx_col, st_d_col,
+                  zipcode_col, city_col, state_col, st_num2_col,
+                  prefix='parsed_', legal_description_col=False, raise_error_on_na=True):
+    col_list = [address_col, unit_col, st_num_col, st_name_col, st_num2_col,
                 st_sfx_col, st_d_col, zipcode_col, city_col, state_col]
     cols_to_check = [address_col, st_name_col]
     if legal_description_col is not False:
@@ -354,7 +369,7 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
     for cols in col_list:
         if cols not in dataframe.columns:
             dataframe[cols] = np.nan
-    if all([dataframe[col].isna().all() for col in cols_to_check] ):
+    if all([dataframe[col].isna().all() for col in cols_to_check]):
         if raise_error_on_na is True:
             raise ValueError('All parsable address components are completely NA!')
         else:
@@ -383,28 +398,30 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
                     '{} is numeric, not attempting to remove whitespace'.format(col))
     # dataframe_full = dataframe.drop(columns=[unit_col, zipcode_col, city_col]).copy(deep=True)
     dataframe_full = dataframe.copy(deep=True)
-    merge_cols = [address_col, st_name_col,unit_col, st_num_col, st_sfx_col, st_d_col,
-                    zipcode_col, city_col,state_col, st_num2_col]
+    merge_cols = [address_col, st_name_col, unit_col, st_num_col, st_sfx_col, st_d_col,
+                  zipcode_col, city_col, state_col, st_num2_col]
     initial_shape = dataframe_full.shape[0]
     if legal_description_col is not False:
         dataframe = dataframe[[address_col, unit_col, st_num_col, st_name_col, st_sfx_col,
-                               st_d_col,zipcode_col, city_col, legal_description_col, state_col, st_num2_col]]
+                               st_d_col, zipcode_col, city_col, legal_description_col, state_col, st_num2_col]]
         dataframe.drop_duplicates(
             subset=merge_cols + [legal_description_col], inplace=True)
     else:
         dataframe = dataframe[
-            [address_col, unit_col, st_num_col, st_name_col, st_sfx_col, st_d_col, zipcode_col, city_col, state_col, st_num2_col]]
+            [address_col, unit_col, st_num_col, st_name_col, st_sfx_col, st_d_col, zipcode_col, city_col, state_col,
+             st_num2_col]]
         dataframe.drop_duplicates(
             subset=merge_cols, inplace=True)
-    for col in [parsed_zip_col, parsed_sd_col, parsed_unit_col, parsed_address_name, parsed_st_name_col, parsed_st_num2_col,
+    for col in [parsed_zip_col, parsed_sd_col, parsed_unit_col, parsed_address_name, parsed_st_name_col,
+                parsed_st_num2_col,
                 parsed_st_num1_col, parsed_ss_col]:
         dataframe[col] = np.nan
     final_shape = dataframe_full.shape[0]
-    print(f'dataframe shape is {final_shape}')
     if initial_shape != final_shape:
-        write_to_log('initial shape is {} and final shape is {}'.format(initial_shape,final_shape))
+        write_to_log('initial shape is {} and final shape is {}'.format(initial_shape, final_shape))
         raise ValueError('Initial and final shapes do not agree! Copy was not deep enough')
-    og_types = (dataframe_full[[address_col, st_name_col, st_num_col, st_sfx_col, st_d_col]].dtypes.apply(lambda x: x.name).to_dict())
+    og_types = (dataframe_full[[address_col, st_name_col, st_num_col, st_sfx_col, st_d_col]].dtypes.apply(
+        lambda x: x.name).to_dict())
     # create new address col
     new_address_col = 'new_' + address_col
     # regex definitions
@@ -416,7 +433,7 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
              r'sq|st|strm|trak|turnpike|ter|tl|vly|vws|walk|way)'
     zipcode = r'([0-9]{5}|[0-9]{5}-[0-9]{4})'
     unit = r'#\s?([a-z0-9-]+|[0-9-]+-?[a-z]?|[a-z]-?[0-9]+|[up][0-9]?[abcd]|un\s[0-9abcd]|[a-z])'
-    unit2 = r'\s([a-z]+-?[0-9]{1,4}|[uptcl][-\s]?[tl]?[0-9]{1,4}[abcd]?|un\s[0-9abcd]{1,4})' # use this for when you don't need to know that there's a # before
+    unit2 = r'\s([a-z]+-?[0-9]{1,4}|[uptcl][-\s]?[tl]?[0-9]{1,4}[abcd]?|un\s[0-9abcd]{1,4})'  # use this for when you don't need to know that there's a # before
     state = 'AL|AK|AS|AZ|AR|CA|CO|CT|DE|DC|FL|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|MP|OH|OK|OR|PA|PR|RI|SC|SD|TN|TX|UT|VT|VI|VA|WA|WV|WI|WY'
     state_dict = {
         'AL': 'Alabama',
@@ -485,24 +502,26 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
     dataframe[parsed_sd_col] = dataframe[st_d_col]
     dataframe[parsed_city_col] = dataframe[city_col]
     dataframe[parsed_state_col] = dataframe[state_col]
-    dataframe[parsed_st_num2_col] = np.where(dataframe[st_num2_col].isna(),
-                                          dataframe[st_num2_col],
-                                          dataframe[st_num2_col].astype(str)
-                                          )
-    # do additional parsing from parsed columns (i.e st suffix from st name, st num 1 & 2 from st_num) standardize strings
+    dataframe[parsed_st_num2_col] = np.where(
+        dataframe[st_num2_col].isna(),
+        dataframe[st_num2_col],
+        dataframe[st_num2_col].astype(str)
+    )
+    # do additional parsing from parsed columns
+    # (i.e st suffix from st name, st num 1 & 2 from st_num) standardize strings
     if is_string_dtype(dataframe[st_num_col]):
-
-        dataframe['TEMP'] = np.where(dataframe[st_num_col].isna(),
-                                          dataframe[st_num_col],
-                                          dataframe[st_num_col].astype(str)
-                                          )
+        dataframe['TEMP'] = np.where(
+            dataframe[st_num_col].isna(),
+            dataframe[st_num_col],
+            dataframe[st_num_col].astype(str)
+        )
         split1 = dataframe['TEMP'].str.extract(st_num + '\s?[-&]?\s?' + st_num + '?', flags=re.IGNORECASE)
         dataframe[parsed_st_num1_col].fillna(split1[0], inplace=True)
         dataframe[parsed_st_num2_col].fillna(split1[1], inplace=True)
         dataframe.drop(columns=['TEMP'], inplace=True)
         # dataframe[parsed_st_num2_col] = np.nan
 
-    dataframe[parsed_st_num1_col] = np.where(dataframe[parsed_st_num1_col].isna(),
+    dataframe[parsed_st_num1_col] = np.where(dataframe[st_num_col].notnull(),
                                              dataframe[st_num_col].astype(str),
                                              dataframe[parsed_st_num1_col]
                                              )
@@ -521,10 +540,11 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
             print(f'{col} cant be cleaned')
     # see if you can parse suffix from st_name col (happens if people put full st address in parsed column)
     if is_string_dtype(dataframe[parsed_st_name_col]):
-        split2 = dataframe[parsed_st_name_col].str.extract(st_name + '\s' + st_sfx , flags=re.IGNORECASE)
+        split2 = dataframe[parsed_st_name_col].str.extract(st_name + '\s' + st_sfx + "$", flags=re.IGNORECASE)
         dataframe[parsed_st_name_col].fillna(split2[0], inplace=True)
         dataframe[parsed_ss_col].fillna(split2[1], inplace=True)
-        dataframe[parsed_st_name_col] = dataframe[parsed_st_name_col].str.replace(st_name + '\s' + st_sfx, r'\g<1>', flags=re.IGNORECASE)
+        dataframe[parsed_st_name_col] = dataframe[parsed_st_name_col].str.replace(st_name + '\s' + st_sfx + "$", r'\g<1>',
+                                                                                  flags=re.IGNORECASE)
         dataframe[parsed_st_name_col] = dataframe[parsed_st_name_col].str.replace('\s{2,}', ' ', flags=re.IGNORECASE)
         dataframe[parsed_st_name_col] = dataframe[parsed_st_name_col].str.strip()
     # see if you can parse directional from st_suffix column
@@ -537,26 +557,23 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
     # clean zipcode column
     dataframe[parsed_zip_col] = dataframe[zipcode_col]
     if dataframe[parsed_zip_col].isna().all() == False:
-
         dataframe[parsed_zip_col] = np.where(dataframe[parsed_zip_col].isna(),
-                                                 dataframe[parsed_zip_col],
-                                                 dataframe[parsed_zip_col].astype(str)
-                                                 )
+                                             dataframe[parsed_zip_col],
+                                             dataframe[parsed_zip_col].astype(str)
+                                             )
         dataframe[parsed_zip_col] = dataframe[parsed_zip_col].str.replace(r'(.+)(\.[0-9])', r'\g<1>')
         dataframe[parsed_zip_col] = dataframe[parsed_zip_col].str.strip()
         dataframe[parsed_zip_col] = np.where(dataframe[parsed_zip_col].str.contains('^[0-9]{6}$'),
-                                                 dataframe[parsed_zip_col].str[0:5],
-                                                 dataframe[parsed_zip_col])
+                                             dataframe[parsed_zip_col].str[0:5],
+                                             dataframe[parsed_zip_col])
         dataframe[parsed_zip_col] = dataframe[parsed_zip_col].str.strip()
         dataframe[parsed_zip_col] = np.where(dataframe[parsed_zip_col].str.contains('^[0-9]{4}$'),
-                                                 '0' + dataframe[parsed_zip_col],
-                                                 dataframe[parsed_zip_col])
+                                             '0' + dataframe[parsed_zip_col],
+                                             dataframe[parsed_zip_col])
 
         dataframe[parsed_zip_col] = dataframe[parsed_zip_col].str.replace(r'([0-9]{5})-([0-9]+)', r'\g<1>')
         dataframe[parsed_zip_col] = '_' + dataframe[parsed_zip_col]
         dataframe[parsed_zip_col] = dataframe[parsed_zip_col].str.replace(r'^(_)\s?([0-9]{4})$', r'\g<1>0\g<2>')
-
-
 
     # extract unit_col from address column
     dataframe[parsed_unit_col] = np.where(
@@ -571,8 +588,8 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
             dataframe[address_col].str.extract(unit,
                                                flags=re.IGNORECASE).iloc[:, 0])
         dataframe[parsed_unit_col] = dataframe[parsed_unit_col].fillna(
-                                                   dataframe[address_col].str.extract(unit2,
-                                                                                       flags=re.IGNORECASE).iloc[:,0])
+            dataframe[address_col].str.extract(unit2,
+                                               flags=re.IGNORECASE).iloc[:, 0])
         dataframe[parsed_unit_col] = dataframe[parsed_unit_col].fillna(
             dataframe[address_col].str.extract(r'\su[-:\s]{1,3}([0-9]+[a-z]+)',
                                                flags=re.IGNORECASE).iloc[:, 0])
@@ -592,14 +609,17 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
         if dataframe[parsed_city_col].isna().all() == False:
             # parse state from city col
             dataframe[parsed_state_col] = dataframe[parsed_state_col].fillna(dataframe[parsed_city_col].
-                                                                             str.extract('\s({})(\s|$)'.format('|'.join(state_names)),
-                                                                                       flags=re.IGNORECASE).iloc[:,0])
+                                                                             str.extract(
+                '\s({})(\s|$)'.format('|'.join(state_names)),
+                flags=re.IGNORECASE).iloc[:, 0])
             # remove state from city
             dataframe[parsed_city_col] = dataframe[parsed_city_col].str.replace(r'(.+)[,\s]({})(\s|$)'.
-                                                                                format('|'.join(state_names)), r'\g<1>', flags=re.IGNORECASE)
+                                                                                format('|'.join(state_names)), r'\g<1>',
+                                                                                flags=re.IGNORECASE)
         # parse state from full address
-        dataframe[parsed_state_col]=    dataframe[parsed_state_col].fillna(dataframe[address_col].str.extract('({})'.format('|\b'.join(state_names)),
-                                                                                  flags=re.IGNORECASE).iloc[:, 0])
+        dataframe[parsed_state_col] = dataframe[parsed_state_col].fillna(
+            dataframe[address_col].str.extract('({})'.format('|\b'.join(state_names)),
+                                               flags=re.IGNORECASE).iloc[:, 0])
         # standardize parsed state names
         if dataframe[parsed_state_col].isna().all() == False:
             for key in state_dict.keys():
@@ -608,7 +628,7 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
                     dataframe[parsed_state_col],
                     dataframe[parsed_state_col].str.replace('{}'.format(state_dict[key]), key)
 
-            )
+                )
 
         added_cols = [parsed_st_num1_col, parsed_st_name_col, parsed_ss_col]
         dataframe1 = dataframe[~dataframe[added_cols].notna().all(1)]
@@ -616,38 +636,41 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
         dataframe0['parsed_from'] = 'already_parsed'
         df_list.append(dataframe0)
 
-
         def parse_from_legal_description(dataframe, log=False):
             st_sfx_la = r'(aly|ave|byu|blf|blvd|cl|cswy|ctr|cir|cv|crk|cres|xing|curv|dr|est|expy|ext|frk|ft|fwy|gdn|gtwy|hvn|' \
-                     r'hwy|hl|jct|ky|lks|ln|lgt|lp|mall|mnr|mdw|msn|mtn|pkwy|pass|path|plz|pt|prt|rst|rdge|rd|rte|rw|shr|' \
-                     r'sq|st|strm|trak|turnpike|vly|vws|walk|way)'
-            st_name_la  = r'([a-z\s-]+)'
+                        r'hwy|hl|jct|ky|lks|ln|lgt|lp|mall|mnr|mdw|msn|mtn|pkwy|pass|path|plz|pt|prt|rst|rdge|rd|rte|rw|shr|' \
+                        r'sq|st|strm|trak|turnpike|vly|vws|walk|way)'
+            st_name_la = r'([a-z\s-]+)'
             dataframe_no_ld = dataframe[dataframe[legal_description_col].isna()]
             dataframe_yes_ld = dataframe[~dataframe[legal_description_col].isna()]
             if is_string_dtype(dataframe[legal_description_col]):
-                split3 = dataframe_yes_ld[legal_description_col].str.extract(r'(#)\s?([0-9a-z-]{1,6})', flags=re.IGNORECASE)
+                split3 = dataframe_yes_ld[legal_description_col].str.extract(r'(#)\s?([0-9a-z-]{1,6})',
+                                                                             flags=re.IGNORECASE)
                 dataframe_yes_ld[parsed_unit_col].fillna(split3[1], inplace=True)
-                split4 =  dataframe_yes_ld[legal_description_col].str.extract(r'\b([0-9a-z-]+)\sof\s([0-9]+)', flags=re.IGNORECASE)
+                split4 = dataframe_yes_ld[legal_description_col].str.extract(r'\b([0-9a-z-]+)\sof\s([0-9]+)',
+                                                                             flags=re.IGNORECASE)
                 dataframe_yes_ld[parsed_unit_col].fillna(split4[0], inplace=True)
                 dataframe_yes_ld[parsed_st_num1_col].fillna(split4[1])
                 dataframe_yes_ld['new' + legal_description_col] = dataframe_yes_ld[legal_description_col].str.replace(
                     'of\s', '', flags=re.IGNORECASE)
-                dataframe_yes_ld['new' + legal_description_col] = dataframe_yes_ld['new' + legal_description_col].str.replace(r'#\s?[0-9a-z]{1,5}', '', flags=re.IGNORECASE)
+                dataframe_yes_ld['new' + legal_description_col] = dataframe_yes_ld[
+                    'new' + legal_description_col].str.replace(r'#\s?[0-9a-z]{1,5}', '', flags=re.IGNORECASE)
                 # parse where string contains num? st suffix
-                split1 = dataframe_yes_ld['new' +legal_description_col].str.extract(st_num + r'?-?' + st_num + r'?\b' + r'([nsewrl])?\s?' + st_name_la +
-                                                                      r'\s' + st_sfx_la, flags=re.IGNORECASE
-                                                                      )
-                dataframe_yes_ld[parsed_st_num1_col].fillna(split1[0], inplace= True)
+                split1 = dataframe_yes_ld['new' + legal_description_col].str.extract(
+                    st_num + r'?-?' + st_num + r'?\b' + r'([nsewrl])?\s?' + st_name_la +
+                    r'\s' + st_sfx_la, flags=re.IGNORECASE
+                    )
+                dataframe_yes_ld[parsed_st_num1_col].fillna(split1[0], inplace=True)
                 dataframe_yes_ld[parsed_st_num2_col].fillna(split1[1], inplace=True)
                 dataframe_yes_ld[parsed_sd_col].fillna(split1[2], inplace=True)
                 dataframe_yes_ld[parsed_st_name_col].fillna(split1[3], inplace=True)
                 dataframe_yes_ld[parsed_ss_col].fillna(split1[4], inplace=True)
                 # parse where string contains #unit? <some word> + condo
-                split2 = dataframe_yes_ld['new' +legal_description_col].str.extract(
+                split2 = dataframe_yes_ld['new' + legal_description_col].str.extract(
                     r'(of\s)?#?([0-9]+[a-z]?)?\s?(of\s)?([a-z\s]+)\scondo', flags=re.IGNORECASE)
                 dataframe_yes_ld[parsed_unit_col].fillna(split2[1], inplace=True)
                 dataframe_yes_ld[parsed_address_name].fillna(split2[3], inplace=True)
-                dataframe_yes_ld.drop(columns = ['new' + legal_description_col], inplace=True)
+                dataframe_yes_ld.drop(columns=['new' + legal_description_col], inplace=True)
                 dataframe_yes_ld['parsed_from'] = 'legal_desc'
             else:
                 if log is not False:
@@ -655,12 +678,13 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
             dataframe = pd.concat([dataframe_yes_ld, dataframe_no_ld])
             return dataframe
             # drop duplicates based on address & legal address column
+
         # dataframe2.drop_duplicates(subset=[new_address_col, legal_description_col], inplace=True)
         # extract where format is num st sfx unit, but unit does not need a # signifier
         split0 = dataframe1[new_address_col].str.extract(
             st_num + r'-?\s?' + st_num + r'?\s' + st_d + r'?[\s-]?' + st_name + r'\s' + st_sfx + r'[-\s,]{1,3}' +
             r'#?([0-9-]{1,4}-?[a-z]?|[a-z]-?[0-9]{1,4}|[up][0-9]{1,4}[abcd]|un\s[0-9abcd]{1,4}|[abcd])' + r'([^0-9]+)?',
-                                                                                                                flags=re.IGNORECASE)
+            flags=re.IGNORECASE)
         dataframe1[parsed_st_num1_col].fillna(split0[0], inplace=True)
         dataframe1[parsed_st_num2_col].fillna(split0[1], inplace=True)
         dataframe1[parsed_sd_col].fillna(split0[2], inplace=True)
@@ -675,9 +699,11 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
         df_list.append(dataframe1)
 
         # extract where format is num num? st sfx zipcode?
-        split1 = dataframe2[new_address_col].str.extract(st_num + r'-?\s?' + st_num + r'?\s' + st_d + r'?[\s-]?' + st_name +
-                                                         r'\s' + st_sfx + r'\s?' + r'#?([0-9-]{1,4}-?[a-z]?|[a-z]-?[0-9]{1,4}|[up][0-9]{1,4}[abcd]|un\s[0-9abcd]{1,4})' + '?'
-                                                        r',?\b' + zipcode + '?', flags=re.IGNORECASE)
+        split1 = dataframe2[new_address_col].str.extract(
+            st_num + r'-?\s?' + st_num + r'?\s' + st_d + r'?[\s-]?' + st_name +
+            r'\s' + st_sfx + r'\s?' + r'#?([0-9-]{1,4}-?[a-z]?|[a-z]-?[0-9]{1,4}|[up][0-9]{1,4}[abcd]|un\s[0-9abcd]{1,4})' + '?'
+                                                                                                                             r',?\b' + zipcode + '?',
+            flags=re.IGNORECASE)
         dataframe2[parsed_st_num1_col].fillna(split1[0], inplace=True)
         dataframe2[parsed_st_num2_col].fillna(split1[1], inplace=True)
         dataframe2[parsed_sd_col].fillna(split1[2], inplace=True)
@@ -686,7 +712,7 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
         dataframe2[parsed_unit_col].fillna(split1[5], inplace=True)
         dataframe2[parsed_zip_col].fillna(split1[6], inplace=True)
         if legal_description_col is not False:
-            dataframe2 =parse_from_legal_description(dataframe=dataframe2)
+            dataframe2 = parse_from_legal_description(dataframe=dataframe2)
 
         dataframe3 = dataframe2[~dataframe2[added_cols].notna().all(1)]
         dataframe2 = dataframe2[dataframe2[added_cols].notna().all(1)]
@@ -694,7 +720,9 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
         df_list.append(dataframe2)
 
         # extract where format is num st_d? st
-        split2 = dataframe3[new_address_col].str.extract(r'^' + st_num + r'-?\s?' + st_num  + r'?\s' + st_d +'?' + st_name + '\s?,?\s?#?([0-9a-z\s]{1,4})?$', flags=re.IGNORECASE)
+        split2 = dataframe3[new_address_col].str.extract(
+            r'^' + st_num + r'-?\s?' + st_num + r'?\s' + st_d + '?' + st_name + '\s?,?\s?#?([0-9a-z\s]{1,4})?$',
+            flags=re.IGNORECASE)
         dataframe3[parsed_st_num1_col].fillna(split2[0], inplace=True)
         dataframe3[parsed_st_num2_col].fillna(split2[1], inplace=True)
         dataframe3[parsed_sd_col].fillna(split2[2], inplace=True)
@@ -706,7 +734,8 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
         df_list.append(dataframe3)
 
         # extract where format is st_st_sfx
-        split3 = dataframe4[new_address_col].str.extract('^' + st_d + r'?\s?' + st_name + r'\s' + st_sfx + r'\s?[,-]?\s?$', flags=re.IGNORECASE)
+        split3 = dataframe4[new_address_col].str.extract(
+            '^' + st_d + r'?\s?' + st_name + r'\s' + st_sfx + r'\s?[,-]?\s?$', flags=re.IGNORECASE)
         dataframe4[parsed_sd_col].fillna(split3[0], inplace=True)
         dataframe4[parsed_st_name_col].fillna(split3[1], inplace=True)
         dataframe4[parsed_ss_col].fillna(split3[2], inplace=True)
@@ -744,7 +773,7 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
         dataframe7[parsed_st_name_col].fillna(split6[1], inplace=True)
         dataframe7[parsed_st_num1_col].fillna(split6[0], inplace=True)
         dataframe7[parsed_unit_col].fillna(split6[2], inplace=True)
-    #     dataframe7.drop(columns=['temp_col'], inplace=True)
+        #     dataframe7.drop(columns=['temp_col'], inplace=True)
         dataframe_not_parsed = dataframe7[~dataframe7[[parsed_st_num1_col, parsed_st_name_col]].notna().all(1)]
         dataframe7 = dataframe7[dataframe7[[parsed_st_num1_col, parsed_st_name_col]].notna().all(1)]
         dataframe7['parsed_from'] = 'way'
@@ -754,31 +783,32 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
         dataframe = pd.concat(df_list)
     else:
         dataframe[new_address_col] = dataframe[address_col]
-        dataframe_not_parsed = pd.DataFrame(columns = dataframe.columns)
+        dataframe_not_parsed = pd.DataFrame(columns=dataframe.columns)
     if is_string_dtype(dataframe[parsed_st_num1_col]):
-        dataframe[parsed_st_num1_col] = dataframe[parsed_st_num1_col].str.replace('-','')
+        dataframe[parsed_st_num1_col] = dataframe[parsed_st_num1_col].str.replace('-', '')
     if is_string_dtype(dataframe[parsed_st_num1_col]):
-        dataframe[parsed_st_num1_col] = dataframe[parsed_st_num1_col].str.replace('-','')
+        dataframe[parsed_st_num1_col] = dataframe[parsed_st_num1_col].str.replace('-', '')
     if is_string_dtype(dataframe[parsed_zip_col]):
         dataframe[parsed_zip_col] = dataframe[parsed_zip_col].str.replace('_$', '')
     dataframe[parsed_st_num1_col] = np.where(dataframe[parsed_st_num1_col].isna(),
                                              dataframe[parsed_st_num1_col],
                                              dataframe[parsed_st_num1_col].astype('int32', errors='ignore'))
-    for col in [parsed_unit_col, parsed_st_num1_col,parsed_sd_col, parsed_st_name_col, parsed_ss_col,
-                                 parsed_zip_col, parsed_city_col]:
+    for col in [parsed_unit_col, parsed_st_num1_col, parsed_sd_col, parsed_st_name_col, parsed_ss_col,
+                parsed_zip_col, parsed_city_col]:
         try:
             dataframe[col] = dataframe[col].str.replace(r'\s{2,}', " ",
-                                                                            flags=re.IGNORECASE)
+                                                        flags=re.IGNORECASE)
             dataframe[col] = dataframe[col].str.strip()
             dataframe[col] = dataframe[col].str.replace(r'\.0', " ",
-                                                            flags=re.IGNORECASE)
+                                                        flags=re.IGNORECASE)
             dataframe[col] = np.where(dataframe[col].str.contains('^(\s+)?$', na=True), np.nan, dataframe[col])
             dataframe[col] = np.where(dataframe[col].str.contains('^nan$', na=True), np.nan, dataframe[col])
         except AttributeError as error:
             print('{} is numeric, not attempting to remove whitespace'.format(col))
     # fill unit col w/ n2 col that has letters
     try:
-        dataframe['fill_unit'] = np.where((dataframe[parsed_unit_col].isna()) & (dataframe[parsed_st_num2_col].str.contains('[a-z]', flags=re.IGNORECASE)),
+        dataframe['fill_unit'] = np.where((dataframe[parsed_unit_col].isna()) & (
+            dataframe[parsed_st_num2_col].str.contains('[a-z]', flags=re.IGNORECASE)),
                                           dataframe[parsed_st_num2_col], np.nan
                                           )
         dataframe[parsed_unit_col].fillna(dataframe['fill_unit'], inplace=True)
@@ -792,12 +822,14 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
     # remove n2 that have letters
     # clean unit col
     try:
-        dataframe[parsed_unit_col] = dataframe[parsed_unit_col].str.replace(r'-|\.|!|@|\$|~|\(|\)|\\|\||\*|/|"|`|\s|#', "")
+        dataframe[parsed_unit_col] = dataframe[parsed_unit_col].str.replace(r'-|\.|!|@|\$|~|\(|\)|\\|\||\*|/|"|`|\s|#',
+                                                                            "")
         dataframe[parsed_unit_col] = dataframe[parsed_unit_col].str.replace('(u)([0-9]+[a-z]?)', r'\g<2>')
         dataframe[parsed_unit_col] = dataframe[parsed_unit_col].str.lower()
         dataframe[parsed_unit_col] = dataframe[parsed_unit_col].str.strip()
         # clean unit col
-        dataframe[parsed_unit_col] = dataframe[parsed_unit_col].str.replace(r'-|\.|!|@|\$|~|\(|\)|\\|\||\*|/|"|`|\s|#', "")
+        dataframe[parsed_unit_col] = dataframe[parsed_unit_col].str.replace(r'-|\.|!|@|\$|~|\(|\)|\\|\||\*|/|"|`|\s|#',
+                                                                            "")
         # parse directional from address and fill na
         split_d = dataframe[new_address_col].str.extract('\s' + '([nsew]{1,2})' + '(\s|,|$)', flags=re.IGNORECASE)
         dataframe[parsed_sd_col].fillna(split_d[0], inplace=True)
@@ -809,12 +841,11 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
     # standardize street name
     string_standardize_column_vectorized(dataframe, parsed_st_name_col, prefix=False)
     combine_names(dataframe,
-                      name_cols=[parsed_unit_col, parsed_st_num1_col,parsed_sd_col, parsed_st_name_col, parsed_ss_col,
-                                 parsed_zip_col, parsed_city_col],
-                      newCol=prefix + 'fullAddress', fill='empty'
-                      )
+                  name_cols=[parsed_unit_col, parsed_st_num1_col, parsed_sd_col, parsed_st_name_col, parsed_ss_col,
+                             parsed_zip_col, parsed_city_col],
+                  newCol=prefix + 'fullAddress', fill='empty'
+                  )
     dataframe = pd.concat([dataframe, dataframe_not_parsed])
-
 
     dataframe[prefix + 'fullAddress'].fillna(dataframe[address_col], inplace=True)
     if legal_description_col is not False:
@@ -822,7 +853,7 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
 
     if legal_description_col is not False:
         dataframe_full = pd.merge(dataframe_full, dataframe, how='left',
-                              on=merge_cols + [legal_description_col], indicator=True)
+                                  on=merge_cols + [legal_description_col], indicator=True)
     else:
         dataframe_full = pd.merge(dataframe_full, dataframe, how='left',
                                   on=merge_cols, indicator=True)
@@ -839,10 +870,10 @@ def parse_address(dataframe, address_col,unit_col, st_num_col, st_name_col, st_s
     return dataframe_full
 
 
-def make_full_address(df, address_cols = None, addr_col='parsed_fullAddress', fill='empty'):
+def make_full_address(df, address_cols=None, addr_col='parsed_fullAddress', fill='empty'):
     if address_cols is None:
         address_cols = ['parsed_addr_u', 'parsed_addr_n1', 'parsed_addr_sd',
-                                          'parsed_addr_sn','parsed_addr_ss', 'parsed_addr_zip', 'parsed_city',
-                                          'parsed_state'
-                                          ]
+                        'parsed_addr_sn', 'parsed_addr_ss', 'parsed_addr_zip', 'parsed_city',
+                        'parsed_state'
+                        ]
     combine_names(dataframe=df, name_cols=address_cols, fill=fill, newCol=addr_col)
