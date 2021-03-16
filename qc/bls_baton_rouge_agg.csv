@@ -1,0 +1,473 @@
+parsed_city,year,num_establishments_bls,num_establishments_business_loc
+baton rouge,1994,8871.0,3079
+baton rouge,1995,9054.0,3408
+baton rouge,1996,9301.0,3738
+baton rouge,1997,9831.0,4182
+baton rouge,1998,9964.0,4561
+baton rouge,1999,9971.0,4988
+baton rouge,2000,9952.0,5484
+baton rouge,2001,9906.0,6048
+baton rouge,2002,10125.0,6630
+baton rouge,2003,10218.0,7338
+baton rouge,2004,10207.0,8168
+baton rouge,2005,10435.0,9141
+baton rouge,2006,10755.0,10138
+baton rouge,2007,11034.0,11136
+baton rouge,2008,10979.0,11394
+baton rouge,2009,10812.0,11640
+baton rouge,2010,10876.0,11695
+baton rouge,2011,10888.0,11777
+baton rouge,2012,10813.0,11920
+baton rouge,2013,10814.0,11968
+baton rouge,2014,10791.0,12023
+baton rouge,2015,10888.0,12199
+baton rouge,2016,10933.0,12390
+baton rouge,2017,10959.0,12710
+baton rouge,2018,10896.0,12813
+baker,1950,,1
+baker,1951,,1
+baker,1952,,1
+baker,1953,,1
+baker,1954,,1
+baker,1955,,1
+baker,1956,,1
+baker,1957,,1
+baker,1958,,1
+baker,1959,,1
+baker,1960,,1
+baker,1961,,1
+baker,1962,,1
+baker,1963,,1
+baker,1964,,1
+baker,1965,,2
+baker,1966,,2
+baker,1967,,2
+baker,1968,,2
+baker,1969,,3
+baker,1970,,4
+baker,1971,,4
+baker,1972,,4
+baker,1973,,4
+baker,1974,,6
+baker,1975,,6
+baker,1976,,6
+baker,1977,,6
+baker,1978,,9
+baker,1979,,9
+baker,1980,,11
+baker,1981,,13
+baker,1982,,13
+baker,1983,,13
+baker,1984,,15
+baker,1985,,18
+baker,1986,,23
+baker,1987,,25
+baker,1988,,29
+baker,1989,,31
+baker,1990,,33
+baker,1991,,37
+baker,1992,,40
+baker,1993,,42
+baker,1994,,46
+baker,1995,,51
+baker,1996,,64
+baker,1997,,77
+baker,1998,,86
+baker,1999,,98
+baker,2000,,105
+baker,2001,,113
+baker,2002,,123
+baker,2003,,145
+baker,2004,,164
+baker,2005,,177
+baker,2006,,197
+baker,2007,,214
+baker,2008,,225
+baker,2009,,242
+baker,2010,,245
+baker,2011,,239
+baker,2012,,236
+baker,2013,,247
+baker,2014,,245
+baker,2015,,245
+baker,2016,,253
+baker,2017,,253
+baker,2018,,258
+baker,2019,,270
+baker,2020,,271
+baton rouge,1950,,151
+baton rouge,1951,,197
+baton rouge,1952,,199
+baton rouge,1953,,205
+baton rouge,1954,,205
+baton rouge,1955,,208
+baton rouge,1956,,223
+baton rouge,1957,,228
+baton rouge,1958,,232
+baton rouge,1959,,244
+baton rouge,1960,,251
+baton rouge,1961,,257
+baton rouge,1962,,266
+baton rouge,1963,,274
+baton rouge,1964,,278
+baton rouge,1965,,289
+baton rouge,1966,,299
+baton rouge,1967,,307
+baton rouge,1968,,318
+baton rouge,1969,,333
+baton rouge,1970,,355
+baton rouge,1971,,371
+baton rouge,1972,,390
+baton rouge,1973,,425
+baton rouge,1974,,449
+baton rouge,1975,,477
+baton rouge,1976,,512
+baton rouge,1977,,551
+baton rouge,1978,,593
+baton rouge,1979,,635
+baton rouge,1980,,693
+baton rouge,1981,,738
+baton rouge,1982,,786
+baton rouge,1983,,866
+baton rouge,1984,,978
+baton rouge,1985,,1109
+baton rouge,1986,,1233
+baton rouge,1987,,1384
+baton rouge,1988,,1814
+baton rouge,1989,,2010
+baton rouge,1990,,2192
+baton rouge,1991,,2409
+baton rouge,1992,,2616
+baton rouge,1993,,2838
+baton rouge,2019,,13077
+baton rouge,2020,,13406
+central,1978,,1
+central,1979,,1
+central,1980,,2
+central,1981,,3
+central,1982,,4
+central,1983,,4
+central,1984,,6
+central,1985,,11
+central,1986,,11
+central,1987,,12
+central,1988,,16
+central,1989,,17
+central,1990,,19
+central,1991,,21
+central,1992,,26
+central,1993,,29
+central,1994,,37
+central,1995,,39
+central,1996,,40
+central,1997,,44
+central,1998,,50
+central,1999,,56
+central,2000,,64
+central,2001,,69
+central,2002,,78
+central,2003,,85
+central,2004,,100
+central,2005,,116
+central,2006,,125
+central,2007,,137
+central,2008,,140
+central,2009,,137
+central,2010,,135
+central,2011,,141
+central,2012,,141
+central,2013,,150
+central,2014,,150
+central,2015,,149
+central,2016,,149
+central,2017,,162
+central,2018,,167
+central,2019,,169
+central,2020,,174
+clinton,1989,,1
+clinton,1990,,1
+clinton,1991,,1
+clinton,1992,,1
+clinton,1993,,1
+clinton,1994,,1
+clinton,1995,,1
+clinton,1996,,1
+clinton,1997,,1
+clinton,1998,,1
+clinton,1999,,1
+clinton,2000,,1
+clinton,2001,,1
+clinton,2002,,1
+clinton,2003,,1
+clinton,2004,,1
+clinton,2005,,2
+clinton,2006,,2
+clinton,2007,,4
+clinton,2008,,3
+clinton,2009,,2
+clinton,2010,,3
+clinton,2011,,2
+clinton,2012,,2
+clinton,2013,,2
+clinton,2014,,2
+clinton,2015,,3
+clinton,2016,,3
+clinton,2017,,5
+clinton,2018,,4
+clinton,2019,,3
+clinton,2020,,4
+greenwell springs,1950,,1
+greenwell springs,1951,,1
+greenwell springs,1952,,1
+greenwell springs,1953,,1
+greenwell springs,1954,,1
+greenwell springs,1955,,1
+greenwell springs,1956,,1
+greenwell springs,1957,,1
+greenwell springs,1958,,1
+greenwell springs,1959,,1
+greenwell springs,1960,,1
+greenwell springs,1961,,1
+greenwell springs,1962,,1
+greenwell springs,1963,,1
+greenwell springs,1964,,1
+greenwell springs,1965,,1
+greenwell springs,1966,,1
+greenwell springs,1967,,1
+greenwell springs,1968,,1
+greenwell springs,1969,,1
+greenwell springs,1970,,1
+greenwell springs,1971,,1
+greenwell springs,1972,,2
+greenwell springs,1973,,2
+greenwell springs,1974,,2
+greenwell springs,1975,,3
+greenwell springs,1976,,4
+greenwell springs,1977,,4
+greenwell springs,1978,,5
+greenwell springs,1979,,7
+greenwell springs,1980,,8
+greenwell springs,1981,,9
+greenwell springs,1982,,10
+greenwell springs,1983,,10
+greenwell springs,1984,,12
+greenwell springs,1985,,12
+greenwell springs,1986,,14
+greenwell springs,1987,,15
+greenwell springs,1988,,15
+greenwell springs,1989,,16
+greenwell springs,1990,,17
+greenwell springs,1991,,23
+greenwell springs,1992,,25
+greenwell springs,1993,,25
+greenwell springs,1994,,25
+greenwell springs,1995,,25
+greenwell springs,1996,,26
+greenwell springs,1997,,31
+greenwell springs,1998,,35
+greenwell springs,1999,,37
+greenwell springs,2000,,44
+greenwell springs,2001,,47
+greenwell springs,2002,,52
+greenwell springs,2003,,64
+greenwell springs,2004,,72
+greenwell springs,2005,,82
+greenwell springs,2006,,86
+greenwell springs,2007,,103
+greenwell springs,2008,,115
+greenwell springs,2009,,113
+greenwell springs,2010,,104
+greenwell springs,2011,,91
+greenwell springs,2012,,97
+greenwell springs,2013,,100
+greenwell springs,2014,,102
+greenwell springs,2015,,100
+greenwell springs,2016,,101
+greenwell springs,2017,,96
+greenwell springs,2018,,100
+greenwell springs,2019,,107
+greenwell springs,2020,,109
+jackson,1998,,1
+jackson,1999,,1
+jackson,2000,,1
+jackson,2001,,1
+jackson,2002,,1
+jackson,2003,,2
+jackson,2004,,3
+jackson,2005,,3
+jackson,2006,,3
+jackson,2007,,3
+jackson,2008,,2
+jackson,2009,,1
+jackson,2010,,2
+jackson,2011,,2
+jackson,2012,,2
+jackson,2013,,2
+jackson,2014,,1
+jackson,2015,,1
+jackson,2016,,1
+jackson,2017,,2
+jackson,2018,,3
+jackson,2019,,4
+jackson,2020,,4
+pride,1974,,1
+pride,1975,,1
+pride,1976,,1
+pride,1977,,1
+pride,1978,,1
+pride,1979,,1
+pride,1980,,1
+pride,1981,,1
+pride,1982,,1
+pride,1983,,1
+pride,1984,,1
+pride,1985,,2
+pride,1986,,2
+pride,1987,,2
+pride,1988,,3
+pride,1989,,3
+pride,1990,,3
+pride,1991,,3
+pride,1992,,3
+pride,1993,,3
+pride,1994,,4
+pride,1995,,4
+pride,1996,,4
+pride,1997,,6
+pride,1998,,6
+pride,1999,,6
+pride,2000,,7
+pride,2001,,7
+pride,2002,,8
+pride,2003,,10
+pride,2004,,13
+pride,2005,,16
+pride,2006,,18
+pride,2007,,19
+pride,2008,,16
+pride,2009,,17
+pride,2010,,16
+pride,2011,,15
+pride,2012,,15
+pride,2013,,15
+pride,2014,,12
+pride,2015,,15
+pride,2016,,19
+pride,2017,,19
+pride,2018,,20
+pride,2019,,22
+pride,2020,,20
+slaughter,1978,,1
+slaughter,1979,,1
+slaughter,1980,,1
+slaughter,1981,,1
+slaughter,1982,,1
+slaughter,1983,,1
+slaughter,1984,,1
+slaughter,1985,,1
+slaughter,1986,,1
+slaughter,1987,,1
+slaughter,1988,,1
+slaughter,1989,,1
+slaughter,1990,,1
+slaughter,1991,,1
+slaughter,1992,,1
+slaughter,1993,,1
+slaughter,1994,,2
+slaughter,1995,,2
+slaughter,1996,,2
+slaughter,1997,,2
+slaughter,1998,,3
+slaughter,1999,,3
+slaughter,2000,,3
+slaughter,2001,,3
+slaughter,2002,,3
+slaughter,2003,,4
+slaughter,2004,,5
+slaughter,2005,,6
+slaughter,2006,,7
+slaughter,2007,,7
+slaughter,2008,,10
+slaughter,2009,,9
+slaughter,2010,,10
+slaughter,2011,,12
+slaughter,2012,,10
+slaughter,2013,,9
+slaughter,2014,,7
+slaughter,2015,,7
+slaughter,2016,,8
+slaughter,2017,,9
+slaughter,2018,,8
+slaughter,2019,,8
+slaughter,2020,,8
+zachary,1950,,1
+zachary,1951,,1
+zachary,1952,,1
+zachary,1953,,1
+zachary,1954,,1
+zachary,1955,,1
+zachary,1956,,1
+zachary,1957,,2
+zachary,1958,,2
+zachary,1959,,2
+zachary,1960,,2
+zachary,1961,,2
+zachary,1962,,2
+zachary,1963,,2
+zachary,1964,,2
+zachary,1965,,2
+zachary,1966,,3
+zachary,1967,,3
+zachary,1968,,3
+zachary,1969,,3
+zachary,1970,,3
+zachary,1971,,3
+zachary,1972,,4
+zachary,1973,,5
+zachary,1974,,5
+zachary,1975,,5
+zachary,1976,,6
+zachary,1977,,9
+zachary,1978,,9
+zachary,1979,,10
+zachary,1980,,12
+zachary,1981,,12
+zachary,1982,,14
+zachary,1983,,15
+zachary,1984,,18
+zachary,1985,,20
+zachary,1986,,24
+zachary,1987,,28
+zachary,1988,,32
+zachary,1989,,36
+zachary,1990,,40
+zachary,1991,,43
+zachary,1992,,44
+zachary,1993,,48
+zachary,1994,,53
+zachary,1995,,56
+zachary,1996,,66
+zachary,1997,,72
+zachary,1998,,82
+zachary,1999,,97
+zachary,2000,,105
+zachary,2001,,115
+zachary,2002,,137
+zachary,2003,,156
+zachary,2004,,178
+zachary,2005,,196
+zachary,2006,,229
+zachary,2007,,269
+zachary,2008,,298
+zachary,2009,,316
+zachary,2010,,311
+zachary,2011,,322
+zachary,2012,,318
+zachary,2013,,317
+zachary,2014,,319
+zachary,2015,,329
+zachary,2016,,325
+zachary,2017,,331
+zachary,2018,,343
+zachary,2019,,349
+zachary,2020,,353
