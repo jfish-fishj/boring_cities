@@ -2,6 +2,7 @@ import os
 
 # path to github repository as path prefix
 filePrefix = '/Users/joefish/Documents/GitHub/boring_cities'
+dataPrefix = "/Volumes/Seagate Portable Drive/boring_cities"
 
 # address columns
 # columns that make a full address
@@ -26,6 +27,24 @@ classifier_files = {
     'random forest': '/Users/joefish/Documents/GitHub/boring_cities/classifier/random_forest.joblib'
 }
 
+census_data_dict = {
+    'census tract data': dataPrefix  + "/data/census/tract_data/tract_demos_11172020.csv",
+    'ca bg shp': dataPrefix + "/data/census/shapefiles/tl_2010_06_bg10/tl_2010_06_bg10.shp",
+    'il bg shp':dataPrefix + "/data/census/shapefiles/tl_2010_17_bg10/tl_2010_17_bg10.shp",
+    'la bg shp': dataPrefix + "/data/census/shapefiles/tl_2010_22_bg10/tl_2010_22_bg10.shp",
+    'mo bg shp': dataPrefix + "/data/census/shapefiles/tl_2010_29_bg10/tl_2010_29_bg10.shp",
+
+    'pa bg shp':dataPrefix + "/data/census/shapefiles/tl_2010_42_bg10/tl_2010_42_bg10.shp"
+}
+
+bls_data_dict = {
+    'raw zipcode': dataPrefix + "/data/bls/raw_zipcode/county_business_data/",
+    'appended zipcode': dataPrefix + "/data/bls/appended_zipcode/"
+}
+
+misc_data_dict = {
+    'zip count xwalk': dataPrefix + "/data/misc/zipcode_xwalk/ZIP_CBSA_032015.csv"
+}
 
 data_stages = [
     'raw',

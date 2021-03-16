@@ -8,6 +8,8 @@ from address_parsing import clean_parse_address
 from pathos.multiprocessing import ProcessingPool as Pool
 import os
 import janitor
+import re
+import sys
 
 
 # add columns not present in one dataframe to the other
@@ -51,7 +53,7 @@ def clean_parse_parallel(df):
     df = classify_name(
         # reminder that probabilistic means names like "Uber" will be flagged as businesses
         # also means uncommon names like Matinee Apinwasree will get flagged as businesses
-        dataframe=df, name_cols=['cleaned_dba_name', 'cleaned_business_name'], probalistic_classification=True,
+        dataframe=df, name_cols=['cleaned_dba_name', 'cleaned_business_name','cleaned_ownership_name'], probalistic_classification=True,
         type_col='is_business', weight_format='[a-z\s]+\s&[a-z\s]+' # regex for law firms such as johnson & johnson
     )
     # primary address
@@ -116,7 +118,7 @@ def clean_chicago_bus(chicago_bus):
     # make year variables from dates
     chicago_bus = make_year_var(df=chicago_bus, date_col='location_start_date', new_col='location_start_year')
     chicago_bus = make_year_var(df=chicago_bus, date_col='location_end_date', new_col='location_end_year')
-
+    chicago_bus = add_subset_business_cols(chicago_bus)
     # quality control logs
     # aggregations by starting year
     chi_start_year_agg = chicago_bus.groupby('location_start_year').agg(**{
@@ -133,29 +135,6 @@ def clean_chicago_bus(chicago_bus):
 
     chicago_bus.to_csv(data_dict['intermediate']['chicago']['business location'] + '/business_location.csv', index=False)
 
-def clean_sd_bus(sd_bus):
-    # make year variables from dates
-    sd_bus = make_year_var(df=sd_bus, date_col='location_start_date', new_col='location_start_year')
-    sd_bus = make_year_var(df=sd_bus, date_col='location_end_date', new_col='location_end_year')
-    combine_names(dataframe=sd_bus, name_cols=['primary_address_n1', 'primary_address_sn', 'primary_address_ss'],
-                           newCol='primary_address_fa')
-    sd_bus = parallelize_dataframe(df=sd_bus, func=clean_parse_parallel, n_cores=4)
-    sd_bus = add_subset_business_cols(sd_bus)
-    # quality control logs
-    # aggregations by starting year
-    sd_start_year_agg = sd_bus.groupby('location_start_year').agg(**{
-        'num_businesses': ('location_id', 'count'),
-        'num_sole_prop': ('is_business', lambda x: (x == 'person').sum()),
-        'num_missing_naics': ('naics', lambda x: x.isna().sum()),
-        'num_missing_pa': ('naics', lambda x: x.isna().sum()),
-        'num_missing_ma': ('naics', lambda x: x.isna().sum()),
-        'num_ended': ('location_end_year', lambda x: x.notnull().sum()),
-    }
-                                                                  )
-
-    sd_start_year_agg.to_csv(filePrefix + "/qc/sd_start_year_agg.csv")
-
-    sd_bus.to_csv(data_dict['intermediate']['sd']['business location'] + '/business_location.csv', index=False)
 
 def clean_seattle_bus(df):
     # make year variables from dates
@@ -187,6 +166,7 @@ def clean_seattle_bus(df):
 def clean_philly_bus(df):
     df = make_year_var(df=df, date_col='location_start_date', new_col='location_start_year')
     df = make_year_var(df=df, date_col='location_end_date', new_col='location_end_year')
+    df['primary_address_city'] = "philadelphia"
     df = parallelize_dataframe(df=df, func=clean_parse_parallel, n_cores=2)
     # quality control logs
     # aggregations by starting year
@@ -233,12 +213,107 @@ def initial_stl_cleaning(df):
     # unite columns because stl uses inconsistant names
     combine_names(df, name_cols=['bill_date', 'billed_date'], newCol='bill_date')
     combine_names(df, name_cols=['contact_e_mail', 'contact_name'], newCol='contact_name')
+    combine_names(df, name_cols=['doc_nbr', 'doc_nbr_', 'doc_nbr_1'], newCol='doc_nbr')
     combine_names(df, name_cols=['date_business_started', 'date_busines_started'], newCol='date_business_started')
     combine_names(df, name_cols=['file_date', 'filed_date'], newCol='file_date')
-    combine_names(df, name_cols=['tax_period',  'tax_period_7'], newCol='tax_period')
-    combine_names(df, name_cols=['tax_year','tax_period_4'], newCol='tax_year')
+    combine_names(df, name_cols=['mailing_address_line_1','mailing_address_line_2', 'mailing_address_line_3'],
+                  newCol='mail_address_fa',)
+    combine_names(df, name_cols=['tax_period',  'tax_period_1'], newCol='tax_period')
+    combine_names(df, name_cols=['tax_year','tax_period_1'], newCol='tax_year')
+    df = df.rename(columns={
+        "date_business_started": "business_start_date",
+        "from_date": "location_start_date",
+        "to_date": "location_end_date",
+        "owner_business_hq_name": "ownership_name",
+        "trade_name": "dba_name",
+        "house_nbr_": "primary_address_n1",
+        "property_st_name": "primary_address_sn",
+        "st_dir_": "primary_address_sd",
+        "st_type": "primary_address_ss",
+        "zip_cd_": "primary_address_zip"
+    })
+    df['location_start_date'] = df['year'].astype(str) + "-01-01"
+    df['location_end_date'] = (df['year'].astype(int).add(1).astype(str)) + "-01-01"
+    # data are quarterly so drop duplicates on business + year
+    df['location_id'] = df.groupby(
+        ["dba_name", "primary_address_n1", "primary_address_sn", "primary_address_ss"]).ngroup()
+    df = df.drop_duplicates(subset = ["location_id", "year"])
+    print(df['year'].value_counts())
+    return df
 
+def clean_stl_bus(df):
+    df = make_year_var(df=df, date_col='location_start_date', new_col='location_start_year')
+    df = make_year_var(df=df, date_col='location_end_date', new_col='location_end_year')
+    df['business_name'] = np.nan
+#    df = make_year_var(df=df, date_col='location_end_date', new_col='location_end_year')
+    df = parallelize_dataframe(df=df, func=clean_parse_parallel, n_cores=2)
+    df = add_subset_business_cols(df)
+    # quality control logs
+    # aggregations by starting year
+    stl_start_year_agg = df.groupby('location_start_year').agg(**{
+        'num_businesses': ('location_id', 'count'),
+        'num_sole_prop': ('is_business', lambda x: (x == 'person').sum()),
+        'num_missing_naics': ('naics', lambda x: x.isna().sum()),
+        'num_missing_pa': ('naics', lambda x: x.isna().sum()),
+        'num_missing_ma': ('naics', lambda x: x.isna().sum()),
+        'num_ended': ('location_end_year', lambda x: x.notnull().sum()),
+    }
+                                                                   )
 
+    stl_start_year_agg.to_csv(filePrefix + "/qc/stl_start_year_agg.csv")
+
+    df.to_csv(data_dict['intermediate']['stl']['business location'] + '/business_location.csv', index=False)
+
+def clean_sd_bus(sd_bus):
+    sd_rename_dict = {
+        'account_key': 'location_id',
+        'business_owner_name': 'ownership_name',
+        'dba_name': 'dba_name',
+        'address_number': 'primary_address_n1',
+        'address_road': 'primary_address_sn',
+        'address_sfx': 'primary_address_ss',
+        'address_city': 'primary_address_city',
+        'address_state': 'primary_address_state',
+        'address_zip': 'primary_address_zip',
+        'suite': 'primary_address_u',
+        'date_account_creation': 'location_start_date',
+        'date_cert_expiration': 'location_end_date',
+        'naics_code': 'naics',
+        'naics_description': 'naics_descr',
+        'ownership_type': 'ownership_type'
+        # ignore all columns not in rename dict
+    }
+    sd_bus = sd_bus.rename(columns=sd_rename_dict)
+    # make year variables from dates
+    sd_bus = make_year_var(df=sd_bus, date_col='location_start_date', new_col='location_start_year')
+    sd_bus = make_year_var(df=sd_bus, date_col='location_end_date', new_col='location_end_year')
+    # make misc variables
+    combine_names(dataframe=sd_bus, name_cols=['primary_address_n1', 'primary_address_sn', 'primary_address_ss'],
+                  newCol='primary_address_fa')
+    sd_bus = sd_bus.assign(
+        business_name = np.nan,
+        mail_address_fa = np.nan
+
+    )
+
+    sd_bus = parallelize_dataframe(df=sd_bus, func=clean_parse_parallel, n_cores=4)
+    sd_bus = add_subset_business_cols(sd_bus)
+    # quality control logs
+    # aggregations by starting year
+    sd_start_year_agg = sd_bus.groupby('location_start_year').agg(**{
+        'num_businesses': ('location_id', 'count'),
+        'num_sole_prop': ('is_business', lambda x: (x == 'person').sum()),
+        'num_missing_naics': ('naics', lambda x: x.isna().sum()),
+        'num_missing_pa': ('naics', lambda x: x.isna().sum()),
+        'num_missing_ma': ('naics', lambda x: x.isna().sum()),
+        'num_ended': ('location_end_year', lambda x: x.notnull().sum()),
+    }
+                                                                  )
+
+    sd_start_year_agg.to_csv(filePrefix + "/qc/sd_start_year_agg.csv")
+
+    sd_bus.to_csv(data_dict['intermediate']['sd']['business location'] + '/business_location.csv', index=False)
+    pass
 
 
 if __name__ == "__main__":
@@ -250,14 +325,24 @@ if __name__ == "__main__":
             data_dict['raw']['sf']['business location'] + '/Registered_Business_Locations_-_San_Francisco.csv', nrows = 4)
     # raw business data
     la_bus = pd.read_csv(data_dict['raw']['la']['business location'] + '/Listing_of_All_Businesses.csv', nrows=50)
-    chicago_bus = pd.read_csv(data_dict['raw']['chicago']['business location'] + '/Business_Licenses.csv', nrows=50)
+    chicago_bus = pd.read_csv(data_dict['raw']['chicago']['business location'] + '/Business_Licenses.csv', nrows = 50)
     # san diego comes split apart so read in and concat
     sd_file_list = os.listdir(data_dict['raw']['sd']['business location'] )
-    sd_df_list = [pd.read_csv(data_dict['raw']['sd']['business location'] + f'{file}') for file in sd_file_list]
+    sd_df_list = [pd.read_csv(data_dict['raw']['sd']['business location'] + f'{file}')
+                  for file in sd_file_list]
     sd_bus = pd.concat(sd_df_list)
+
+    # stl_file_list  =  [file for file in os.listdir(data_dict['raw']['stl']['business location'] ) if bool(re.search( "[0-9]", file))]
+    # stl_df_list = [pd.read_excel(data_dict['raw']['stl']['business location'] + f'{file}').clean_names().assign(
+    #     year = re.search("([0-9]{4})", file).group(1) ) for file in stl_file_list]
+    # stl_bus = pd.concat(stl_df_list)
+    # print(df.shape[0] for df in stl_df_list)
+    # print(stl_bus['year'].value_counts())
+    # stl_bus = initial_stl_cleaning(stl_bus)
     seattle_bus = pd.read_csv(data_dict['raw']['seattle']['business location'] + '/2020LISTOFALLBUSINESSESPDR.csv', nrows=50)
     philly_bus = pd.read_csv(data_dict['raw']['philly']['business location'] + 'business_licenses-2.csv', nrows = 50)
-    baton_rouge_bus = pd.read_csv(data_dict['raw']['baton_rouge']['business location'] + 'Businesses_Registered_with_EBR_Parish_baton_r.csv', nrows=5)
+    baton_rouge_bus = pd.read_csv(data_dict['raw']['baton_rouge']['business location'] +
+                                  'Businesses_Registered_with_EBR_Parish_baton_r.csv', nrows = 50)
     orlando = pd.read_csv(data_dict['raw']['orlando']['business location'] + 'Business_Tax_Receipts_orlando.csv', nrows=50)
     # rename columns for cleaning
     sf_rename_dict = {
@@ -300,7 +385,6 @@ if __name__ == "__main__":
         # ignore all columns not in rename dict
     }
     chi_rename_dict = {
-        'ID': 'location_id',
         'ACCOUNT NUMBER': 'business_id',
         'LEGAL NAME': 'business_name',
         'DOING BUSINESS AS NAME': 'dba_name',
@@ -310,7 +394,7 @@ if __name__ == "__main__":
         'ZIP CODE': 'primary_address_zip',
         'LICENSE TERM START DATE': 'location_start_date',
         'LICENSE TERM EXPIRATION DATE': 'location_end_date',
-        'LICENSE DESCRIPTION': 'business_type'
+        'BUSINESS ACTIVITY': 'business_type'
         # ignore all columns not in rename dict
     }
     la_rename_dict = {
@@ -351,12 +435,12 @@ if __name__ == "__main__":
         'lng': 'long',
         'initialissuedate': 'location_start_date',
         'expirationdate': 'location_end_date',
-        'licensenum': 'locationID',
+        'licensenum': 'location_id',
         'licensetype': 'business_type',
         'legalentitytype': 'ownership_type'
     }
     baton_rouge_rename_dict = {
-    "ACCOUNT NO"   : 'locationID',
+    "ACCOUNT NO"   : 'location_id',
     "ACCOUNT NAME" :'dba_name',
     "LEGAL NAME" : 'business_name',
     "BUSINESS OPEN DATE" : 'location_start_date',
@@ -382,7 +466,6 @@ if __name__ == "__main__":
     # rename cols
     la_bus.rename(columns=la_rename_dict, inplace=True)
     sf_bus.rename(columns=sf_rename_dict, inplace=True)
-    sd_bus.rename(columns=sd_rename_dict, inplace=True)
     chicago_bus.rename(columns=chi_rename_dict, inplace=True)
     seattle_bus.rename(columns=seattle_rename_dict, inplace=True)
     philly_bus.rename(columns = philly_rename_dict, inplace = True)
@@ -390,8 +473,6 @@ if __name__ == "__main__":
 
     # # filter columns
     la_bus = la_bus[la_rename_dict.values()]
-    sf_bus = sf_bus[sf_rename_dict.values()]
-    sd_bus = sd_bus[sd_rename_dict.values()]
     sf_bus = sf_bus[sf_rename_dict.values()]
     chicago_bus = chicago_bus[chi_rename_dict.values()]
     seattle_bus = seattle_bus[seattle_rename_dict.values()]
@@ -410,7 +491,6 @@ if __name__ == "__main__":
     # add all col names
     la_bus = add_cols_from_other_df(df1=la_bus, df_list=dfs_to_add)
     sf_bus = add_cols_from_other_df(df1=sf_bus, df_list=dfs_to_add)
-    sd_bus = add_cols_from_other_df(df1=sd_bus, df_list=dfs_to_add)
     chicago_bus = add_cols_from_other_df(df1=chicago_bus, df_list=dfs_to_add)
     seattle_bus = add_cols_from_other_df(df1=seattle_bus, df_list=dfs_to_add)
     philly_bus = add_cols_from_other_df(df1 = philly_bus, df_list=dfs_to_add)
@@ -422,4 +502,5 @@ if __name__ == "__main__":
     # clean_chicago_bus(chicago_bus=chicago_bus)
     # clean_seattle_bus(df=seattle_bus)
     # clean_baton_rouge_bus(df = baton_rouge_bus)
-    #clean_philly_bus(df = philly_bus)
+    #clean_philly_bus(df = philly_bus) N
+    # clean_stl_bus(stl_bus)

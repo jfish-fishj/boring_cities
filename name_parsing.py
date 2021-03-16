@@ -406,7 +406,7 @@ def combine_names(dataframe, name_cols = ['firstName', 'lastName'], newCol = "co
         temp_cols = []
         for col in name_cols:
             temp_name = 'temp_' + col
-            dataframe[temp_name] = dataframe[col].fillna(fill)
+            dataframe[temp_name] = dataframe[col].fillna(fill).astype(str)
             temp_cols.append(temp_name)
         dataframe['temp_temp_col'] = dataframe[temp_cols[0]]
         for col in temp_cols[1:]:
