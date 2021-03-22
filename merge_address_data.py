@@ -37,8 +37,10 @@ def merge_addresses(bus_df, add_df, bus_merge_cols, add_merge_cols, cols_to_merg
     for col in add_merge_cols:
         add_df[col] = add_df[col].str.replace('\.0+', "")
 
+    add_df = add_df[add_merge_cols + cols_to_merge].sort_values("parcelID").drop_duplicates(subset=add_merge_cols, keep="first")
+
     bus_df = bus_df.merge(
-        add_df[add_merge_cols + cols_to_merge].drop_duplicates(subset =add_merge_cols ), how = "left",
+        add_df, how = "left",
         left_on = bus_merge_cols,
         right_on = add_merge_cols,
         indicator = True,
@@ -52,7 +54,7 @@ def merge_addresses(bus_df, add_df, bus_merge_cols, add_merge_cols, cols_to_merg
         lo = bus_df[bus_df['_merge'] == "left_only"][og_cols]  # reset columns so we dont get suffixes
         nlo = bus_df[bus_df['_merge'] != "left_only"]
         lo = get_nearest_address(
-            df1 = lo, df2 = add_df[add_merge_cols + cols_to_merge].drop_duplicates(subset =add_merge_cols ),
+            df1 = lo, df2 = add_df,
             left_cols=["primary_cleaned_addr_sn","primary_cleaned_addr_ss"],
             right_cols=["parsed_addr_sn", "parsed_addr_ss"],
             n1_col_left='primary_cleaned_addr_n1',
@@ -69,7 +71,7 @@ def merge_addresses(bus_df, add_df, bus_merge_cols, add_merge_cols, cols_to_merg
         lo = bus_df[bus_df['_merge'] == "left_only"][og_cols] # reset columns so we dont get suffixes
         nlo = bus_df[bus_df['_merge'] != "left_only"]
         lo = fuzzy_merge(
-            df1 = lo, df2 = add_df[add_merge_cols + cols_to_merge].drop_duplicates(subset =add_merge_cols ),
+            df1 = lo, df2 = add_df,
             left_cols=['primary_cleaned_addr_n1',"primary_cleaned_addr_ss"],
             right_cols=['parsed_addr_n1', "parsed_addr_ss"],
             left_fuzzy_col = "primary_cleaned_addr_sn",
@@ -87,7 +89,36 @@ def merge_addresses(bus_df, add_df, bus_merge_cols, add_merge_cols, cols_to_merg
     return bus_df
 
 def misc_sf_cleaning(df):
-    pass
+    df['primary_cleaned_addr_ss'] = np.where(
+        df['primary_cleaned_addr_sn'] == 'broadway',
+        "",
+        df['primary_cleaned_addr_ss']
+    )
+
+    df['primary_cleaned_addr_sn'] = np.where(
+        df['primary_cleaned_addr_sn'] == 'embarcadero',
+        "the embarcadero",
+        df['primary_cleaned_addr_sn']
+    )
+
+    df['primary_cleaned_addr_ss'] = np.where(
+        df['primary_cleaned_addr_sn'] == 'the embarcadero',
+        "",
+        df['primary_cleaned_addr_ss']
+    )
+
+    return df
+
+
+def misc_seattle_cleaning(df):
+    df['primary_cleaned_addr_sn'] = np.where(
+        (df['primary_cleaned_addr_sn'] == 'm l king jr') | (df['primary_cleaned_addr_sn'] == "mlk jr"),
+        "martin luther king jr",
+        df['primary_cleaned_addr_sn']
+    )
+
+
+    return df
 
 def misc_baton_rouge_cleaning(bus_df, add_df):
     bus_df['primary_cleaned_addr_n1'] = bus_df['primary_cleaned_addr_n1'].str.replace("[a-z]", "")
@@ -110,12 +141,18 @@ def misc_baton_rouge_cleaning(bus_df, add_df):
 
     ), how="left", left_on='primary_cleaned_addr_sn', right_on=['parsed_addr_sn'])
     bus_df['primary_cleaned_addr_ss'] = bus_df['primary_cleaned_addr_ss'].replace("", np.nan).fillna(bus_df['fill_col'])
-    # bus_df['primary_cleaned_addr_ss'] = np.where(
-    #     bus_df['primary_cleaned_addr_sn'].str.contains("acadian", na=False, regex=True),
-    #     "thwy",
-    #     bus_df['primary_cleaned_addr_ss']
-    #
-    # )
+    bus_df['primary_cleaned_addr_ss'] = np.where(
+        bus_df['primary_cleaned_addr_sn'].str.contains("acadian", na=False, regex=True),
+        "thwy",
+        bus_df['primary_cleaned_addr_ss']
+
+    )
+    bus_df['primary_cleaned_addr_sn'] = np.where(
+        bus_df['primary_cleaned_addr_sn'].str.contains("acadian", na=False, regex=True),
+        "acadian",
+        bus_df['primary_cleaned_addr_sn']
+
+    )
     # bus_df['primary_cleaned_addr_ss'] = np.where(
     #     bus_df['primary_cleaned_addr_sn'] == "perkins",
     #     "rd",
@@ -203,15 +240,15 @@ def misc_chi_cleaning(add_df, bus_df):
 
 if __name__ == "__main__":
     data_dict = make_data_dict(use_seagate=True)
-    sd_bus = pd.read_csv(data_dict['intermediate']['sd']['business location'] + '/business_location.csv')
-    sd_add = pd.read_csv(data_dict['intermediate']['sd']['parcel'] + '/addresses.csv')
-    sd_bus = merge_addresses(sd_bus, sd_add, fuzzy=True, nearest_n1=True,
-                             add_merge_cols=['parsed_addr_n1', 'parsed_addr_sn', 'parsed_addr_ss'],
-                             bus_merge_cols=['primary_cleaned_addr_n1', 'primary_cleaned_addr_sn',
-                                             'primary_cleaned_addr_ss'],
-                             cols_to_merge=['lat', 'long', 'parcelID', 'parsed_city', 'parsed_addr_zip']
-                             )
-    sd_bus.to_csv(data_dict['intermediate']['sd']['business location'] + '/business_location_addresses_merged.csv', index=False)
+    # sd_bus = pd.read_csv(data_dict['intermediate']['sd']['business location'] + '/business_location.csv')
+    # sd_add = pd.read_csv(data_dict['intermediate']['sd']['parcel'] + '/addresses.csv')
+    # sd_bus = merge_addresses(sd_bus, sd_add, fuzzy=True, nearest_n1=True,
+    #                          add_merge_cols=['parsed_addr_n1', 'parsed_addr_sn', 'parsed_addr_ss'],
+    #                          bus_merge_cols=['primary_cleaned_addr_n1', 'primary_cleaned_addr_sn',
+    #                                          'primary_cleaned_addr_ss'],
+    #                          cols_to_merge=['lat', 'long', 'parcelID', 'parsed_city', 'parsed_addr_zip']
+    #                          )
+    # sd_bus.to_csv(data_dict['intermediate']['sd']['business location'] + '/business_location_addresses_merged.csv', index=False)
     # chicago_bus = pd.read_csv(data_dict['intermediate']['chicago']['business location'] + '/business_location.csv')
     # chicago_add = pd.read_csv(data_dict['intermediate']['chicago']['parcel'] + '/addresses_from_parcels.csv')
     # chicago_add, chicago_bus = misc_chi_cleaning(chicago_add, chicago_bus)
@@ -233,7 +270,7 @@ if __name__ == "__main__":
     #                                                   'primary_cleaned_addr_ss'],
     #                                   cols_to_merge=['lat', 'long', 'parcelID', 'parsed_city', 'parsed_addr_zip']
     #                                   )
-    # # print(baton_rouge_bus['merged_from'].value_counts())
+    # print(baton_rouge_bus['merged_from'].value_counts())
     # baton_rouge_bus.to_csv(data_dict['intermediate']['baton_rouge']['business location'] + '/business_location_addresses_merged.csv')
     # stl_bus = pd.read_csv(data_dict['intermediate']['stl']['business location'] + '/business_location.csv')
     # stl_add = pd.read_csv(data_dict['intermediate']['stl']['parcel'] + '/addresses.csv')
@@ -244,3 +281,24 @@ if __name__ == "__main__":
     #                           )
     # print(stl_bus['merged_from'].value_counts())
     # stl_bus.to_csv(data_dict['intermediate']['stl']['business location'] + '/business_location_addresses_merged.csv', index=False)
+    sf_bus = pd.read_csv(data_dict['intermediate']['sf']['business location'] + '/business_location.csv')
+    sf_bus = misc_sf_cleaning(sf_bus)
+    sf_add = pd.read_csv(data_dict['intermediate']['sf']['parcel'] + '/addresses.csv')
+    sf_bus = merge_addresses(
+        sf_bus, sf_add, fuzzy=True, nearest_n1=True, fuzzy_threshold=90, n1_threshold=5,
+        add_merge_cols=['parsed_addr_n1', 'parsed_addr_sn', 'parsed_addr_ss'],
+        bus_merge_cols=['primary_cleaned_addr_n1', 'primary_cleaned_addr_sn', 'primary_cleaned_addr_ss'],
+        cols_to_merge=['lat', 'long', 'parcelID', 'parsed_city', 'parsed_addr_zip']
+                              )
+    sf_bus.to_csv(data_dict['intermediate']['sf']['business location'] + '/business_location_addresses_merged.csv', index=False)
+    # seattle_bus = pd.read_csv(data_dict['intermediate']['seattle']['business location'] + '/business_location.csv')
+    # seattle_bus = misc_seattle_cleaning(seattle_bus)
+    # seattle_add = pd.read_csv(data_dict['intermediate']['seattle']['parcel'] + '/addresses.csv')
+    # seattle_bus = merge_addresses(
+    #     seattle_bus, seattle_add[seattle_add['parsed_city']=='seattle'], fuzzy=True, nearest_n1=True,
+    #     fuzzy_threshold=90, n1_threshold=5,
+    #     add_merge_cols=['parsed_addr_n1', 'parsed_addr_sn', 'parsed_addr_ss'],
+    #     bus_merge_cols=['primary_cleaned_addr_n1', 'primary_cleaned_addr_sn', 'primary_cleaned_addr_ss'],
+    #     cols_to_merge=['lat', 'long', 'parcelID', 'parsed_city', 'parsed_addr_zip']
+    #                           )
+    # seattle_bus.to_csv(data_dict['intermediate']['seattle']['business location'] + '/business_location_addresses_merged.csv', index=False)

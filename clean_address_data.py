@@ -158,7 +158,6 @@ def clean_la_add(df):
 
 def clean_sd_add(df):
     sd_rename_dict = {
-        'parcelid': 'parcelID', # this could also be apn
         'addrunit': 'address_u',
         'addrnmbr': 'address_n1',
         'addrpdir':'address_sd',
@@ -199,7 +198,6 @@ def clean_sf_add(df):
 def clean_seattle_add(df):
     seattle_rename_dict = {
         'PIN': 'parcelID',
-        'UNIT_NUM': 'address_u',
         'ADDR_NUM': 'address_n1',
         'ADDR_SN': 'address_sn',
         'ADDR_ST': 'address_ss',
@@ -247,9 +245,9 @@ def concat_chi_add(df1, df2):
 
 if __name__ == "__main__":
     data_dict = make_data_dict(use_seagate=True)
-    stl_add = gpd.read_file(data_dict['raw']['stl']['parcel'] + 'streets/tgr_str_cl.shp')
-    stl_add = clean_stl_add(stl_add)
-    stl_add.to_csv(data_dict['intermediate']['stl']['parcel'] + 'addresses.csv', index=False)
+    # stl_add = gpd.read_file(data_dict['raw']['stl']['parcel'] + 'streets/tgr_str_cl.shp')
+    # stl_add = clean_stl_add(stl_add)
+    # stl_add.to_csv(data_dict['intermediate']['stl']['parcel'] + 'addresses.csv', index=False)
     # baton_rouge_add = pd.read_csv(
     #     data_dict['raw']['baton_rouge']['parcel'] + 'addresses_Property_Information_ebrp.csv')
     # baton_rouge_add = clean_baton_rouge_add(baton_rouge_add)
@@ -260,17 +258,16 @@ if __name__ == "__main__":
     #sd_add = gpd.read_file(data_dict['raw']['sd']['parcel'] + 'addrapn_datasd_san_diego/addrapn_datasd.shp')
     # sf_add = pd.read_csv(
     #     data_dict['raw']['sf']['parcel'] + 'Addresses_with_Units_-_Enterprise_Addressing_System_san_francisco.csv')
-    # seattle_add = gpd.read_file(data_dict['raw']['seattle']['parcel'] +
-    #                           'Parcels_for_King_County_with_Address_with_Property_Information___parcel_address_area-shp/'
-    #                           'Parcels_for_King_County_with_Address_with_Property_Information___parcel_address_area.shp')
+    seattle_add = gpd.read_file(data_dict['raw']['seattle']['parcel'] +
+                              'Addresses_in_King_County___address_point/Addresses_in_King_County___address_point.shp')
     #
     # # clean_baton_rouge_add(baton_rouge_add).to_csv(data_dict['intermediate']['baton_rouge']['parcel'] + 'addresses.csv', index=False)
     # clean_chi_add2(chicago_add1).to_csv(data_dict['intermediate']['chicago']['parcel'] + 'addresses_from_parcels.csv', index=False)
     # clean_chi_add1(chicago_add2).to_csv(data_dict['intermediate']['chicago']['parcel'] + 'addresses_from_points.csv', index=False)
     # # clean_la_add(la_add).to_csv(data_dict['intermediate']['la']['parcel'] + 'addresses.csv', index=False)
-    # # clean_sf_add(sf_add).to_csv(data_dict['intermediate']['sf']['parcel'] + 'addresses.csv', index=False)
+    # clean_sf_add(sf_add).to_csv(data_dict['intermediate']['sf']['parcel'] + 'addresses.csv', index=False)
     # #clean_sd_add(sd_add).to_csv(data_dict['intermediate']['sd']['parcel'] + 'addresses.csv', index=False)
-    # # clean_seattle_add(seattle_add).to_csv(data_dict['intermediate']['seattle']['parcel'] + 'addresses.csv', index=False)
+    clean_seattle_add(seattle_add).to_csv(data_dict['intermediate']['seattle']['parcel'] + 'addresses.csv', index=False)
     # chi1 = pd.read_csv(data_dict['intermediate']['chicago']['parcel'] + 'addresses_from_parcels.csv', dtype={"parsed_addr_n1": str})
     # chi2 = pd.read_csv(data_dict['intermediate']['chicago']['parcel'] + 'addresses_from_points.csv', dtype={"parsed_addr_n1": str})
     # concat_chi_add(chi1,chi2).to_csv(data_dict['intermediate']['chicago']['parcel'] + 'addresses_concat.csv', index=False)

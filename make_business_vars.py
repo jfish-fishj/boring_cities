@@ -16,7 +16,7 @@ from address_parsing import clean_parse_address
 from pathos.multiprocessing import ProcessingPool as Pool
 
 # function that takes data w/ start and end year and turns into panel
-def make_panel(df, start_year, end_year, current_year = 2020,
+def make_panel(df, start_year, end_year, current_year = 2021,
                keep_cum_count=False, limit=False, drop_future=True, evens_and_odds = False):
     """
     :param df: dataframe to be made into panel
@@ -59,7 +59,7 @@ def make_panel(df, start_year, end_year, current_year = 2020,
 
 # function that determines if variable is a chain in a given year
 def make_chain_var(df, name_col='business_id', time_col='year',
-                   threshold=5, loc_col='num_locations', chain_col='is_chain'):
+                   loc_col='num_locations'):
     """
     Function takes in a dataframe with a name and time column and returns columns containing:
         the number of observations with the same name and an indicator variable if the number of observations is
@@ -69,14 +69,13 @@ def make_chain_var(df, name_col='business_id', time_col='year',
     :param time_col: usually is something like year, but technically can be any second variable to group on
     :param threshold: number where if greater or equal to is considered a chain
     :param loc_col: name of num_observations column to be made
-    :param chain_col: name of chain column to be made
+    :param loc_col: name of chain column to be made
     :return: dataframe w/ chain columns added
     """
     df['index'] = df.index
     # replace empty strings w/ NAs
     df[name_col] = df[name_col].replace("", np.nan)
     df[loc_col] = df.groupby([time_col,name_col])['index'].transform('count')
-    df[chain_col] = np.where(df[loc_col] > threshold, 'is_chain', 'not_chain')
     df.drop(columns='index', inplace=True)
     return df
 
@@ -205,193 +204,218 @@ def make_publically_traded_vars(df, name_col, publically_traded_col='is_publical
     df = pd.merge(df, df_dd, on=name_col, how='left')
     return df
 
-def chi_business_vars(n_cores = 4):
-    chi_bus = pd.read_csv(data_dict['intermediate']['chicago']['business location'] + '/business_location_addresses_merged.csv')
-    def wrapper(chi_bus):
-        chi_bus = parse_business(df=chi_bus, business_name_col='cleaned_business_name', use_business_name_as_base=True)
-        chi_bus = parse_business(df=chi_bus, business_name_col='cleaned_dba_name', use_business_name_as_base=True)
-        chi_bus = chi_bus[chi_bus['is_business'] == 'business']
-        chi_bus = make_publically_traded_vars(chi_bus, 'cleaned_dba_name_short_name',
+def la_business_vars(n_cores = 4):
+    la_bus = pd.read_csv(data_dict['intermediate']['la']['business location'] + '/business_location_addresses_merged.csv')
+    def wrapper(la_bus):
+        la_bus = parse_business(df=la_bus, business_name_col='cleaned_ownership_name', use_business_name_as_base=True)
+        la_bus = parse_business(df=la_bus, business_name_col='cleaned_business_name', use_business_name_as_base=True)
+        la_bus = parse_business(df=la_bus, business_name_col='cleaned_dba_name', use_business_name_as_base=True)
+        la_bus = make_publically_traded_vars(la_bus, 'cleaned_dba_name_short_name',
                                                 publically_traded_col="dba_is_publicly_traded")
 
-        chi_bus = make_publically_traded_vars(chi_bus, 'cleaned_business_name_short_name',
-                                                publically_traded_col="business_name_is_publicly_traded")
-        # chicago is already psuedo panel
-        chi_bus = make_panel(
-            df=chi_bus, start_year='location_start_year', end_year='location_end_year', keep_cum_count=True
-        )
-        chi_bus = make_chain_var(chi_bus)
-        return chi_bus
-    chi_bus = parallelize_dataframe(chi_bus, wrapper, n_cores = n_cores)
-    chi_bus.to_csv(data_dict['final']['chicago']['business location'] + '/business_locations.csv', index=False)
+        la_bus = make_publically_traded_vars(la_bus, 'cleaned_business_name_short_name',
+                                             publically_traded_col="business_is_publicly_traded")
 
-def baton_rouge_business_vars(n_cores = 4):
-    baton_rouge_bus = pd.read_csv(data_dict['intermediate']['baton_rouge']['business location'] + '/business_location_addresses_merged.csv')
-    def wrapper(baton_rouge_bus):
-        baton_rouge_bus = parse_business(df=baton_rouge_bus, business_name_col='cleaned_business_name', use_business_name_as_base=True)
-        baton_rouge_bus = parse_business(df=baton_rouge_bus, business_name_col='cleaned_dba_name', use_business_name_as_base=True)
-        baton_rouge_bus = baton_rouge_bus[baton_rouge_bus['is_business'] == 'business']
-        baton_rouge_bus = make_publically_traded_vars(baton_rouge_bus, 'cleaned_dba_name_short_name',
+        la_bus = make_publically_traded_vars(la_bus, 'cleaned_ownership_name_short_name',
+                                                publically_traded_col="ownership_name_is_publicly_traded")
+        la_bus = make_panel(
+            df=la_bus, start_year='location_start_year', end_year='location_end_year', keep_cum_count=True
+        )
+        return la_bus
+    la_bus = parallelize_dataframe(la_bus, wrapper, n_cores = n_cores)
+    la_bus = make_chain_var(la_bus, loc_col="num_locations_business_id", name_col='business_id')
+    la_bus = make_chain_var(la_bus, loc_col="num_locations_ownership", name_col='cleaned_ownership_name')
+    la_bus = make_chain_var(la_bus, loc_col="num_locations_dba_name", name_col='cleaned_dba_name')
+    la_bus = make_chain_var(la_bus, loc_col="num_locations_business_name", name_col='cleaned_business_name')
+    la_bus.to_csv(data_dict['final']['la']['business location'] + '/business_locations.csv', index=False)
+
+
+def philly_business_vars(n_cores = 4):
+    philly_bus = pd.read_csv(data_dict['intermediate']['philly']['business location'] + '/business_location_addresses_merged.csv')
+    def wrapper(philly_bus):
+        philly_bus = parse_business(df=philly_bus, business_name_col='cleaned_ownership_name', use_business_name_as_base=True)
+        philly_bus = parse_business(df=philly_bus, business_name_col='cleaned_business_name', use_business_name_as_base=True)
+        philly_bus = parse_business(df=philly_bus, business_name_col='cleaned_dba_name', use_business_name_as_base=True)
+        philly_bus = make_publically_traded_vars(philly_bus, 'cleaned_dba_name_short_name',
                                                 publically_traded_col="dba_is_publicly_traded")
 
-        baton_rouge_bus = make_publically_traded_vars(baton_rouge_bus, 'cleaned_business_name_short_name',
-                                                publically_traded_col="business_name_is_publicly_traded")
-        baton_rouge_bus = make_panel(
-            df=baton_rouge_bus, start_year='location_start_year', end_year='location_end_year', keep_cum_count=True
+        philly_bus = make_publically_traded_vars(philly_bus, 'cleaned_business_name_short_name',
+                                             publically_traded_col="business_is_publicly_traded")
+
+        philly_bus = make_publically_traded_vars(philly_bus, 'cleaned_ownership_name_short_name',
+                                                publically_traded_col="ownership_name_is_publicly_traded")
+        philly_bus = make_panel(
+            df=philly_bus, start_year='location_start_year', end_year='location_end_year', keep_cum_count=True
         )
-        baton_rouge_bus = make_chain_var(baton_rouge_bus)
-        return baton_rouge_bus
-    baton_rouge_bus = parallelize_dataframe(baton_rouge_bus, wrapper, n_cores = n_cores)
-    baton_rouge_bus.to_csv(data_dict['final']['baton_rouge']['business location'] + '/business_locations.csv', index=False)
+        return philly_bus
+    philly_bus = parallelize_dataframe(philly_bus, wrapper, n_cores = n_cores)
+    philly_bus = make_chain_var(philly_bus, loc_col="num_locations_business_id", name_col='business_id')
+    philly_bus = make_chain_var(philly_bus, loc_col="num_locations_ownership", name_col='cleaned_ownership_name')
+    philly_bus = make_chain_var(philly_bus, loc_col="num_locations_dba_name", name_col='cleaned_dba_name')
+    philly_bus = make_chain_var(philly_bus, loc_col="num_locations_business_name", name_col='cleaned_business_name')
+    philly_bus.to_csv(data_dict['final']['philly']['business location'] + '/business_locations.csv', index=False)
 
 def sd_business_vars(n_cores = 4):
     sd_bus = pd.read_csv(data_dict['intermediate']['sd']['business location'] + '/business_location_addresses_merged.csv')
     def wrapper(sd_bus):
         sd_bus = parse_business(df=sd_bus, business_name_col='cleaned_ownership_name', use_business_name_as_base=True)
+        sd_bus = parse_business(df=sd_bus, business_name_col='cleaned_business_name', use_business_name_as_base=True)
         sd_bus = parse_business(df=sd_bus, business_name_col='cleaned_dba_name', use_business_name_as_base=True)
-        sd_bus = sd_bus[sd_bus['is_business'] == 'business']
         sd_bus = make_publically_traded_vars(sd_bus, 'cleaned_dba_name_short_name',
                                                 publically_traded_col="dba_is_publicly_traded")
+
+        sd_bus = make_publically_traded_vars(sd_bus, 'cleaned_business_name_short_name',
+                                             publically_traded_col="business_is_publicly_traded")
 
         sd_bus = make_publically_traded_vars(sd_bus, 'cleaned_ownership_name_short_name',
                                                 publically_traded_col="ownership_name_is_publicly_traded")
         sd_bus = make_panel(
             df=sd_bus, start_year='location_start_year', end_year='location_end_year', keep_cum_count=True
         )
-        sd_bus = make_chain_var(sd_bus)
         return sd_bus
     sd_bus = parallelize_dataframe(sd_bus, wrapper, n_cores = n_cores)
+    sd_bus = make_chain_var(sd_bus, loc_col="num_locations_business_id", name_col='business_id')
+    sd_bus = make_chain_var(sd_bus, loc_col="num_locations_ownership", name_col='cleaned_ownership_name')
+    sd_bus = make_chain_var(sd_bus, loc_col="num_locations_dba_name", name_col='cleaned_dba_name')
+    sd_bus = make_chain_var(sd_bus, loc_col="num_locations_business_name", name_col='cleaned_business_name')
     sd_bus.to_csv(data_dict['final']['sd']['business location'] + '/business_locations.csv', index=False)
 
+def seattle_business_vars(n_cores = 4):
+    seattle_bus = pd.read_csv(data_dict['intermediate']['seattle']['business location'] + '/business_location_addresses_merged.csv')
+    def wrapper(seattle_bus):
+        seattle_bus = parse_business(df=seattle_bus, business_name_col='cleaned_ownership_name', use_business_name_as_base=True)
+        seattle_bus = parse_business(df=seattle_bus, business_name_col='cleaned_business_name', use_business_name_as_base=True)
+        seattle_bus = parse_business(df=seattle_bus, business_name_col='cleaned_dba_name', use_business_name_as_base=True)
+        seattle_bus = make_publically_traded_vars(seattle_bus, 'cleaned_dba_name_short_name',
+                                                publically_traded_col="dba_is_publicly_traded")
+
+        seattle_bus = make_publically_traded_vars(seattle_bus, 'cleaned_business_name_short_name',
+                                             publically_traded_col="business_is_publicly_traded")
+
+        seattle_bus = make_publically_traded_vars(seattle_bus, 'cleaned_ownership_name_short_name',
+                                                publically_traded_col="ownership_name_is_publicly_traded")
+        seattle_bus = make_panel(
+            df=seattle_bus, start_year='location_start_year', end_year='location_end_year', keep_cum_count=True
+        )
+        return seattle_bus
+    seattle_bus = parallelize_dataframe(seattle_bus, wrapper, n_cores = n_cores)
+    seattle_bus = make_chain_var(seattle_bus, loc_col="num_locations_business_id", name_col='business_id')
+    seattle_bus = make_chain_var(seattle_bus, loc_col="num_locations_ownership", name_col='cleaned_ownership_name')
+    seattle_bus = make_chain_var(seattle_bus, loc_col="num_locations_dba_name", name_col='cleaned_dba_name')
+    seattle_bus = make_chain_var(seattle_bus, loc_col="num_locations_business_name", name_col='cleaned_business_name')
+    seattle_bus.to_csv(data_dict['final']['seattle']['business location'] + '/business_locations.csv', index=False)
+
+def chicago_business_vars(n_cores = 4):
+    chicago_bus = pd.read_csv(data_dict['intermediate']['chicago']['business location'] + '/business_location_addresses_merged.csv')
+    def wrapper(chicago_bus):
+        chicago_bus = parse_business(df=chicago_bus, business_name_col='cleaned_ownership_name', use_business_name_as_base=True)
+        chicago_bus = parse_business(df=chicago_bus, business_name_col='cleaned_business_name', use_business_name_as_base=True)
+        chicago_bus = parse_business(df=chicago_bus, business_name_col='cleaned_dba_name', use_business_name_as_base=True)
+        chicago_bus = make_publically_traded_vars(chicago_bus, 'cleaned_dba_name_short_name',
+                                                publically_traded_col="dba_is_publicly_traded")
+
+        chicago_bus = make_publically_traded_vars(chicago_bus, 'cleaned_business_name_short_name',
+                                             publically_traded_col="business_is_publicly_traded")
+
+        chicago_bus = make_publically_traded_vars(chicago_bus, 'cleaned_ownership_name_short_name',
+                                                publically_traded_col="ownership_name_is_publicly_traded")
+        chicago_bus = make_panel(
+            df=chicago_bus, start_year='location_start_year', end_year='location_end_year', keep_cum_count=True
+        )
+        return chicago_bus
+    chicago_bus = parallelize_dataframe(chicago_bus, wrapper, n_cores = n_cores)
+    chicago_bus = make_chain_var(chicago_bus, loc_col="num_locations_business_id", name_col='business_id')
+    chicago_bus = make_chain_var(chicago_bus, loc_col="num_locations_ownership", name_col='cleaned_ownership_name')
+    chicago_bus = make_chain_var(chicago_bus, loc_col="num_locations_dba_name", name_col='cleaned_dba_name')
+    chicago_bus = make_chain_var(chicago_bus, loc_col="num_locations_business_name", name_col='cleaned_business_name')
+    chicago_bus.to_csv(data_dict['final']['chicago']['business location'] + '/business_locations.csv', index=False)
+
+def baton_rouge_business_vars(n_cores = 4):
+    baton_rouge_bus = pd.read_csv(data_dict['intermediate']['baton_rouge']['business location'] + '/business_location_addresses_merged.csv')
+    def wrapper(baton_rouge_bus):
+        baton_rouge_bus = parse_business(df=baton_rouge_bus, business_name_col='cleaned_ownership_name', use_business_name_as_base=True)
+        baton_rouge_bus = parse_business(df=baton_rouge_bus, business_name_col='cleaned_business_name', use_business_name_as_base=True)
+        baton_rouge_bus = parse_business(df=baton_rouge_bus, business_name_col='cleaned_dba_name', use_business_name_as_base=True)
+        baton_rouge_bus = make_publically_traded_vars(baton_rouge_bus, 'cleaned_dba_name_short_name',
+                                                publically_traded_col="dba_is_publicly_traded")
+
+        baton_rouge_bus = make_publically_traded_vars(baton_rouge_bus, 'cleaned_business_name_short_name',
+                                             publically_traded_col="business_is_publicly_traded")
+
+        baton_rouge_bus = make_publically_traded_vars(baton_rouge_bus, 'cleaned_ownership_name_short_name',
+                                                publically_traded_col="ownership_name_is_publicly_traded")
+        baton_rouge_bus = make_panel(
+            df=baton_rouge_bus, start_year='location_start_year', end_year='location_end_year', keep_cum_count=True
+        )
+        return baton_rouge_bus
+    baton_rouge_bus = parallelize_dataframe(baton_rouge_bus, wrapper, n_cores = n_cores)
+    baton_rouge_bus = make_chain_var(baton_rouge_bus, loc_col="num_locations_business_id", name_col='business_id')
+    baton_rouge_bus = make_chain_var(baton_rouge_bus, loc_col="num_locations_ownership", name_col='cleaned_ownership_name')
+    baton_rouge_bus = make_chain_var(baton_rouge_bus, loc_col="num_locations_dba_name", name_col='cleaned_dba_name')
+    baton_rouge_bus = make_chain_var(baton_rouge_bus, loc_col="num_locations_business_name", name_col='cleaned_business_name')
+    baton_rouge_bus.to_csv(data_dict['final']['baton_rouge']['business location'] + '/business_locations.csv', index=False)
 
 def stl_business_vars(n_cores = 4):
     stl_bus = pd.read_csv(data_dict['intermediate']['stl']['business location'] + '/business_location_addresses_merged.csv')
-    stl_bus['location_end_year'] = stl_bus['location_end_year'] - 1
     def wrapper(stl_bus):
         stl_bus = parse_business(df=stl_bus, business_name_col='cleaned_ownership_name', use_business_name_as_base=True)
+        stl_bus = parse_business(df=stl_bus, business_name_col='cleaned_business_name', use_business_name_as_base=True)
         stl_bus = parse_business(df=stl_bus, business_name_col='cleaned_dba_name', use_business_name_as_base=True)
-        # stl_bus = stl_bus[stl_bus['is_business'] == 'business']
         stl_bus = make_publically_traded_vars(stl_bus, 'cleaned_dba_name_short_name',
                                                 publically_traded_col="dba_is_publicly_traded")
 
+        stl_bus = make_publically_traded_vars(stl_bus, 'cleaned_business_name_short_name',
+                                             publically_traded_col="business_is_publicly_traded")
+
         stl_bus = make_publically_traded_vars(stl_bus, 'cleaned_ownership_name_short_name',
                                                 publically_traded_col="ownership_name_is_publicly_traded")
-        # stlis already basically panel
         stl_bus = make_panel(
             df=stl_bus, start_year='location_start_year', end_year='location_end_year', keep_cum_count=True
         )
-        stl_bus = make_chain_var(stl_bus)
         return stl_bus
     stl_bus = parallelize_dataframe(stl_bus, wrapper, n_cores = n_cores)
-    print(stl_bus['year'].value_counts())
+    stl_bus = make_chain_var(stl_bus, loc_col="num_locations_business_id", name_col='business_id')
+    stl_bus = make_chain_var(stl_bus, loc_col="num_locations_ownership", name_col='cleaned_ownership_name')
+    stl_bus = make_chain_var(stl_bus, loc_col="num_locations_dba_name", name_col='cleaned_dba_name')
+    stl_bus = make_chain_var(stl_bus, loc_col="num_locations_business_name", name_col='cleaned_business_name')
     stl_bus.to_csv(data_dict['final']['stl']['business location'] + '/business_locations.csv', index=False)
 
+
+def sf_business_vars(n_cores = 4):
+    sf_bus = pd.read_csv(data_dict['intermediate']['sf']['business location'] + '/business_location_addresses_merged.csv')
+    def wrapper(sf_bus):
+        sf_bus = parse_business(df=sf_bus, business_name_col='cleaned_ownership_name', use_business_name_as_base=True)
+        sf_bus = parse_business(df=sf_bus, business_name_col='cleaned_business_name', use_business_name_as_base=True)
+        sf_bus = parse_business(df=sf_bus, business_name_col='cleaned_dba_name', use_business_name_as_base=True)
+        sf_bus = make_publically_traded_vars(sf_bus, 'cleaned_dba_name_short_name',
+                                                publically_traded_col="dba_is_publicly_traded")
+
+        sf_bus = make_publically_traded_vars(sf_bus, 'cleaned_business_name_short_name',
+                                             publically_traded_col="business_is_publicly_traded")
+
+        sf_bus = make_publically_traded_vars(sf_bus, 'cleaned_ownership_name_short_name',
+                                                publically_traded_col="ownership_name_is_publicly_traded")
+        sf_bus = make_panel(
+            df=sf_bus, start_year='location_start_year', end_year='location_end_year', keep_cum_count=True
+        )
+        return sf_bus
+    sf_bus = parallelize_dataframe(sf_bus, wrapper, n_cores = n_cores)
+    sf_bus = make_chain_var(sf_bus, loc_col="num_locations_business_id", name_col='business_id')
+    sf_bus = make_chain_var(sf_bus, loc_col="num_locations_ownership", name_col='cleaned_ownership_name')
+    sf_bus = make_chain_var(sf_bus, loc_col="num_locations_dba_name", name_col='cleaned_dba_name')
+    sf_bus = make_chain_var(sf_bus, loc_col="num_locations_business_name", name_col='cleaned_business_name')
+    sf_bus.to_csv(data_dict['final']['sf']['business location'] + '/business_locations.csv', index=False)
 
 if __name__ == "__main__":
 
     write_to_log(f'Starting clean business data at {WTL_TIME}')
     # initialize data dict
     data_dict = make_data_dict(use_seagate=True)
-
-    # read in CLEANED business data
-    # sf_bus = pd.read_csv(data_dict['intermediate']['sf']['business location'] + '/business_location.csv')
-    # sf_add = pd.read_csv(data_dict['intermediate']['sf']['parcel'] + '/addresses.csv')
-    # sf_bus = merge_addresses(sf_bus, sf_add)
-    # sf_bus = merge_addresses(sf_bus, sf_add)
-    # la_bus = pd.read_csv(data_dict['intermediate']['la']['business location'] + '/business_location.csv')
-    # philly_bus = pd.read_csv(data_dict['intermediate']['philly']['business location'] + '/business_location.csv')
-
-    # chi_bus = pd.read_csv(data_dict['intermediate']['chicago']['business location'] + '/business_location.csv')
-    # seattle_bus = pd.read_csv(data_dict['intermediate']['seattle']['business location'] + '/business_location.csv')
     #
-    # # add business name columns
-    # sf_bus = parse_business(df=sf_bus, business_name_col='cleaned_dba_name', use_business_name_as_base =True)
-    # sf_bus = parse_business(df=sf_bus, business_name_col='cleaned_ownership_name', use_business_name_as_base=True)
-    #
-    # la_bus = parse_business(df=la_bus, business_name_col='cleaned_business_name', use_business_name_as_base =True)
-    # la_bus = parse_business(df=la_bus, business_name_col='cleaned_dba_name', use_business_name_as_base=True)
-
-    # philly_bus = parse_business(df=philly_bus, business_name_col='cleaned_business_name', use_business_name_as_base=True)
-    # philly_bus = parse_business(df=philly_bus, business_name_col='cleaned_dba_name', use_business_name_as_base=True)
-
-    # chi_bus = parse_business(df=chi_bus, business_name_col='cleaned_business_name', use_business_name_as_base=True)
-    # chi_bus = parse_business(df=chi_bus, business_name_col='cleaned_dba_name', use_business_name_as_base=True)
-    #
-    # seattle_bus = parse_business(df=seattle_bus, business_name_col='cleaned_business_name',
-    #                              use_business_name_as_base=True)
-    # seattle_bus = parse_business(df=seattle_bus, business_name_col='cleaned_dba_name', use_business_name_as_base=True)
-    #
-    # # filter dfs to be not businesses that I think are sole proprietorships
-    # sf_bus = sf_bus[sf_bus['is_business'] == 'business']
-    # la_bus = la_bus[la_bus['is_business'] == 'business']
-    # seattle_bus = seattle_bus[seattle_bus['is_business'] == 'business']
-    # philly_bus = philly_bus[philly_bus['is_business'] == 'business']
-    # chi_bus = chi_bus[chi_bus['is_business'] == 'business']
-
-    # make time-invarient business vars
-    # sf_bus = make_publically_traded_vars(sf_bus, 'cleaned_dba_name_short_name',
-    #                                      publically_traded_col="dba_is_publicly_traded")
-    # sf_bus = make_publically_traded_vars(sf_bus, 'cleaned_ownership_name_short_name',
-    #                                      publically_traded_col="business_name_is_publicly_traded")
-    #
-    # la_bus = make_publically_traded_vars(la_bus, 'cleaned_dba_name_short_name',
-    #                                      publically_traded_col="dba_is_publicly_traded")
-    # la_bus = make_publically_traded_vars(la_bus, 'cleaned_business_name_short_name',
-    #                                      publically_traded_col="business_name_is_publicly_traded")
-    #
-    # seattle_bus = make_publically_traded_vars(seattle_bus, 'cleaned_dba_name_short_name',
-    #                                             publically_traded_col="dba_is_publicly_traded")
-    #
-    # seattle_bus = make_publically_traded_vars(seattle_bus, 'cleaned_business_name_short_name',
-    #                                             publically_traded_col="business_name_is_publicly_traded")
-
-    # philly_bus = make_publically_traded_vars(philly_bus, 'cleaned_dba_name_short_name',
-    #                                      publically_traded_col="dba_is_publicly_traded")
-    #
-    # philly_bus = make_publically_traded_vars(philly_bus, 'cleaned_business_name_short_name',
-    #                                      publically_traded_col="business_name_is_publicly_traded")
-
-    # chi_bus = make_publically_traded_vars(chi_bus, 'cleaned_dba_name_short_name',
-    #                                         publically_traded_col="dba_is_publicly_traded")
-    #
-    # chi_bus = make_publically_traded_vars(chi_bus, 'cleaned_business_name_short_name',
-    #                                         publically_traded_col="business_name_is_publicly_traded")
-
-    # make panel
-    # sf_bus = make_panel(
-    #     df=sf_bus, start_year='location_start_year', end_year='location_end_year', keep_cum_count=True
-    # )
-    #
-    # la_bus = make_panel(
-    #     df=la_bus, start_year='location_start_year', end_year='location_end_year', keep_cum_count=True
-    # )
-    # # chicago is already psuedo panel
-    # chi_bus = make_panel(
-    #     df=chi_bus, start_year='location_start_year', end_year='location_end_year', keep_cum_count=True
-    # )
-
-    # philly_bus = make_panel(
-    #     df=philly_bus, start_year='location_start_year', end_year='location_end_year', keep_cum_count=True
-    # )
-
-    # seattle_bus = make_panel(
-    #     df=seattle_bus, start_year='location_start_year', end_year='location_end_year', keep_cum_count=True
-    # )
-    #
-    # sf_bus = make_chain_var(sf_bus)
-    # seattle_bus = make_chain_var(seattle_bus)
-    # chi = make_chain_var(chi_bus)
-    # la_bus = make_chain_var(la_bus, name_col='cleaned_business_name', chain_col="num_locations_business_name")
-    # la_bus = make_chain_var(la_bus, name_col='cleaned_dba_name', chain_col="num_locations_dba_name")
-    # philly_bus = make_chain_var(philly_bus, name_col='cleaned_business_name', chain_col="num_locations_business_name")
-    # philly_bus = make_chain_var(philly_bus, name_col='cleaned_dba_name', chain_col="num_locations_dba_name")
-    #
-    # sf_bus.to_csv(data_dict['final']['sf']['business location'] + '/business_locations.csv', index=False)
-    # la_bus.to_csv(data_dict['final']['la']['business location'] + '/business_locations.csv', index=False)
-    # philly_bus.to_csv(data_dict['final']['philly']['business location'] + '/business_locations.csv', index=False)
-    # chi_bus.to_csv(data_dict['final']['chicago']['business location'] + '/business_locations.csv', index=False)
-    # seattle_bus.to_csv(data_dict['final']['seattle']['business location'] + '/business_locations.csv', index=False)
-    # chi_business_vars(4)
-    # baton_rouge_business_vars(4)
-    sd_business_vars(4)
     # stl_business_vars(4)
+    # baton_rouge_business_vars(4)
+    # sf_business_vars(4)
+    # la_business_vars(4)
+    # chicago_business_vars(4)
+    # philly_business_vars(4)
+    seattle_business_vars(4)
