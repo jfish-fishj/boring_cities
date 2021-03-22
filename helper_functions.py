@@ -188,8 +188,10 @@ def clean_column_names(col_list):
     new_col_list = [clean_column(x) for x in col_list]
     return new_col_list
 
-def make_year_var(df, date_col, new_col):
+def make_year_var(df, date_col, new_col, round_down=False):
     df[new_col] = df[date_col].astype(str).str.extract('([0-9]{4})')
+    if round_down is not False:
+        df[new_col] = df[new_col].astype(int) -1
     return(df)
 
 def add_subset_address_cols(df):

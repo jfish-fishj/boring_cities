@@ -1273,6 +1273,9 @@ def parse_and_split(dataframe, name_col, firstName_col, lastName_col, initial_co
 
 def clean_business_name(df, business_name_col, numbers_format=False):
     # df[business_name_col] = df[business_name_col].apply(remove_commas)
+    if not pd.api.types.is_string_dtype(df[business_name_col]):
+        write_to_log(f"{business_name_col} is not string type. not attempting to clean")
+        return df
     df[business_name_col] = df[business_name_col].str.replace(r',|-|:|;|\?|\.', ' ')
     df[business_name_col] = df[business_name_col].str.replace(r'(\s)(no\s|number\s|unit\s)([0-9]+)', r'g<1>#\g<3>')
     df[business_name_col] = df[business_name_col].str.replace(r'(\b)(the)(\b)', r'\g<1>')
@@ -1304,6 +1307,11 @@ def clean_business_name(df, business_name_col, numbers_format=False):
 
 
 def make_business_main_type_col(df, business_main_type_col, business_name_col):
+
+    if not pd.api.types.is_string_dtype(df[business_name_col]):
+        write_to_log(f"{business_name_col} is not string type. not attempting to clean")
+        df[business_main_type_col] = np.nan
+        return df
 
     df[business_main_type_col] = np.where(df[business_name_col].str.contains(
         pat=r'\b(corp|inco?r?p?o?r?a?t?e?d?|i?n?corpo?r?a?t?i?o?n?|inc)\b', flags=re.IGNORECASE, na=False),
@@ -1368,6 +1376,10 @@ def make_business_main_type_col(df, business_main_type_col, business_name_col):
 
 
 def make_business_sub_type_col(df, business_sub_type_col, business_name_col):
+    if not pd.api.types.is_string_dtype(df[business_name_col]):
+        write_to_log(f"{business_name_col} is not string type. not attempting to clean")
+        df[business_sub_type_col] = np.nan
+        return df
     df[business_sub_type_col] = np.where((df[business_name_col].str.contains(
         pat=r'\b(church|baptist|methodist|protestant|jewish|episcopal|buddhist)\b', flags=re.IGNORECASE, na=False)),
         'religious',
@@ -1388,6 +1400,9 @@ def make_business_sub_type_col(df, business_sub_type_col, business_name_col):
 
 def make_business_short_name_col(df, business_short_name_col, business_name_col, business_sub_type_col, bank_names):
     df[business_short_name_col] = np.nan
+    if not pd.api.types.is_string_dtype(df[business_name_col]):
+        write_to_log(f"{business_name_col} is not string type. not attempting to clean")
+        return df
     df[business_short_name_col].fillna(df[business_name_col].str.extract(
         r'(.+)(\sof(boston|ma|new\sengland|lowell|medford|chelsea))',  # make sure to add more city names
         flags=re.IGNORECASE).iloc[:, 0], inplace=True)
@@ -1472,6 +1487,9 @@ def make_business_short_name_col(df, business_short_name_col, business_name_col,
 def make_business_proper_name_col(df, business_proper_name_col, business_name_col,
                                   business_short_name_col, business_main_type_col):
     df[business_proper_name_col] = df[business_short_name_col]
+    if not pd.api.types.is_string_dtype(df[business_name_col]):
+        write_to_log(f"{business_name_col} is not string type. not attempting to clean")
+        return df
     df[business_proper_name_col] = df[business_proper_name_col].str.replace(
         r'\b(realty|real|leasing|groups?|assoc?i?a?t?i?o?n?s?|assoc?i?a?t?e?s?|condos?|owners?|(asset)?\s?ma?na?ge?me?nt|'
         r'tenant\s?|properties|property|nomi?n?e?e?|partners?|member|i?r?revocable|rev|trust|investors?|investments?|'
@@ -1543,6 +1561,10 @@ def make_business_proper_name_col(df, business_proper_name_col, business_name_co
 
 
 def make_alphabetized_name(df, name_column, alphabetized_col):
+    if not pd.api.types.is_string_dtype(df[name_column]):
+        write_to_log(f"{name_column} is not string type. not attempting to clean")
+        df[alphabetized_col] = np.nan
+        return df
     df['splitCol'] = df[name_column].str.split(' ')
     df['splitCol'] = df['splitCol'].sort_values().apply(lambda x: sorted(x))
     df[alphabetized_col] = df['splitCol'].str.join(' ')
@@ -1562,18 +1584,20 @@ def parse_business(df, business_name_col, business_main_type_col = 'business_mai
         business_proper_name_col = business_name_col + "_proper_name"
     for col in [business_short_name_col, business_sub_type_col, business_main_type_col]:
         if col not in list(df.columns):
-            # write_to_log('adding {}'.format(col))
             df[col] = np.nan
     if df.shape[0] == 0:
         if log is not False:
             write_to_log('Dataframe has no shape not trying to parse')
         return df
-    df = clean_business_name(df=df, business_name_col=business_name_col, numbers_format=numbers_format)
+    df = clean_business_name(df=df, business_name_col=business_name_col,
+                             numbers_format=numbers_format)
     df_full = df.drop(columns=[business_short_name_col, business_sub_type_col, business_main_type_col]).copy(deep=True)
     df = df[[business_name_col]].drop_duplicates(subset=[business_name_col])
-    df = make_business_main_type_col(df=df, business_name_col=business_name_col, business_main_type_col=business_main_type_col)
+    df = make_business_main_type_col(df=df, business_name_col=business_name_col,
+                                     business_main_type_col=business_main_type_col)
     # subtype
-    df = make_business_sub_type_col(df=df, business_sub_type_col=business_sub_type_col, business_name_col=business_name_col)
+    df = make_business_sub_type_col(df=df, business_sub_type_col=business_sub_type_col,
+                                    business_name_col=business_name_col)
     # short name
     df = make_business_short_name_col(df=df, business_short_name_col=business_short_name_col,
                                       business_name_col=business_name_col, bank_names=bank_names,
