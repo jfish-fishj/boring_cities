@@ -9,10 +9,11 @@ import numpy as np
 def make_qc_aggs( bls_df, city ):
     data_dict = make_data_dict(use_seagate=True)
     bus_df = pd.read_csv(data_dict['final'][city]['business location'] + "business_locations.csv",
-                         usecols=["year", "parsed_city", "parsed_addr_zip",
+                         usecols=["year", "parsed_city", "parsed_addr_zip","is_business",
                                   "cleaned_business_name", "cleaned_dba_name", "primary_cleaned_fullAddress"]).\
         drop_duplicates(subset = ["cleaned_business_name", "cleaned_dba_name", "primary_cleaned_fullAddress", "year"])
     bus_df = bus_df.assign(index = np.arange(bus_df.shape[0]))
+    bus_df = bus_df[bus_df['is_business'] != "person"]
     bls_df = bls_df[(bls_df['parsed_city'].isin(bus_df['parsed_city'])) &
                     (bls_df['year'].isin(bus_df['year']))]
     bls_city_agg = (
@@ -21,8 +22,6 @@ def make_qc_aggs( bls_df, city ):
             agg(**{"num_establishments": ('est', 'sum')}).
             reset_index()
     )
-
-
 
     # bls_city_naics_agg =(
     #     bls_df.
@@ -93,7 +92,7 @@ if __name__ == "__main__":
         # 'stl',
         # 'sf',
         # 'seattle',
-        'sd',
+        # 'sd',
         # 'chicago',
         # 'baton_rouge',
         # 'la',
