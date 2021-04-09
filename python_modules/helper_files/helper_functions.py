@@ -6,10 +6,14 @@ import pandas as pd
 from datetime import datetime
 import re
 from fuzzywuzzy import fuzz
-from data_constants import filePrefix, address_cols
+import data_constants
 import numpy as np
 WTL_TIME = datetime.today().strftime('%Y-%m-%d')
 
+
+# generic logging function,
+# text is what you want to log, tabs lets you format logging, doPrint prints to console, warn warns, loc based tabbing
+# guesses how to format text
 def write_to_log(text, tabs=0, doPrint=True, warn=False,loc_based_tabbing = False):
     """
     
@@ -27,10 +31,10 @@ def write_to_log(text, tabs=0, doPrint=True, warn=False,loc_based_tabbing = Fals
     if loc_based_tabbing:
         tabs = len(inspect.stack())
 
-    if not os.path.exists((filePrefix + "/Logs/{}".format(WTL_TIME))):
-        os.mkdir((filePrefix + "/Logs/{}".format(WTL_TIME)))
+    if not os.path.exists((data_constants.filePrefix + "/logs/{}".format(WTL_TIME))):
+        os.mkdir((data_constants.filePrefix + "/logs/{}".format(WTL_TIME)))
 
-    f = open((filePrefix + '/Logs/{}/__OVERALL_LOG__.txt'.format(WTL_TIME)), "a+")
+    f = open((data_constants.filePrefix + '/logs/{}/__OVERALL_LOG__.txt'.format(WTL_TIME)), "a+")
 
     text = text.rjust(len(text) + tabs * 3)
     if tabs == 0:
@@ -42,11 +46,14 @@ def write_to_log(text, tabs=0, doPrint=True, warn=False,loc_based_tabbing = Fals
         print(text)
     if warn:
         warnings.warn(text)
-        w = open((filePrefix + '/Logs/{}/__Warnings.txt'.format(WTL_TIME)),"a+")
+        w = open((data_constants.filePrefix + '/logs/{}/__Warnings.txt'.format(WTL_TIME)),"a+")
         w.write(text + "\n")
 
 
-def interpolate_polygon(df, id_col, direction):
+# function for taking a polygon and interpolating it into a series of coordinates
+# so if a polygon goes from (0,0) to (10,10) with eleven splits in between it will return a dataframe with
+# lat long coordinates of (0,0), (1,1), ..., (10,10)
+def interpolate_polygon(df:pd.DataFrame, id_col:str, direction:str):
     # idea of function is that if i new which way the streets run then i am able to tell how increases in street numbers
     # map to coordinates
     # so a nw street has its smallest numbers in the south east and increases going north west
@@ -137,8 +144,10 @@ def interpolate_polygon(df, id_col, direction):
 
     return df
 
-# function that takes data w/ start and end year and turns into panel
-def make_panel(df, start_year, end_year, current_year = 2020,
+
+# function that takes creates a panel based on a start column and an end column
+# so a row with start = 1 and end = 10 gets turned into 10 rows begining at 1 and ending at 10
+def make_panel(df:pd.DataFrame, start_year:str, end_year:str, current_year = 2020,
                keep_cum_count=False, limit=False, drop_future=True, evens_and_odds = False):
     """
     :param df: dataframe to be made into panel
@@ -148,6 +157,7 @@ def make_panel(df, start_year, end_year, current_year = 2020,
     :param keep_cum_count: allows you to keep the running variable (eg num years observation has existed)
     :param limit: allows you to limit max number of years
     :param drop_future: allows you to drop observations with start year > current year
+    :param evens_and_odds: instead of creating an index between 1 -> 5, for example it evens and odds creates 1, 3, 5
     :return: expanded dataframe
     """
     # drop any with no startyear
@@ -179,7 +189,8 @@ def make_panel(df, start_year, end_year, current_year = 2020,
     return(df)
 
 
-def clean_column_names(col_list):
+# generic function for cleaning columns, replaced with janitor package
+def clean_column_names(col_list:list):
     def clean_column(string):
         string = str.lower(string) # make lowercase
         string = re.sub(pattern='\s',string=string, repl='_') # replace spaces w/ underscores
@@ -188,21 +199,139 @@ def clean_column_names(col_list):
     new_col_list = [clean_column(x) for x in col_list]
     return new_col_list
 
-def make_year_var(df, date_col, new_col, round_down=False):
-    df[new_col] = df[date_col].astype(str).str.extract('([0-9]{4})')
+
+# takes a string-date column with any format that has a yyyy and returns the year as an float
+# round down returns the year minus 1
+# TODO REWRITE SO THAT THIS DOESNT REQUIRE A WHOLE DATAFRAME FOR LOWER MEMORY USAGE
+def make_year_var(df:pd.DataFrame, date_col:str, new_col:str, round_down=False):
+    df[new_col] = df[date_col].astype(str).str.extract('([0-9]{4})').astype(float)
     if round_down is not False:
-        df[new_col] = df[new_col].astype(int) -1
+        df[new_col] = df[new_col].astype(float) -1
     return(df)
 
-def add_subset_address_cols(df):
-    for col in address_cols:
+
+# takes a dataframe and returns that dataframe with just the address_cols from data constants
+# missing columns are set as NA
+def add_subset_address_cols(df:pd.DataFrame) -> pd.DataFrame:
+    for col in data_constants.address_cols:
         if col not in df.columns:
             df[col] = np.nan
-    df = df[address_cols]
+    df = df[data_constants.address_cols]
     return df
 
-def fuzzy_merge(df1,df2, left_fuzzy_col, right_fuzzy_col, left_cols, right_cols, threshold, indicator = True,
-                suffixes=None):
+
+# returns dataframe w/ only business cols from data constants, if columns are missing assigns NA
+def add_subset_business_cols(df:pd.DataFrame):
+    for col in data_constants.business_cols:
+        if col not in df.columns:
+            df[col] = np.nan
+    return df[data_constants.business_cols]
+
+
+# make naics vars (uses 2017 NAICS codes)
+# helper function for seeing how much granulairity is contained within an naics col
+def get_naics_depth(naics_col:pd.Series) -> pd.Series:
+    return naics_col.fillna("").astype(str).str.replace("[0\D]+", "").str.len()
+
+
+def subset_naics_col(naics_col:pd.Series, depth:int) -> pd.Series:
+    col = naics_col.fillna("").astype(str).str.replace("[0\D]+", "").str.slice(0, depth)
+    col =pd.Series(np.where(
+        col.str.len() < depth, np.nan, col
+    ))
+    return col
+
+
+def get_naics_descr(naics_col:pd.Series) -> pd.Series:
+    naics = (pd.read_csv(data_constants.misc_data_dict['naics'],
+                        usecols=["2017 NAICS US   Code","2017 NAICS US Title"],
+                        dtype={
+                            "2017 NAICS US Title": str,
+                            "2017 NAICS US   Code": str,
+                        }))
+    naics["2017 NAICS US   Code"] = naics["2017 NAICS US   Code"].str.strip()
+    naics = dict(naics.values)
+
+    # there are 7 rows where there is a - ie.e 44-45 = retail trade
+    naics["44"] = "Retail Trade"
+    naics["45"] = "Retail Trade"
+    naics["48"] = "Transportation and Warehousing"
+    naics["49"] = "Transportation and Warehousing"
+    naics["31"] = "Manufacturing"
+    naics["32"] = "Manufacturing"
+    naics["33"] = "Manufacturing"
+    return naics_col.fillna("").astype(str).str.replace("[0\D]+", "").map(naics)
+
+
+# function takes df and naics column and returns that dataframe with the following columns:
+# naics_descr_2 : two digit naics code description
+def make_naics_vars(df:pd.DataFrame, naics_col:str = "naics") -> pd.DataFrame:
+    # min, max depth are not needed as of now
+    # min_depth = get_naics_depth(df[naics_col]).max()
+    # max_depth = get_naics_depth(df[naics_col]).min()
+    df['naics_descr_2'] = get_naics_descr(
+        subset_naics_col(df[naics_col], 2)
+    )
+    df['naics_descr_3'] = get_naics_descr(
+        subset_naics_col(df[naics_col], 3)
+    )
+    df['naics_descr2_standardized'] = naics_to_business_type_coarse(df['naics_descr_2'],
+                                                                    xwalk = data_constants.naics_two_digit_business_type_coarse_xwalk)
+    df['naics_descr3_standardized'] = naics_to_business_type_coarse(df['naics_descr_3'],
+                                                                    xwalk = data_constants.naics_three_digit_business_type_coarse_xwalk)
+    return df
+
+
+def naics_to_business_type_coarse(naics:pd.Series, xwalk:dict = data_constants.naics_two_digit_business_type_coarse_xwalk) -> pd.Series:
+    return naics.map(xwalk)
+
+
+def standardize_business_type(business_type:pd.Series, standardize_dict:dict) -> pd.Series:
+    return business_type.map(standardize_dict)
+
+
+def guess_business_type_from_name(name:pd.Series) -> np.ndarray:
+    return np.where(
+        name.str.contains("manufact|agric|utilit|\soil\s|PG&E|\selectric\s|chemical|auto|\btire", flags = re.IGNORECASE),
+        "industrial",
+        np.where(
+            name.str.contains("construction|brick", flags = re.IGNORECASE),
+        )
+    )
+
+
+def get_business_type(df:pd.DataFrame, naics_col:str = "naics_descr3_standardized",
+                      business_type_col:str = "business_type_standardized",business_name:str = "cleaned_business_name",
+                      dba_name:str = "cleaned_dba_name"):
+    # start from a standardized business type column
+    # where the business type is unknown, or other, fill in from an naics column crosswalked to standardized values
+    # where the business type is still unknown or other, try to fill in w/ the business names TODO IMPLEMENT THIS
+    df['business_type_imputed'] = np.where(
+        df[business_type_col].isin([x for x in data_constants.business_types_coarse if x not in
+                                    ["other", "unknown", "not a business"]]),
+        df[business_type_col],
+        np.where(
+            df[naics_col].isin([x for x in data_constants.business_types_coarse if x not in
+                                    ["other", "unknown", "not a business"]]),
+            df[naics_col],
+            np.nan
+        )
+    )
+    return df
+
+
+# function for doing left fuzzy merges between two datasets where you want to exact match on a set of columns
+# and do a fuzzy match on an additional column.
+# df1 and df2 are pandas dataframes (function does a left join w/ df1)
+# right fuzzy col is the name of the column in df2 that you want to fuzzy join on
+# left fuzzy col is the name of the column in df1 that you want to fuzzy join on
+# left cols and right cols are the columns in df1 and df2 that you want to exact match on
+# indicator specifies if you want the indicator column _merged to be in the dataframe
+# suffixes are a list of desired suffixes to be added to the merged columns if they appear in both dataframes
+# returns a merged dataframe
+def fuzzy_merge(df1:pd.DataFrame, df2:pd.DataFrame, left_fuzzy_col:str,
+                right_fuzzy_col:str, left_cols:list, right_cols:list, threshold:int, indicator = True,
+                suffixes=None) -> pd.DataFrame:
     if suffixes is None:
         suffixes = [None, '_from_address']
     if threshold == "from column":
@@ -230,8 +359,9 @@ def fuzzy_merge(df1,df2, left_fuzzy_col, right_fuzzy_col, left_cols, right_cols,
     return df1
 
 
-def get_nearest_address(df1,df2, n1_col_left, n1_col_right, right_cols, left_cols, threshold=5, indicator=True,
-                        suffixes=None):
+# equivalent to doing a fuzzy merge on a numeric column. similar to doing a rolling join but with absolute distance
+def get_nearest_address(df1:pd.DataFrame,df2:pd.DataFrame, n1_col_left:str, n1_col_right:str, right_cols:list,
+                        left_cols:list, threshold=5, indicator=True,suffixes=None) -> pd.DataFrame:
     if suffixes is None:
         suffixes = [None, '_from_address']
     if "_merge" in df1.columns:

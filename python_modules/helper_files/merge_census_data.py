@@ -1,4 +1,4 @@
-from helper_functions import write_to_log
+from python_modules.helper_files.helper_functions import write_to_log
 import geopandas as gpd
 import pandas as pd
 from data_constants import *
@@ -93,6 +93,24 @@ if __name__ == "__main__":
     # philly_bus = (pd.read_csv(data_dict['final']['philly']['business location'] + 'business_locations.csv').
     #               rename(columns = {"lat": "lat_from_address", "long": "long_from_address"})
     #               )
+    sf_bus = pd.read_csv(data_dict['final']['sf']['business location'] + 'business_locations.csv', dtype = {'CT_ID_10': str}).rename(
+       columns = { "long": "long_from_address", "lat":"lat_from_address"}
+    )
+    # read in census data
+    ca_shp = gpd.read_file(census_data_dict['ca bg shp'])
+    census_tracts = pd.read_csv(census_data_dict['census tract data'], dtype = {'GEOID10': str})
+    census_tracts['GEOID10'] = census_tracts['GEOID10'].str.pad(width = 11, side="left", fillchar = '0')
+    print(census_tracts['GEOID10'].str.len().value_counts())
+
+    # overlay GEOID
+    sf_bus = merge_GEOID(sf_bus, ca_shp)
+    print(sf_bus['CT_ID_10'].str.len().value_counts())
+    sf_bus = merge_census_tract_data(sf_bus, census_tracts, panel=True)
+    print(sum(sf_bus['pop'].isna()))
+    sf_bus.to_csv(data_dict['final']['sf']['business location'] + '/business_location_panel.csv', index = False)
+    # philly_bus = (pd.read_csv(data_dict['final']['philly']['business location'] + 'business_locations.csv').
+    #               rename(columns = {"lat": "lat_from_address", "long": "long_from_address"})
+    #               )
     # # read in census data
     # pa_shp = gpd.read_file(census_data_dict['pa bg shp'])
     # census_tracts = pd.read_csv(census_data_dict['census tract data'], dtype={'GEOID10': str})
@@ -120,29 +138,27 @@ if __name__ == "__main__":
     # print(sum(chicago_bus['pop'].isna()))
     # chicago_bus.to_csv(data_dict['final']['chicago']['business location'] + '/business_location_panel.csv', index=False)
     # baton_rouge_bus = (pd.read_csv(data_dict['final']['baton_rouge']['business location'] + '/business_locations.csv'))
-    # print(baton_rouge_bus['lat'].isna().sum() / baton_rouge_bus.shape[0])
-    # print(baton_rouge_bus['lat_from_address'].isna().sum() / baton_rouge_bus.shape[0])
-    # baton_rouge_bus['long_from_address'] = -1*baton_rouge_bus['long_from_address']
+    # baton_rouge_bus['long_from_address'] = baton_rouge_bus['long_from_address']
     # # read in census data
     # la_shp = gpd.read_file(census_data_dict['la bg shp'])
     # census_tracts = pd.read_csv(census_data_dict['census tract data'], dtype={'GEOID10': str})
     # census_tracts['GEOID10'] = census_tracts['GEOID10'].str.pad(width=11, side="left", fillchar='0')
-    #
+    # #
     # # overlay GEOID
     # baton_rouge_bus = merge_GEOID(baton_rouge_bus, la_shp)
     # baton_rouge_bus = merge_census_tract_data(baton_rouge_bus, census_tracts, panel=True)
     # print(sum(baton_rouge_bus['pop'].isna()))
     # baton_rouge_bus.to_csv(data_dict['final']['baton_rouge']['business location'] + '/business_location_panel.csv', index=False)
-    stl_bus = (pd.read_csv(data_dict['final']['stl']['business location'] + '/business_locations.csv'))
-    stl_bus['long_from_address'] = -1*(stl_bus['long_from_address'])
-
-    # read in census data
-    mo_shp = gpd.read_file(census_data_dict['mo bg shp'])
-    census_tracts = pd.read_csv(census_data_dict['census tract data'], dtype={'GEOID10': str})
-    census_tracts['GEOID10'] = census_tracts['GEOID10'].str.pad(width=11, side="left", fillchar='0')
-
-    # overlay GEOID
-    stl_bus = merge_GEOID(stl_bus, mo_shp)
-    stl_bus = merge_census_tract_data(stl_bus, census_tracts, panel=True)
-    stl_bus.to_csv(data_dict['final']['stl']['business location'] + '/business_location_panel.csv', index=False)
+    # stl_bus = (pd.read_csv(data_dict['final']['stl']['business location'] + '/business_locations.csv'))
+    # stl_bus['long_from_address'] = -1*(stl_bus['long_from_address'])
+    #
+    # # read in census data
+    # mo_shp = gpd.read_file(census_data_dict['mo bg shp'])
+    # census_tracts = pd.read_csv(census_data_dict['census tract data'], dtype={'GEOID10': str})
+    # census_tracts['GEOID10'] = census_tracts['GEOID10'].str.pad(width=11, side="left", fillchar='0')
+    #
+    # # overlay GEOID
+    # stl_bus = merge_GEOID(stl_bus, mo_shp)
+    # stl_bus = merge_census_tract_data(stl_bus, census_tracts, panel=True)
+    # stl_bus.to_csv(data_dict['final']['stl']['business location'] + '/business_location_panel.csv', index=False)
 

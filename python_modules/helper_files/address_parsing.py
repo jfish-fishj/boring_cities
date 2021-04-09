@@ -11,7 +11,7 @@ from data_constants import filePrefix
 from name_parsing import combine_names
 from pandas.api.types import is_string_dtype
 import time
-from helper_functions import write_to_log
+from python_modules.helper_files.helper_functions import write_to_log
 
 # get rid of setting with copy warnings
 pd.set_option('mode.chained_assignment', None)
@@ -108,7 +108,7 @@ def clean_unit_vectorized(dataframe, column, prefix=False):
         dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(r'\(.+?\)', "", regex=True,
                                                                         flags=re.IGNORECASE)
         dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(r'##', r"#", regex=True, flags=re.IGNORECASE)
-        dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(r'\s?,?\s?baltimore,?\s?(md|maryland)?$', r"",
+        dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(r'(.+)[\s,\s]{1,3}baltimore,?\s?(md|maryland)?$', r"\g<1>",
                                                                         regex=True, flags=re.IGNORECASE)
         # print("time elapsed: {:.2f}s".format(time.time() - clean_unit_start_time))
         # delete parenthesis
@@ -143,7 +143,7 @@ def clean_unit_vectorized(dataframe, column, prefix=False):
                                                                     )
         dataframe_dd[new_column] = dataframe_dd[new_column].replace(r'nan', np.nan, regex=False,
                                                                     )
-        dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(r'(\s?,?\s?baltimore,?\s?(md|maryland)?)$', r"",
+        dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(r'(.+)[\s,\s]{1,3}baltimore,?\s?(md|maryland)?$', r"\g<1>",
                                                                         regex=True, flags=re.IGNORECASE)
         dataframe_dd[new_column] = dataframe_dd[new_column].str.replace(r'(\s(1st|2nd|3rd)\sfloor)$', r"",
                                                                         regex=True, flags=re.IGNORECASE)
@@ -160,6 +160,8 @@ def clean_unit_vectorized(dataframe, column, prefix=False):
 
 
 # function for standardizing strings in address columns i.e. street - > st and avenue - > ave
+# takes in a dataframe and returns that dataframe with a standardized address column
+# prefix option allows you to create a copy of the standardized column
 def string_standardize_column_vectorized(dataframe, address_column, prefix, log=False):
     """Standardizes strings to be in accordance with US Postal Standards."""
     # create column with prefix and old column name
@@ -199,12 +201,12 @@ def string_standardize_column_vectorized(dataframe, address_column, prefix, log=
         'hts': ['ht', 'heights', 'hgts?'],
         'hwy': ['highway', 'highwy', 'hiway', 'hiwy', 'hway', 'hw'],
         'jct': ['ju?ncti?o?n'],
-        'ln': ['lan?e?', ],
+        'ln': ['lane' ],
         'lp': ['lo?o?p'],
         'mt': ['mntain', 'mntn', 'mountain', 'mountin', 'mtin', 'mtn', 'mount'],
         'n': ['north', 'no'],  # no can unfortunately be number or north depending
         'rd': ['road'],
-        'pk': ['park'],
+        'pk': ['parks?'],
         'pl': ['place'],
         'plz': ['plaza'],
         'pkwy': ['parkway'],
@@ -217,7 +219,7 @@ def string_standardize_column_vectorized(dataframe, address_column, prefix, log=
         'st': ['street', 'str', 'saint'],
         's': ['south', 'so'],
         'ter': ['terr', 'terrace', 'ter$', 'te'],
-        'tl': ['trail'],
+        'trl': ['trail', 'trl'],
         'w': ['west'],
         'way': ['wy'],
         '1': ['one'],
@@ -313,7 +315,7 @@ def string_standardize_column_vectorized(dataframe, address_column, prefix, log=
         dataframe.drop(columns={newCol}, inplace=True)
     return dataframe
 
-
+# wrapper function that calls clean unit vectorized and string standardize
 def clean_address_col(dataframe, address_col, prefix='cleaned'):
     dataframe = clean_unit_vectorized(dataframe, address_col, prefix=prefix)
     if prefix is False:
@@ -321,7 +323,7 @@ def clean_address_col(dataframe, address_col, prefix='cleaned'):
     dataframe = string_standardize_column_vectorized(dataframe, address_column=prefix + address_col, prefix=False)
     return dataframe
 
-
+# wrapper function for parsing an address
 def clean_parse_address(dataframe, address_col, unit, st_num, st_name, st_sfx, st_d,
                         zipcode, city, country, state, st_num2, prefix1='cleaned_', prefix2='parsed_',
                         legal_description=False, raise_error_on_na=True):
@@ -356,7 +358,7 @@ def clean_parse_address(dataframe, address_col, unit, st_num, st_name, st_sfx, s
     return dataframe
 
 
-#
+
 def parse_address(dataframe, address_col, unit_col, st_num_col, st_name_col, st_sfx_col, st_d_col,
                   zipcode_col, city_col, state_col, st_num2_col,
                   prefix='parsed_', legal_description_col=False, raise_error_on_na=True):
@@ -430,7 +432,7 @@ def parse_address(dataframe, address_col, unit_col, st_num_col, st_name_col, st_
     st_name = r'(\w{3,}|\w{3,}\s\w{3,}|[a-z\s-]{4,}|[a-z]+|[0-9]+)'
     st_sfx = r'(aly|ave|byu|blf|blvd|bd|br|cswy|ctr|cir|ct|cr|cv|crk|cres|xing|curv|dr|est|expy|ext|frk|ft|fwy|gdn|gtwy|hvn|' \
              r'hwy|hl|jct|ky|lks|ln|lgt|lp|mall|mnr|mdw|msn|mtn|pkwy|pass|path|pl|plz|pt|prt|pw|rst|rdge|rd|rte|rw|shr|' \
-             r'sq|st|strm|trak|turnpike|ter|tl|vly|vws|walk|way)'
+             r'sq|st|strm|trak|trl|turnpike|ter|tl|vly|vws|walk|way)'
     zipcode = r'([0-9]{5}|[0-9]{5}-[0-9]{4})'
     unit = r'#\s?([a-z0-9-]+|[0-9-]+-?[a-z]?|[a-z]-?[0-9]+|[up][0-9]?[abcd]|un\s[0-9abcd]|[a-z])'
     unit2 = r'\s([a-z]+-?[0-9]{1,4}|[uptcl][-\s]?[tl]?[0-9]{1,4}[abcd]?|un\s[0-9abcd]{1,4})'  # use this for when you don't need to know that there's a # before
@@ -551,7 +553,11 @@ def parse_address(dataframe, address_col, unit_col, st_num_col, st_name_col, st_
     if is_string_dtype(dataframe[parsed_st_name_col]):
         split2 = dataframe[parsed_st_name_col].str.extract("(\s|^)([nsew])(\s|$)")
         dataframe[parsed_sd_col].fillna(split2[2], inplace=True)
-        dataframe[parsed_st_name_col] = dataframe[parsed_st_name_col].str.replace("(\s|^)([nsew])(\s|$)", r"\g<3>")
+        dataframe[parsed_st_name_col] = np.where(
+            ~(dataframe[parsed_st_name_col].str.contains("^[nsew]$", na=True)),
+            dataframe[parsed_st_name_col].str.replace("(\s|^)([nsew])(\s|$)", r"\g<3>"),
+            dataframe[parsed_st_name_col]
+        )
         dataframe[parsed_st_name_col] = dataframe[parsed_st_name_col].str.replace('\s{2,}', ' ', flags=re.IGNORECASE)
         dataframe[parsed_st_name_col] = dataframe[parsed_st_name_col].str.strip()
     # clean zipcode column
@@ -571,7 +577,7 @@ def parse_address(dataframe, address_col, unit_col, st_num_col, st_name_col, st_
                                              '0' + dataframe[parsed_zip_col],
                                              dataframe[parsed_zip_col])
 
-        dataframe[parsed_zip_col] = dataframe[parsed_zip_col].str.replace(r'([0-9]{5})-([0-9]+)', r'\g<1>')
+        dataframe[parsed_zip_col] = dataframe[parsed_zip_col].str.replace(r'([0-9]{5})-([0-9]+)?', r'\g<1>')
         dataframe[parsed_zip_col] = '_' + dataframe[parsed_zip_col]
         dataframe[parsed_zip_col] = dataframe[parsed_zip_col].str.replace(r'^(_)\s?([0-9]{4})$', r'\g<1>0\g<2>')
 

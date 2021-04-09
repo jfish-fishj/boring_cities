@@ -6,7 +6,8 @@ import janitor
 import numpy as np
 
 
-def make_qc_aggs( bls_df, city ):
+# generic function for comparing business data to bls estimates
+def make_qc_aggs(bls_df:pd.DataFrame, city:str, make_naics_aggs=False):
     data_dict = make_data_dict(use_seagate=True)
     bus_df = pd.read_csv(data_dict['final'][city]['business location'] + "business_locations.csv",
                          usecols=["year", "parsed_city", "parsed_addr_zip","is_business",
@@ -23,31 +24,16 @@ def make_qc_aggs( bls_df, city ):
             reset_index()
     )
 
-    # bls_city_naics_agg =(
-    #     bls_df.
-    #         groupby(['parsed_city',"naics", 'year']).
-    #         agg(**{"num_establishments": ('est', 'sum')})
-    # )
     bus_df_city_agg = (
         bus_df.
             groupby(['parsed_city', 'year']).
             agg(**{"num_establishments": ('index', 'count')}).
             reset_index()
     )
-    # bus_df_city_naics_agg = (
-    #     bus_df.
-    #         groupby(['parsed_city','naics', 'year']).
-    #         agg(**{"num_establishments": 'size'})
-    # )
     city_agg = pd.merge(
         bls_city_agg, bus_df_city_agg, how="outer", suffixes=["_bls", "_business_loc"],
         on=["parsed_city", "year"]
                         )
-    # city_naics_agg = pd.merge(
-    #     bls_city_naics_agg, bus_df_city_naics_agg, how="outer", suffixes=["_bls", "_business_loc"],
-    #     on=["parsed_city", "year", "naics"]
-    #                     )
-
     # repeat for zipcode
     bls_city_zip_agg = (
         bls_df.
@@ -55,48 +41,64 @@ def make_qc_aggs( bls_df, city ):
             agg(**{"num_establishments": ('est', 'sum')}).
             reset_index()
     )
-    # bls_city_zip_naics_agg = (
-    #     bls_df.
-    #         groupby(['parsed_city','zip' , "naics", 'year']).
-    #         agg(**{"num_establishments": ('est', 'sum')})
-    # )
     bus_df_city_zip_agg = (
         bus_df.
             groupby(['parsed_city',"parsed_addr_zip", 'year']).
             agg(**{"num_establishments": ('index', 'count')}).
             reset_index()
     )
-    # bus_df_city_zip_naics_agg = (
-    #     bus_df.
-    #         groupby(['parsed_city',"parsed_addr_zip", 'naics', 'year']).
-    #         agg(**{"num_establishments": 'size'})
-    # )
     city_zip_agg = pd.merge(
         bls_city_zip_agg, bus_df_city_zip_agg, how="outer", suffixes=["_bls", "_business_loc"],
         left_on=["parsed_city", "year",'zip' ], right_on=["parsed_city", "year",'parsed_addr_zip']
     )
-    # city_zip_naics_agg = pd.merge(
-    #     bls_city_zip_naics_agg, bus_df_city_zip_naics_agg, how="outer", suffixes=["_bls", "_business_loc"],
-    #     left_on=["parsed_city", "year", "naics",'zip' ], right_on=["parsed_city", "year","naics",'parsed_addr_zip']
-    # )
+    if make_naics_aggs is not False:
+        bls_city_naics_agg =(
+            bls_df.
+                groupby(['parsed_city',"naics", 'year']).
+                agg(**{"num_establishments": ('est', 'sum')})
+        )
+        bus_df_city_naics_agg = (
+            bus_df.
+                groupby(['parsed_city','naics', 'year']).
+                agg(**{"num_establishments": 'size'})
+        )
+        city_naics_agg = pd.merge(
+            bls_city_naics_agg, bus_df_city_naics_agg, how="outer", suffixes=["_bls", "_business_loc"],
+            on=["parsed_city", "year", "naics"]
+                            )
+        bls_city_zip_naics_agg = (
+            bls_df.
+                groupby(['parsed_city','zip' , "naics", 'year']).
+                agg(**{"num_establishments": ('est', 'sum')})
+        )
+        bus_df_city_zip_naics_agg = (
+            bus_df.
+                groupby(['parsed_city',"parsed_addr_zip", 'naics', 'year']).
+                agg(**{"num_establishments": 'size'})
+        )
+        city_zip_naics_agg = pd.merge(
+            bls_city_zip_naics_agg, bus_df_city_zip_naics_agg, how="outer", suffixes=["_bls", "_business_loc"],
+            left_on=["parsed_city", "year", "naics",'zip' ], right_on=["parsed_city", "year","naics",'parsed_addr_zip']
+        )
+        city_naics_agg.to_csv(filePrefix + f"/qc/bls_{city}_naics_agg.csv", index=False)
+        city_zip_naics_agg.to_csv(filePrefix + f"/qc/bls_{city}_zip_naics_agg.csv", index=False)
 
     city_agg.to_csv(filePrefix + f"/qc/bls_{city}_agg.csv", index=False)
-    # city_naics_agg.to_csv(filePrefix + f"/qc/bls_{city}_naics_agg.csv", index=False)
 
     city_zip_agg.to_csv(filePrefix + f"/qc/bls_{city}_zip_agg.csv", index=False)
-    # city_zip_naics_agg.to_csv(filePrefix + f"/qc/bls_{city}_zip_naics_agg.csv", index=False)
+
 
 if __name__ == "__main__":
     bls_df = pd.read_csv(bls_data_dict['appended zipcode'] + "filtered_appended_zip.csv")
     city_list = [
-        # 'stl',
-        # 'sf',
-        # 'seattle',
-        # 'sd',
-        # 'chicago',
-        # 'baton_rouge',
-        # 'la',
-        # 'philly'
+        'stl',
+        'sf',
+        'seattle',
+        'sd',
+        'chicago',
+        'baton_rouge',
+        'la',
+        'philly'
     ]
     for city in city_list:
         print(city)

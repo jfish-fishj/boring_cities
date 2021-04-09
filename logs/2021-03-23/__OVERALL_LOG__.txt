@@ -1,0 +1,70 @@
+
+Starting clean business data at 2021-03-23
+
+Starting clean business data at 2021-03-23
+
+Starting clean business data at 2021-03-23
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+Starting clean business data at 2021-03-23
+
+Starting clean business data at 2021-03-23
+
+Starting clean business data at 2021-03-23
+
+Starting clean business data at 2021-03-23

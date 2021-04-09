@@ -8,12 +8,11 @@ writes business dataframe to csv
 import pandas as pd
 import numpy as np
 import re
-from helper_functions import write_to_log, WTL_TIME, fuzzy_merge, get_nearest_address
-from data_constants import make_data_dict, filePrefix, name_parser_files
-from name_parsing import parse_and_clean_name, classify_name, clean_name, parse_business
-from clean_address_data import parallelize_dataframe
-from address_parsing import clean_parse_address
-from pathos.multiprocessing import ProcessingPool as Pool
+from python_modules.helper_files.helper_functions import write_to_log, WTL_TIME, fuzzy_merge, get_nearest_address
+from data_constants import make_data_dict, filePrefix
+from name_parsing import parse_business
+from python_modules.data_cleaning.clean_address_data import parallelize_dataframe
+
 
 # function that takes data w/ start and end year and turns into panel
 def make_panel(df, start_year, end_year, current_year = 2021,
@@ -305,6 +304,31 @@ def seattle_business_vars(n_cores = 4):
     seattle_bus = make_chain_var(seattle_bus, loc_col="num_locations_business_name", name_col='cleaned_business_name')
     seattle_bus.to_csv(data_dict['final']['seattle']['business location'] + '/business_locations.csv', index=False)
 
+def orlando_business_vars(n_cores = 4):
+    orlando_bus = pd.read_csv(data_dict['intermediate']['orlando']['business location'] + '/business_location_addresses_merged.csv')
+    def wrapper(orlando_bus):
+        orlando_bus = parse_business(df=orlando_bus, business_name_col='cleaned_ownership_name', use_business_name_as_base=True)
+        orlando_bus = parse_business(df=orlando_bus, business_name_col='cleaned_business_name', use_business_name_as_base=True)
+        orlando_bus = parse_business(df=orlando_bus, business_name_col='cleaned_dba_name', use_business_name_as_base=True)
+        orlando_bus = make_publically_traded_vars(orlando_bus, 'cleaned_dba_name_short_name',
+                                                publically_traded_col="dba_is_publicly_traded")
+
+        orlando_bus = make_publically_traded_vars(orlando_bus, 'cleaned_business_name_short_name',
+                                             publically_traded_col="business_is_publicly_traded")
+
+        orlando_bus = make_publically_traded_vars(orlando_bus, 'cleaned_ownership_name_short_name',
+                                                publically_traded_col="ownership_name_is_publicly_traded")
+        orlando_bus = make_panel(
+            df=orlando_bus, start_year='location_start_year', end_year='location_end_year', keep_cum_count=True
+        )
+        return orlando_bus
+    orlando_bus = parallelize_dataframe(orlando_bus, wrapper, n_cores = n_cores)
+    orlando_bus = make_chain_var(orlando_bus, loc_col="num_locations_business_id", name_col='business_id')
+    orlando_bus = make_chain_var(orlando_bus, loc_col="num_locations_ownership", name_col='cleaned_ownership_name')
+    orlando_bus = make_chain_var(orlando_bus, loc_col="num_locations_dba_name", name_col='cleaned_dba_name')
+    orlando_bus = make_chain_var(orlando_bus, loc_col="num_locations_business_name", name_col='cleaned_business_name')
+    orlando_bus.to_csv(data_dict['final']['orlando']['business location'] + '/business_locations.csv', index=False)
+
 def chicago_business_vars(n_cores = 4):
     chicago_bus = pd.read_csv(data_dict['intermediate']['chicago']['business location'] + '/business_location_addresses_merged.csv')
     def wrapper(chicago_bus):
@@ -381,7 +405,7 @@ def stl_business_vars(n_cores = 4):
     stl_bus.to_csv(data_dict['final']['stl']['business location'] + '/business_locations.csv', index=False)
 
 
-def sf_business_vars(n_cores = 4):
+def  sf_business_vars(n_cores = 4):
     sf_bus = pd.read_csv(data_dict['intermediate']['sf']['business location'] + '/business_location_addresses_merged.csv')
     def wrapper(sf_bus):
         sf_bus = parse_business(df=sf_bus, business_name_col='cleaned_ownership_name', use_business_name_as_base=True)
@@ -414,8 +438,9 @@ if __name__ == "__main__":
     #
     # stl_business_vars(4)
     # baton_rouge_business_vars(4)
-    # sf_business_vars(4)
+    sf_business_vars(4)
     # la_business_vars(4)
     # chicago_business_vars(4)
     # philly_business_vars(4)
-    seattle_business_vars(4)
+    # seattle_business_vars(4)
+    # orlando_business_vars(4)

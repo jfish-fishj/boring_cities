@@ -1,19 +1,29 @@
 import pandas as pd
 import numpy as np
 import geopandas as gpd
-from helper_functions import write_to_log, make_year_var, WTL_TIME, add_subset_address_cols, interpolate_polygon
+from python_modules.helper_files.helper_functions import write_to_log, make_year_var, WTL_TIME, add_subset_address_cols, interpolate_polygon
 from data_constants import make_data_dict, filePrefix, name_parser_files, default_crs
 from name_parsing import parse_and_clean_name, classify_name, clean_name, combine_names
 from address_parsing import clean_parse_address
 from pathos.multiprocessing import ProcessingPool as Pool
-from helper_functions import make_panel
+from python_modules.helper_files.helper_functions import make_panel
 import re
 import os
 import janitor
+import fiona
+
+
+# function for reading in corrupted gdb files. really only relevant for LA CAMS data
+def readShp_nrow(path, numRows):
+    fiona_obj = fiona.open(str(path))
+    toReturn = gpd.GeoDataFrame.from_features(fiona_obj[0:numRows])
+    toReturn.crs = fiona_obj.crs
+    return (toReturn)
+
 
 # classify & clean name columns+ clean & parse primary and mailing addresses
 # function that runs code in parallel
-def parallelize_dataframe(df, func, n_cores=4):
+def parallelize_dataframe(df:pd.DataFrame, func, n_cores=4) -> pd.DataFrame:
     df_split = np.array_split(df, n_cores)
     pool = Pool(n_cores)
     df = pd.concat(pool.map(func, df_split))
@@ -24,8 +34,9 @@ def parallelize_dataframe(df, func, n_cores=4):
     pool.restart()
     return df
 
+
 # wrapper function to run each city in parallel
-def clean_parse_parallel(df):
+def clean_parse_parallel(df:pd.DataFrame) -> pd.DataFrame:
     df = clean_parse_address(
         dataframe=df, address_col='address_fa',st_name="address_sn", st_sfx="address_ss",
         st_d="address_sd", unit='address_u', st_num='address_n1',
@@ -34,7 +45,20 @@ def clean_parse_parallel(df):
     )
     return df
 
-def clean_chi_add1(df):
+
+# ADDRESS CLEANING FUNCTIONS #
+# takes an address df (geopandas or pandas), stanardizes and cleans it and returns a standardized pandas dataframe
+# these functions get address dataframes to be in standardized formats (renamed columns, added variables, etc)
+# such that the dataframe can be passed to clean_parse_parallel and exported
+# see address cols in data constants for full list of necessary columns needed for clean_parse_parallel
+# ill note if there is anything special with the function, but otherwise assume that it follows a standard flow of
+# 1. rename columns -> add columns -> subset to only needed columns -> clean_parse_parrallel -> return
+
+# chicago cleaning functions:
+# chicago address files come in two seperate files that together represent a full set of addresses in cook county
+
+# clean chi_add_points cleans a points file that represents centroid points for cook county parcel polygons
+def clean_chi_add_points(df):
     chicago_rename_dict = {
         'ADDRNOCOM': 'address_n1',
         'STNAMEPRD': 'address_sd',
@@ -52,7 +76,10 @@ def clean_chi_add1(df):
     df = parallelize_dataframe(df=df, func=clean_parse_parallel, n_cores=2)
     return df
 
-def clean_chi_add2(df):
+
+# basically the same as address points, but these are for parcel polygons (lat long are centroid points, so it is
+# basically equivalent, these just have some addresses not in the other df and vice versa
+def clean_chi_add_parcels(df):
     chicago_rename_dict = {
         'property_address':'address_fa',
         'property_city': 'address_city',
@@ -66,6 +93,24 @@ def clean_chi_add2(df):
     df = parallelize_dataframe(df=df, func=clean_parse_parallel, n_cores=4)
     return df
 
+
+def concat_chi_add(df1, df2):
+    df1 = df1.append(df2).drop_duplicates(subset = [
+        'parcelID',
+        "parsed_addr_n1",
+        "parsed_addr_sn",
+        "parsed_addr_ss",
+        "parsed_city"
+
+    ])
+    return df1
+
+
+# saint louis is a little strange because they provide parcel polygons for entire streets
+# eg main st 100-900. This is fine for small streets as its not problematic to take centroid polygons, but
+# it becomes an issue for larger streets. For larger streets I take a best guess on which way the street runs and
+# linearly interpolate lat long between the bottom and top range of the address span
+# so if main st 100-900 runs nw that means it has its smallest numbers in the south east and increases going north west
 
 def clean_stl_add(df):
     df = df.rename(
@@ -136,12 +181,13 @@ def clean_stl_add(df):
     df = parallelize_dataframe(df=df, func=clean_parse_parallel, n_cores=2)
     return df
 
+
 def clean_la_add(df):
     la_rename_dict = {
         'AIN': 'parcelID',
         'UnitName': 'address_u',
         'Number': 'address_n1',
-        'PostDir': 'address_ss',
+        'PostType': 'address_ss',
         'PreDirAbbr':   'address_sd',
         'ZipCode': 'address_zip',
         'LegalComm': 'address_city',
@@ -155,6 +201,7 @@ def clean_la_add(df):
     df = add_subset_address_cols(df)
     df = parallelize_dataframe(df=df, func=clean_parse_parallel, n_cores=2)
     return df
+
 
 def clean_sd_add(df):
     sd_rename_dict = {
@@ -176,6 +223,7 @@ def clean_sd_add(df):
     df = parallelize_dataframe(df=df, func=clean_parse_parallel, n_cores=2)
     return df
 
+
 def clean_sf_add(df):
     sf_rename_dict = {
         "Parcel Number": 'parcelID',
@@ -185,7 +233,7 @@ def clean_sf_add(df):
         'Street Type':   'address_ss',
         'ZIP Code': 'address_zip',
         'Address': 'address_fa',
-        'PIN': 'parcelID',
+        #'PIN': 'parcelID',
         'Longitude': 'long',
         'Latitude': 'lat'
     }
@@ -194,6 +242,7 @@ def clean_sf_add(df):
     df = add_subset_address_cols(df)
     df = parallelize_dataframe(df=df, func=clean_parse_parallel, n_cores=2)
     return df
+
 
 def clean_seattle_add(df):
     seattle_rename_dict = {
@@ -213,6 +262,27 @@ def clean_seattle_add(df):
     df = parallelize_dataframe(df=df, func=clean_parse_parallel, n_cores=2)
     return df
 
+
+def clean_orlando_add(df):
+    orlando_rename_dict = {
+        'OFFICIAL_P': 'parcelID',
+       "COMPLETE_A": 'address_fa',
+        "ADDRESS__1": 'address_n1',
+        "ADDRESS__2": "address_n2",
+        "BASENAME": "address_sn",
+        "POST_TYPE":"address_ss",
+        "POST_DIREC":   "address_sd",
+        "MUNICIPAL_": 'address_city',
+        "ZIPCODE": "address_zip",
+        "LATITUDE": "lat",
+        "LONGITUDE": "long",
+    }
+    df.rename(columns=orlando_rename_dict, inplace=True)
+    df = add_subset_address_cols(df)
+    df = parallelize_dataframe(df=df, func=clean_parse_parallel, n_cores=2)
+    return df
+
+
 def clean_baton_rouge_add(df):
     baton_rouge_rename_dict = {
         'ADDRNOCOM': 'address_n1',
@@ -231,17 +301,13 @@ def clean_baton_rouge_add(df):
     df = parallelize_dataframe(df=df, func=clean_parse_parallel, n_cores=4)
     return df
 
-def concat_chi_add(df1, df2):
-    df1 = df1.append(df2).drop_duplicates(subset = [
-        'parcelID',
-        "parsed_addr_n1",
-        "parsed_addr_sn",
-        "parsed_addr_ss",
-        "parsed_city"
 
-    ])
-    return df1
-
+# used to reclean data in the event that you dont want to read in a shapefile
+# mostly uses because its faster to read in a csv than a shp
+def clean_int_addresses(df):
+    df = add_subset_address_cols(df)
+    df = parallelize_dataframe(df=df, func=clean_parse_parallel, n_cores=2)
+    return df
 
 if __name__ == "__main__":
     data_dict = make_data_dict(use_seagate=True)
@@ -254,20 +320,27 @@ if __name__ == "__main__":
     # baton_rouge_add.to_csv(data_dict['intermediate']['baton_rouge']['parcel'] + 'addresses.csv', index=False)
     # chicago_add1 = pd.read_csv(data_dict['raw']['chicago']['parcel'] + 'Cook_County_Assessor_s_Property_Locations.csv')
     # chicago_add2 = pd.read_csv(data_dict['raw']['chicago']['parcel'] + 'Address_Points_cook_county.csv')
-    # la_add = gpd.read_file(data_dict['raw']['la']['parcel'] + 'la_addresspoints.gdb')
+
+    # orlando_add = gpd.read_file(data_dict['raw']['orlando']['parcel'] + "Address Points/ADDRESS_POINT.shp")
+    # clean_orlando_add(orlando_add).to_csv(data_dict['intermediate']['orlando']['parcel'] + 'addresses.csv', index=False)
+
+    # la_add = gpd.read_file("/Users/JoeFish/Desktop/la_addresspoints.gdb", nrows = 100)
+    la_add = pd.read_csv(data_dict['intermediate']['la']['parcel'] + 'addresses.csv')
+    # file is corrupted so we have to read it in this way...
+    # print(la_add.head())
     #sd_add = gpd.read_file(data_dict['raw']['sd']['parcel'] + 'addrapn_datasd_san_diego/addrapn_datasd.shp')
     # sf_add = pd.read_csv(
     #     data_dict['raw']['sf']['parcel'] + 'Addresses_with_Units_-_Enterprise_Addressing_System_san_francisco.csv')
-    seattle_add = gpd.read_file(data_dict['raw']['seattle']['parcel'] +
-                              'Addresses_in_King_County___address_point/Addresses_in_King_County___address_point.shp')
+    # seattle_add = gpd.read_file(data_dict['raw']['seattle']['parcel'] +
+    #                           'Addresses_in_King_County___address_point/Addresses_in_King_County___address_point.shp')
     #
     # # clean_baton_rouge_add(baton_rouge_add).to_csv(data_dict['intermediate']['baton_rouge']['parcel'] + 'addresses.csv', index=False)
     # clean_chi_add2(chicago_add1).to_csv(data_dict['intermediate']['chicago']['parcel'] + 'addresses_from_parcels.csv', index=False)
     # clean_chi_add1(chicago_add2).to_csv(data_dict['intermediate']['chicago']['parcel'] + 'addresses_from_points.csv', index=False)
-    # # clean_la_add(la_add).to_csv(data_dict['intermediate']['la']['parcel'] + 'addresses.csv', index=False)
+    clean_int_addresses(la_add).to_csv(data_dict['intermediate']['la']['parcel'] + 'addresses_temp.csv', index=False)
     # clean_sf_add(sf_add).to_csv(data_dict['intermediate']['sf']['parcel'] + 'addresses.csv', index=False)
     # #clean_sd_add(sd_add).to_csv(data_dict['intermediate']['sd']['parcel'] + 'addresses.csv', index=False)
-    clean_seattle_add(seattle_add).to_csv(data_dict['intermediate']['seattle']['parcel'] + 'addresses.csv', index=False)
+    # clean_seattle_add(seattle_add).to_csv(data_dict['intermediate']['seattle']['parcel'] + 'addresses.csv', index=False)
     # chi1 = pd.read_csv(data_dict['intermediate']['chicago']['parcel'] + 'addresses_from_parcels.csv', dtype={"parsed_addr_n1": str})
     # chi2 = pd.read_csv(data_dict['intermediate']['chicago']['parcel'] + 'addresses_from_points.csv', dtype={"parsed_addr_n1": str})
     # concat_chi_add(chi1,chi2).to_csv(data_dict['intermediate']['chicago']['parcel'] + 'addresses_concat.csv', index=False)

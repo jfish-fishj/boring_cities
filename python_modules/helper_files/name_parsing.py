@@ -3,7 +3,7 @@ import csv
 import pandas as pd
 import numpy as np
 from data_constants import filePrefix, name_parser_files
-from helper_functions import write_to_log
+from python_modules.helper_files.helper_functions import write_to_log
 import time
 
 # Regex Definitions
@@ -1444,7 +1444,7 @@ def make_business_short_name_col(df, business_short_name_col, business_name_col,
         flags=re.IGNORECASE)
     # remove cities (note this assumes an exhaustive list of cities and needs to always be thoroughly checked on new data
     # but its good for going from starbucks of pasadena -> starbucks
-    cities = pd.read_csv(filePrefix + "/name_parser/city_list.csv")
+    cities = pd.read_csv(filePrefix + "/name_parser_files/city_list.csv")
     cities = cities[cities['count'] >= 1000]
     city_list = '|'.join(cities['primary_addr_city'])
     df[business_short_name_col] = df[business_short_name_col].str.replace(

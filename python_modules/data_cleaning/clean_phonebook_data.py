@@ -1,11 +1,7 @@
 import pdf2image
-import pytesseract
 import re
 import pandas as pd
-from sklearn.feature_extraction.text import CountVectorizer,TfidfVectorizer
-from sklearn.base import TransformerMixin
-from sklearn.pipeline import Pipeline
-from create_training_data import create_samples, get_text_from_image, create_training_data, custom_ord, create_variables
+from create_training_data import get_text_from_image, create_variables
 import os
 from sklearn.externals import joblib
 import numpy as np

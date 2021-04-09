@@ -1,0 +1,116 @@
+
+Starting clean business data at 2021-03-27
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+Starting clean business data at 2021-03-27
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name_proper_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name_proper_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name_proper_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name_proper_name is not string type. not attempting to clean
