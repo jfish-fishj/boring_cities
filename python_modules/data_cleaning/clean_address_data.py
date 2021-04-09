@@ -2,11 +2,12 @@ import pandas as pd
 import numpy as np
 import geopandas as gpd
 from python_modules.helper_files.helper_functions import write_to_log, make_year_var, WTL_TIME, add_subset_address_cols, interpolate_polygon
-from data_constants import make_data_dict, filePrefix, name_parser_files, default_crs
-from name_parsing import parse_and_clean_name, classify_name, clean_name, combine_names
-from address_parsing import clean_parse_address
-from pathos.multiprocessing import ProcessingPool as Pool
+from python_modules.helper_files.data_constants import make_data_dict, filePrefix, name_parser_files, default_crs
+from python_modules.helper_files.name_parsing import parse_and_clean_name, classify_name, clean_name, combine_names
+from python_modules.helper_files.address_parsing import clean_parse_address
 from python_modules.helper_files.helper_functions import make_panel
+
+from pathos.multiprocessing import ProcessingPool as Pool
 import re
 import os
 import janitor
@@ -224,6 +225,10 @@ def clean_sd_add(df):
     return df
 
 
+def merge_sac_addresses():
+    add = pd.read_csv(data_dict)
+
+
 def clean_sf_add(df):
     sf_rename_dict = {
         "Parcel Number": 'parcelID',
@@ -302,6 +307,34 @@ def clean_baton_rouge_add(df):
     return df
 
 
+def merge_sac_parcel_id(sac_add = pd.DataFrame,  xwalk = pd.DataFrame):
+    return pd.merge(
+        sac_add, 
+        xwalk[xwalk['Parcel Number'].notna()][["Address_ID", "Parcel_Number"]].drop_duplicates(), 
+        left_on = "Address_ID", right_on = "Address_ID", how = "left"
+        )
+
+
+
+def clean_sac_add(df):
+    sac_rename_dict = {
+        'APN': 'parcelID',
+        "Address_Number": 'address_n1',
+        "Street_Name": "address_sn",
+        "Street_Suffix":"address_ss",
+        "Pre_Directiona;":   "address_sd",
+        "Postal_City": 'address_city',
+        "Zip_Code": "address_zip",
+        "Latititde_Y": "lat",
+        "Longitude_X": "long",
+    }
+    df.rename(columns=sac_rename_dict, inplace=True)
+    df = add_subset_address_cols(df)
+    df = parallelize_dataframe(df=df, func=clean_parse_parallel, n_cores=2)
+    return df
+
+
+
 # used to reclean data in the event that you dont want to read in a shapefile
 # mostly uses because its faster to read in a csv than a shp
 def clean_int_addresses(df):
@@ -309,8 +342,9 @@ def clean_int_addresses(df):
     df = parallelize_dataframe(df=df, func=clean_parse_parallel, n_cores=2)
     return df
 
+
 if __name__ == "__main__":
-    data_dict = make_data_dict(use_seagate=True)
+    data_dict = make_data_dict(use_seagate=False)
     # stl_add = gpd.read_file(data_dict['raw']['stl']['parcel'] + 'streets/tgr_str_cl.shp')
     # stl_add = clean_stl_add(stl_add)
     # stl_add.to_csv(data_dict['intermediate']['stl']['parcel'] + 'addresses.csv', index=False)
@@ -325,7 +359,7 @@ if __name__ == "__main__":
     # clean_orlando_add(orlando_add).to_csv(data_dict['intermediate']['orlando']['parcel'] + 'addresses.csv', index=False)
 
     # la_add = gpd.read_file("/Users/JoeFish/Desktop/la_addresspoints.gdb", nrows = 100)
-    la_add = pd.read_csv(data_dict['intermediate']['la']['parcel'] + 'addresses.csv')
+    # la_add = pd.read_csv(data_dict['intermediate']['la']['parcel'] + 'addresses.csv')
     # file is corrupted so we have to read it in this way...
     # print(la_add.head())
     #sd_add = gpd.read_file(data_dict['raw']['sd']['parcel'] + 'addrapn_datasd_san_diego/addrapn_datasd.shp')
@@ -337,11 +371,17 @@ if __name__ == "__main__":
     # # clean_baton_rouge_add(baton_rouge_add).to_csv(data_dict['intermediate']['baton_rouge']['parcel'] + 'addresses.csv', index=False)
     # clean_chi_add2(chicago_add1).to_csv(data_dict['intermediate']['chicago']['parcel'] + 'addresses_from_parcels.csv', index=False)
     # clean_chi_add1(chicago_add2).to_csv(data_dict['intermediate']['chicago']['parcel'] + 'addresses_from_points.csv', index=False)
-    clean_int_addresses(la_add).to_csv(data_dict['intermediate']['la']['parcel'] + 'addresses_temp.csv', index=False)
+    # clean_int_addresses(la_add).to_csv(data_dict['intermediate']['la']['parcel'] + 'addresses_temp.csv', index=False)
     # clean_sf_add(sf_add).to_csv(data_dict['intermediate']['sf']['parcel'] + 'addresses.csv', index=False)
     # #clean_sd_add(sd_add).to_csv(data_dict['intermediate']['sd']['parcel'] + 'addresses.csv', index=False)
     # clean_seattle_add(seattle_add).to_csv(data_dict['intermediate']['seattle']['parcel'] + 'addresses.csv', index=False)
     # chi1 = pd.read_csv(data_dict['intermediate']['chicago']['parcel'] + 'addresses_from_parcels.csv', dtype={"parsed_addr_n1": str})
     # chi2 = pd.read_csv(data_dict['intermediate']['chicago']['parcel'] + 'addresses_from_points.csv', dtype={"parsed_addr_n1": str})
     # concat_chi_add(chi1,chi2).to_csv(data_dict['intermediate']['chicago']['parcel'] + 'addresses_concat.csv', index=False)
+    sac_add = pd.read_csv(data_dict['raw']['sac']['parcel'] + 'Addresses.csv')
+    sac_xwalk = pd.read_csv(data_dict['raw']['sac']['parcel'] + 'Address_parcel_xwalk.csv')
+    sac_add = merge_sac_parcel_id(sac_add=sac_add, sac_xwalk=sac_xwalk)
+    clean_sac_add(sac_add).to_csv(data_dict['intermediate']['sac']['parcel'] + 'addresses_concat.csv', index=False)
+        
+    
     pass

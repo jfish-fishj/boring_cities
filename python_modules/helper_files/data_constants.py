@@ -18,6 +18,11 @@ import os
 filePrefix = '/Users/joefish/Documents/GitHub/boring_cities'
 dataPrefix = "/Volumes/Seagate Portable Drive/boring_cities"
 
+linux = True
+if linux:
+    filePrefix = "/home/jfish/evictionlab-projects/boring_cities"
+    dataPrefix = "/home/jfish/project_data/boring_cities"
+
 # paths to name parser files 
 # non names = list of words that flag a name as not being a person i.e. llc, business, housing authority
 # female/male first names are a list of names that appear in the census along w/ their frequency
@@ -366,7 +371,7 @@ default_crs = "EPSG:4326"  # WGS84 good for lat long coordinates in North Americ
 
 
 # set up directories
-def make_data_dict(make_directories=True, use_seagate=False, filePrefix=filePrefix):
+def make_data_dict(make_directories=True, use_seagate=False, filePrefix=dataPrefix):
     data_dict = {}
     if use_seagate is not False:
         filePrefix = '/Volumes/Seagate Portable Drive/boring_cities'
@@ -390,4 +395,4 @@ def make_data_dict(make_directories=True, use_seagate=False, filePrefix=filePref
     return data_dict
 
 if __name__ == "__main__":
-    data_dict = make_data_dict(use_seagate=True, make_directories=True)
+    data_dict = make_data_dict(use_seagate=False, make_directories=True)
