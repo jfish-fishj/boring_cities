@@ -2,80 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32c665b1-7adb-4fc5-acb7-034cc96442bb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/python_modules/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/python_modules/classifier/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/python_modules/data_cleaning/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/python_modules/helper_files/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/python_modules/helper_files/data_constants.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/python_modules/misc_files/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/boring_cities.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/boring_cities.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2020-09-28/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2020-09-28/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2020-09-28/__Warnings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2020-09-28/__Warnings.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2020-09-29/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2020-09-29/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2020-09-30/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2020-09-30/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2020-10-10/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2020-10-10/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2020-10-10/__Warnings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2020-10-10/__Warnings.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2020-10-11/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2020-10-11/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2020-10-12/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2020-10-12/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2020-10-12/__Warnings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2020-10-12/__Warnings.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2020-10-13/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2020-10-13/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2020-10-14/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2020-10-14/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2020-10-19/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2020-10-19/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2020-10-19/__Warnings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2020-10-19/__Warnings.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2020-11-10/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2020-11-10/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2020-11-10/__Warnings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2020-11-10/__Warnings.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2020-11-11/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2020-11-11/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2020-11-11/__Warnings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2020-11-11/__Warnings.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-02-10/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-02-10/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-02-20/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-02-20/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-02-22/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-02-22/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-02-22/__Warnings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-02-22/__Warnings.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-02-23/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-02-23/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-02-23/__Warnings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-02-23/__Warnings.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-02-24/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-02-24/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-03-01/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-03-01/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-03-01/__Warnings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-03-01/__Warnings.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-03-03/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-03-03/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-03-03/__Warnings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-03-03/__Warnings.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-03-04/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-03-04/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-03-09/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-03-09/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-03-10/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-03-10/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-03-11/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-03-11/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-03-12/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-03-12/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-03-13/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-03-13/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-03-14/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-03-14/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-03-15/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-03-15/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-03-15/__Warnings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-03-15/__Warnings.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-03-16/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-03-16/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-03-16/__Warnings.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-03-16/__Warnings.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logs/2021-03-17/__OVERALL_LOG__.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2021-03-17/__OVERALL_LOG__.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/address_parsing.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/helper_files/address_parsing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/business_descriptives.R" beforeDir="false" afterPath="$PROJECT_DIR$/r_files/business_descriptives.R" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/business_location_summary_stats.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/misc_files/business_location_summary_stats.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classifier/create_training_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/classifier/create_training_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classifier/random_forest.joblib" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/classifier/random_forest.joblib" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clean_address_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/data_cleaning/clean_address_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clean_bls_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/data_cleaning/clean_bls_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clean_business_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/data_cleaning/clean_business_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clean_parcel_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/data_cleaning/clean_parcel_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clean_permit_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/data_cleaning/clean_permit_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clean_phonebook_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/data_cleaning/clean_phonebook_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_constants.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/helper_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/helper_files/helper_functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/make_business_vars.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/helper_files/make_business_vars.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maps/chi_change_business.png" beforeDir="false" afterPath="$PROJECT_DIR$/output/maps/chi_change_business.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/merge_address_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/helper_files/merge_address_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/merge_census_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/helper_files/merge_census_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/name_parser/city_list.csv" beforeDir="false" afterPath="$PROJECT_DIR$/name_parser_files/city_list.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/name_parser/dist_all_last.txt" beforeDir="false" afterPath="$PROJECT_DIR$/name_parser_files/dist_all_last.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/name_parser/dist_female_first.txt" beforeDir="false" afterPath="$PROJECT_DIR$/name_parser_files/dist_female_first.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/name_parser/dist_male_first.txt" beforeDir="false" afterPath="$PROJECT_DIR$/name_parser_files/dist_male_first.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/name_parser/non_names.txt" beforeDir="false" afterPath="$PROJECT_DIR$/name_parser_files/non_names.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/name_parsing.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/helper_files/name_parsing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/qc/la_start_year_agg.csv" beforeDir="false" afterPath="$PROJECT_DIR$/qc/la_start_year_agg.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/qc/sd_start_year_agg.csv" beforeDir="false" afterPath="$PROJECT_DIR$/qc/sd_start_year_agg.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/qc_business_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/helper_files/qc_business_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_modules/data_cleaning/clean_address_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/data_cleaning/clean_address_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_modules/helper_files/data_constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/helper_files/data_constants.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +30,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/python_modules/misc_files" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -119,7 +47,28 @@
       <recent name="$PROJECT_DIR$/python_modules" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.make_business_vars (1)">
+  <component name="RunManager" selected="Python.clean_address_data">
+    <configuration name="clean_address_data" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="boring_cities" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_modules/data_cleaning" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_modules/data_cleaning/clean_address_data.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="clean_business_data" type="PythonConfigurationType" factoryName="Python" singleton="false" temporary="true">
       <module name="boring_cities" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -133,27 +82,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_modules/data_cleaning/clean_business_data.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="data_constants" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="boring_cities" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data_constants.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -227,18 +155,18 @@
     </configuration>
     <list>
       <item itemvalue="Python.clean_business_data" />
-      <item itemvalue="Python.data_constants" />
       <item itemvalue="Python.make_business_vars" />
       <item itemvalue="Python.merge_address_data" />
       <item itemvalue="Python.make_business_vars (1)" />
+      <item itemvalue="Python.clean_address_data" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.clean_address_data" />
         <item itemvalue="Python.make_business_vars (1)" />
         <item itemvalue="Python.make_business_vars" />
         <item itemvalue="Python.clean_business_data" />
         <item itemvalue="Python.merge_address_data" />
-        <item itemvalue="Python.data_constants" />
       </list>
     </recent_temporary>
   </component>
@@ -265,31 +193,32 @@
     </todo-panel>
   </component>
   <component name="WindowStateProjectService">
-    <state width="1419" height="265" key="GridCell.Tab.0.bottom" timestamp="1617910596645">
+    <state width="1419" height="265" key="GridCell.Tab.0.bottom" timestamp="1618000951076">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1419" height="265" key="GridCell.Tab.0.bottom/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1617910596645" />
-    <state width="1419" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1610393202529" />
-    <state width="1419" height="265" key="GridCell.Tab.0.center" timestamp="1617910596643">
+    <state width="1419" height="265" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1618000951076" />
+    <state width="1419" height="265" key="GridCell.Tab.0.center" timestamp="1618000951075">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1419" height="265" key="GridCell.Tab.0.center/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1617910596643" />
-    <state width="1419" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1610393202528" />
-    <state width="1419" height="265" key="GridCell.Tab.0.left" timestamp="1617910596642">
+    <state width="1419" height="265" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1618000951075" />
+    <state width="1419" height="265" key="GridCell.Tab.0.left" timestamp="1618000951074">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1419" height="265" key="GridCell.Tab.0.left/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1617910596642" />
-    <state width="1419" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1610393202525" />
-    <state width="1419" height="265" key="GridCell.Tab.0.right" timestamp="1617910596643">
+    <state width="1419" height="265" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1618000951074" />
+    <state width="1419" height="265" key="GridCell.Tab.0.right" timestamp="1618000951075">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1419" height="265" key="GridCell.Tab.0.right/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1617910596643" />
-    <state width="1419" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1610393202529" />
-    <state x="229" y="89" key="SettingsEditor" timestamp="1617901552392">
+    <state width="1419" height="265" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1618000951075" />
+    <state x="229" y="89" key="SettingsEditor" timestamp="1618000899632">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="229" y="89" key="SettingsEditor/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1617901552392" />
     <state x="229" y="89" key="SettingsEditor/0.0.1440.900/1440.23.1920.1057@0.0.1440.900" timestamp="1617825260481" />
+    <state x="229" y="89" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1618000899632" />
     <state x="399" y="297" key="com.intellij.ide.util.TipDialog" timestamp="1617901566191">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

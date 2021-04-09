@@ -5,8 +5,7 @@ from python_modules.helper_files.helper_functions import write_to_log, make_year
 from python_modules.helper_files.data_constants import make_data_dict, filePrefix, name_parser_files, default_crs
 from python_modules.helper_files.name_parsing import parse_and_clean_name, classify_name, clean_name, combine_names
 from python_modules.helper_files.address_parsing import clean_parse_address
-from python_modules.helper_files.helper_functions import make_panel
-
+# from python_modules.helper_files.helper_functions import make_panel
 from pathos.multiprocessing import ProcessingPool as Pool
 import re
 import os
@@ -344,7 +343,8 @@ def clean_int_addresses(df):
 
 
 if __name__ == "__main__":
-    data_dict = make_data_dict(use_seagate=False)
+    print("hello")
+#     data_dict = make_data_dict(use_seagate=False)
     # stl_add = gpd.read_file(data_dict['raw']['stl']['parcel'] + 'streets/tgr_str_cl.shp')
     # stl_add = clean_stl_add(stl_add)
     # stl_add.to_csv(data_dict['intermediate']['stl']['parcel'] + 'addresses.csv', index=False)
@@ -378,10 +378,10 @@ if __name__ == "__main__":
     # chi1 = pd.read_csv(data_dict['intermediate']['chicago']['parcel'] + 'addresses_from_parcels.csv', dtype={"parsed_addr_n1": str})
     # chi2 = pd.read_csv(data_dict['intermediate']['chicago']['parcel'] + 'addresses_from_points.csv', dtype={"parsed_addr_n1": str})
     # concat_chi_add(chi1,chi2).to_csv(data_dict['intermediate']['chicago']['parcel'] + 'addresses_concat.csv', index=False)
-    sac_add = pd.read_csv(data_dict['raw']['sac']['parcel'] + 'Addresses.csv')
-    sac_xwalk = pd.read_csv(data_dict['raw']['sac']['parcel'] + 'Address_parcel_xwalk.csv')
-    sac_add = merge_sac_parcel_id(sac_add=sac_add, sac_xwalk=sac_xwalk)
-    clean_sac_add(sac_add).to_csv(data_dict['intermediate']['sac']['parcel'] + 'addresses_concat.csv', index=False)
+    # sac_add = pd.read_csv(data_dict['raw']['sac']['parcel'] + 'Addresses.csv')
+    # sac_xwalk = pd.read_csv(data_dict['raw']['sac']['parcel'] + 'Address_parcel_xwalk.csv')
+    # sac_add = merge_sac_parcel_id(sac_add=sac_add, sac_xwalk=sac_xwalk)
+    # clean_sac_add(sac_add).to_csv(data_dict['intermediate']['sac']['parcel'] + 'addresses_concat.csv', index=False)
         
     
     pass

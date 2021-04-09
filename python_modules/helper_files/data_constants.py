@@ -14,14 +14,15 @@ File is split into four groups:
 
 import os
 
-# path to github repository as path prefix
-filePrefix = '/Users/joefish/Documents/GitHub/boring_cities'
-dataPrefix = "/Volumes/Seagate Portable Drive/boring_cities"
-
-linux = True
+linux = False
 if linux:
     filePrefix = "/home/jfish/evictionlab-projects/boring_cities"
     dataPrefix = "/home/jfish/project_data/boring_cities"
+
+else:
+    # path to github repository as path prefix
+    filePrefix = '/Users/joefish/Documents/GitHub/boring_cities'
+    dataPrefix = "/Volumes/Seagate Portable Drive/boring_cities"
 
 # paths to name parser files 
 # non names = list of words that flag a name as not being a person i.e. llc, business, housing authority

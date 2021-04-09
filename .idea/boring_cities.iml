@@ -3,7 +3,6 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/name_parser_files" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/.idea" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/.idea/libraries" isTestSource="false" />
       <sourceFolder url="" isTestSource="false" />
@@ -11,11 +10,7 @@
       <sourceFolder url="file://$MODULE_DIR$/stock" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/stock/nasdaq" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/stock/nyse" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/python_modules/classifier" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/python_modules" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/python_modules/data_cleaning" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/python_modules/helper_files" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/python_modules/misc_files" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
