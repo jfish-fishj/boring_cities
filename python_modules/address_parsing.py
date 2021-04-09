@@ -11,7 +11,7 @@ from data_constants import filePrefix
 from name_parsing import combine_names
 from pandas.api.types import is_string_dtype
 import time
-from python_modules.helper_files.helper_functions import write_to_log
+from python_modules.helper_functions import write_to_log
 
 # get rid of setting with copy warnings
 pd.set_option('mode.chained_assignment', None)

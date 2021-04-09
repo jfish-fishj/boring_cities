@@ -3,7 +3,7 @@ import csv
 import pandas as pd
 import numpy as np
 from data_constants import filePrefix, name_parser_files
-from python_modules.helper_files.helper_functions import write_to_log
+from python_modules.helper_functions import write_to_log
 import time
 
 # Regex Definitions

@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from data_constants import *
-from python_modules.helper_files.helper_functions import fuzzy_merge, get_nearest_address
+from python_modules.helper_functions import fuzzy_merge, get_nearest_address
 from python_modules.helper_files.make_business_vars import make_panel
 
 # master function for left merging address data onto a business dataframe

@@ -1,4 +1,4 @@
-from python_modules.helper_files.helper_functions import write_to_log
+from python_modules.helper_functions import write_to_log
 import geopandas as gpd
 import pandas as pd
 from data_constants import *

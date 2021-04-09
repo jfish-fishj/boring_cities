@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32c665b1-7adb-4fc5-acb7-034cc96442bb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/python_modules/data_cleaning/clean_address_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/data_cleaning/clean_address_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_modules/helper_files/data_constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/helper_files/data_constants.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +46,7 @@
       <recent name="$PROJECT_DIR$/python_modules" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.clean_address_data">
+  <component name="RunManager" selected="Python.top_file">
     <configuration name="clean_address_data" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="boring_cities" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -60,7 +59,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_modules/data_cleaning/clean_address_data.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_modules/clean_address_data.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -69,7 +68,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="clean_business_data" type="PythonConfigurationType" factoryName="Python" singleton="false" temporary="true">
+    <configuration name="helper_functions" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="boring_cities" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -77,11 +76,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_modules" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_modules/data_cleaning/clean_business_data.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_modules/helper_functions.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -132,7 +131,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="merge_address_data" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="top_file" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="boring_cities" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -140,11 +139,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_modules/helper_files" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_modules" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_modules/helper_files/merge_address_data.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_modules/top_file.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -154,19 +153,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.clean_business_data" />
       <item itemvalue="Python.make_business_vars" />
-      <item itemvalue="Python.merge_address_data" />
       <item itemvalue="Python.make_business_vars (1)" />
       <item itemvalue="Python.clean_address_data" />
+      <item itemvalue="Python.top_file" />
+      <item itemvalue="Python.helper_functions" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.top_file" />
+        <item itemvalue="Python.helper_functions" />
         <item itemvalue="Python.clean_address_data" />
         <item itemvalue="Python.make_business_vars (1)" />
         <item itemvalue="Python.make_business_vars" />
-        <item itemvalue="Python.clean_business_data" />
-        <item itemvalue="Python.merge_address_data" />
       </list>
     </recent_temporary>
   </component>
@@ -193,26 +192,26 @@
     </todo-panel>
   </component>
   <component name="WindowStateProjectService">
-    <state width="1419" height="265" key="GridCell.Tab.0.bottom" timestamp="1618000951076">
+    <state width="1419" height="265" key="GridCell.Tab.0.bottom" timestamp="1618002626606">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1419" height="265" key="GridCell.Tab.0.bottom/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1617910596645" />
-    <state width="1419" height="265" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1618000951076" />
-    <state width="1419" height="265" key="GridCell.Tab.0.center" timestamp="1618000951075">
+    <state width="1419" height="265" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1618002626606" />
+    <state width="1419" height="265" key="GridCell.Tab.0.center" timestamp="1618002626605">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1419" height="265" key="GridCell.Tab.0.center/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1617910596643" />
-    <state width="1419" height="265" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1618000951075" />
-    <state width="1419" height="265" key="GridCell.Tab.0.left" timestamp="1618000951074">
+    <state width="1419" height="265" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1618002626605" />
+    <state width="1419" height="265" key="GridCell.Tab.0.left" timestamp="1618002626604">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1419" height="265" key="GridCell.Tab.0.left/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1617910596642" />
-    <state width="1419" height="265" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1618000951074" />
-    <state width="1419" height="265" key="GridCell.Tab.0.right" timestamp="1618000951075">
+    <state width="1419" height="265" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1618002626604" />
+    <state width="1419" height="265" key="GridCell.Tab.0.right" timestamp="1618002626605">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1419" height="265" key="GridCell.Tab.0.right/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1617910596643" />
-    <state width="1419" height="265" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1618000951075" />
+    <state width="1419" height="265" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1618002626605" />
     <state x="229" y="89" key="SettingsEditor" timestamp="1618000899632">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
