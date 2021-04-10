@@ -14,8 +14,9 @@ File is split into four groups:
 
 import os
 
-linux = False
-if linux:
+linux = True
+
+if linux is True:
     filePrefix = "/home/jfish/evictionlab-projects/boring_cities"
     dataPrefix = "/home/jfish/project_data/boring_cities"
 

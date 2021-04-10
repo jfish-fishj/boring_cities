@@ -8,10 +8,10 @@ writes business dataframe to csv
 import pandas as pd
 import numpy as np
 import re
-from python_modules.helper_functions import write_to_log, WTL_TIME, fuzzy_merge, get_nearest_address
+from helper_functions import write_to_log, WTL_TIME, fuzzy_merge, get_nearest_address
 from data_constants import make_data_dict, filePrefix
 from name_parsing import parse_business
-from python_modules.clean_address_data import parallelize_dataframe
+from clean_address_data import parallelize_dataframe
 
 
 # function that takes data w/ start and end year and turns into panel
@@ -434,12 +434,12 @@ if __name__ == "__main__":
 
     write_to_log(f'Starting clean business data at {WTL_TIME}')
     # initialize data dict
-    data_dict = make_data_dict(use_seagate=True)
+    data_dict = make_data_dict(use_seagate=False)
     #
     # stl_business_vars(4)
     # baton_rouge_business_vars(4)
-    sf_business_vars(4)
-    # la_business_vars(4)
+    # sf_business_vars(4)
+    la_business_vars(4)
     # chicago_business_vars(4)
     # philly_business_vars(4)
     # seattle_business_vars(4)

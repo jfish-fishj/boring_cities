@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
 from data_constants import *
-from python_modules.helper_functions import fuzzy_merge, get_nearest_address
-from python_modules.helper_files.make_business_vars import make_panel
+from helper_functions import fuzzy_merge, get_nearest_address
+from make_business_vars import make_panel
 
 # master function for left merging address data onto a business dataframe
 # goal is to get lat long coordinates from an address list (and parcelID if it exists) so that we can geocode
@@ -305,7 +305,7 @@ def misc_la_cleaning(bus_df, add_df):
 
 
 if __name__ == "__main__":
-    data_dict = make_data_dict(use_seagate=True)
+    data_dict = make_data_dict(use_seagate=False)
     # sd_bus = pd.read_csv(data_dict['intermediate']['sd']['business location'] + '/business_location.csv')
     # sd_add = pd.read_csv(data_dict['intermediate']['sd']['parcel'] + '/addresses.csv')
     # sd_bus = merge_addresses(sd_bus, sd_add, fuzzy=True, nearest_n1=True,
@@ -368,16 +368,26 @@ if __name__ == "__main__":
     #                           )
     # print(stl_bus['merged_from'].value_counts())
     # stl_bus.to_csv(data_dict['intermediate']['stl']['business location'] + '/business_location_addresses_merged.csv', index=False)
-    sf_bus = pd.read_csv(data_dict['intermediate']['sf']['business location'] + '/business_location.csv')
-    sf_bus = misc_sf_cleaning(sf_bus)
-    sf_add = pd.read_csv(data_dict['intermediate']['sf']['parcel'] + '/addresses.csv')
-    sf_bus = merge_addresses(
-        sf_bus, sf_add, fuzzy=True, nearest_n1=True, fuzzy_threshold=90, n1_threshold=5,
+    # sf_bus = pd.read_csv(data_dict['intermediate']['sf']['business location'] + '/business_location.csv')
+    # sf_bus = misc_sf_cleaning(sf_bus)
+    # sf_add = pd.read_csv(data_dict['intermediate']['sf']['parcel'] + '/addresses.csv')
+    # sf_bus = merge_addresses(
+    #     sf_bus, sf_add, fuzzy=True, nearest_n1=True, fuzzy_threshold=90, n1_threshold=5,
+    #     add_merge_cols=['parsed_addr_n1', 'parsed_addr_sn', 'parsed_addr_ss'],
+    #     bus_merge_cols=['primary_cleaned_addr_n1', 'primary_cleaned_addr_sn', 'primary_cleaned_addr_ss'],
+    #     cols_to_merge=['lat', 'long', 'parcelID', 'parsed_city', 'parsed_addr_zip']
+    #                           )
+    # sf_bus.to_csv(data_dict['intermediate']['sf']['business location'] + '/business_location_addresses_merged.csv', index=False)
+    sac_bus = pd.read_csv(data_dict['intermediate']['sac']['business location'] + '/business_location.csv')
+    # sac_bus = misc_sac_cleaning(sac_bus)
+    sac_add = pd.read_csv(data_dict['intermediate']['sac']['parcel'] + '/addresses.csv')
+    sac_bus = merge_addresses(
+        sac_bus, sac_add, fuzzy=True, nearest_n1=True, fuzzy_threshold=90, n1_threshold=5,
         add_merge_cols=['parsed_addr_n1', 'parsed_addr_sn', 'parsed_addr_ss'],
         bus_merge_cols=['primary_cleaned_addr_n1', 'primary_cleaned_addr_sn', 'primary_cleaned_addr_ss'],
         cols_to_merge=['lat', 'long', 'parcelID', 'parsed_city', 'parsed_addr_zip']
                               )
-    sf_bus.to_csv(data_dict['intermediate']['sf']['business location'] + '/business_location_addresses_merged.csv', index=False)
+    sac_bus.to_csv(data_dict['intermediate']['sac']['business location'] + '/business_location_addresses_merged.csv', index=False)
     # seattle_bus = pd.read_csv(data_dict['intermediate']['seattle']['business location'] + '/business_location.csv')
     # seattle_bus = misc_seattle_cleaning(seattle_bus)
     # seattle_add = pd.read_csv(data_dict['intermediate']['seattle']['parcel'] + '/addresses.csv')

@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"name": "boring_cities",
+			"path": "."
+		}
+	],
+	"remoteAuthority": "wsl+Ubuntu-20.04",
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
+}
