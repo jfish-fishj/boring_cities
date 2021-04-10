@@ -1,5 +1,4 @@
 import pandas as pd
-import python_modules.data_constants
 
 
 # data dict
