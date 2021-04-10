@@ -8,6 +8,7 @@ import re
 from fuzzywuzzy import fuzz
 import data_constants
 import numpy as np
+from typing import Union
 WTL_TIME = datetime.today().strftime('%Y-%m-%d')
 
 
@@ -147,7 +148,7 @@ def interpolate_polygon(df:pd.DataFrame, id_col:str, direction:str):
 
 # function that takes creates a panel based on a start column and an end column
 # so a row with start = 1 and end = 10 gets turned into 10 rows begining at 1 and ending at 10
-def make_panel(df:pd.DataFrame, start_year:str, end_year:str, current_year = 2020,
+def make_panel(df:pd.DataFrame, start_year:str, end_year:str, current_year:Union[int, pd.Series] = 2020,
                keep_cum_count=False, limit=False, drop_future=True, evens_and_odds = False):
     """
     :param df: dataframe to be made into panel
@@ -186,7 +187,7 @@ def make_panel(df:pd.DataFrame, start_year:str, end_year:str, current_year = 202
         df = df.drop(columns=[ 'one', 'addToYear', start_year, end_year])
     else:
         df = df.drop(columns = ['numYears','one','addToYear',start_year,end_year])
-    return(df)
+    return df
 
 
 # generic function for cleaning columns, replaced with janitor package
@@ -202,12 +203,11 @@ def clean_column_names(col_list:list):
 
 # takes a string-date column with any format that has a yyyy and returns the year as an float
 # round down returns the year minus 1
-# TODO REWRITE SO THAT THIS DOESNT REQUIRE A WHOLE DATAFRAME FOR LOWER MEMORY USAGE
-def make_year_var(df:pd.DataFrame, date_col:str, new_col:str, round_down=False):
-    df[new_col] = df[date_col].astype(str).str.extract('([0-9]{4})').astype(float)
+def make_year_var(date_col, round_down = False):
+    date_col = date_col.astype(str).str.extract('([0-9]{4})').astype(float)
     if round_down is not False:
-        df[new_col] = df[new_col].astype(float) -1
-    return(df)
+        date_col = date_col.astype(float) -1
+    return date_col
 
 
 # takes a dataframe and returns that dataframe with just the address_cols from data constants
@@ -301,8 +301,7 @@ def guess_business_type_from_name(name:pd.Series) -> np.ndarray:
 
 
 def get_business_type(df:pd.DataFrame, naics_col:str = "naics_descr3_standardized",
-                      business_type_col:str = "business_type_standardized",business_name:str = "cleaned_business_name",
-                      dba_name:str = "cleaned_dba_name"):
+                      business_type_col:str = "business_type_standardized"):
     # start from a standardized business type column
     # where the business type is unknown, or other, fill in from an naics column crosswalked to standardized values
     # where the business type is still unknown or other, try to fill in w/ the business names TODO IMPLEMENT THIS

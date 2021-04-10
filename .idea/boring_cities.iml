@@ -11,6 +11,7 @@
       <sourceFolder url="file://$MODULE_DIR$/stock/nasdaq" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/stock/nyse" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/python_modules" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

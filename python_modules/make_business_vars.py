@@ -230,7 +230,7 @@ def la_business_vars(n_cores = 4):
 
 
 def philly_business_vars(n_cores = 4):
-    philly_bus = pd.read_csv(data_dict['intermediate']['philly']['business location'] + '/business_location_addresses_merged.csv')
+    philly_bus = pd.reasd_csv(data_dict['intermediate']['philly']['business location'] + '/business_location_addresses_merged.csv')
     def wrapper(philly_bus):
         philly_bus = parse_business(df=philly_bus, business_name_col='cleaned_ownership_name', use_business_name_as_base=True)
         philly_bus = parse_business(df=philly_bus, business_name_col='cleaned_business_name', use_business_name_as_base=True)
