@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32c665b1-7adb-4fc5-acb7-034cc96442bb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/csv-plugin.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/boring_cities.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/boring_cities.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_modules/address_parsing.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/address_parsing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_modules/clean_business_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/clean_business_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_modules/helper_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/helper_functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_modules/make_business_vars.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/make_business_vars.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_modules/merge_address_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/merge_address_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_modules/name_parsing.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/name_parsing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_modules/top_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/top_file.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,18 +32,18 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/python_modules" />
-      <recent name="$PROJECT_DIR$/output" />
-      <recent name="$PROJECT_DIR$/python_modules/helper_files" />
-      <recent name="$PROJECT_DIR$/python_modules/misc_files" />
-      <recent name="$PROJECT_DIR$/python_modules/data_cleaning" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/python_modules/misc_files" />
       <recent name="$PROJECT_DIR$/python_modules/helper_files" />
       <recent name="$PROJECT_DIR$/python_modules" />
       <recent name="$PROJECT_DIR$/classifier" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/output" />
+      <recent name="$PROJECT_DIR$/python_modules/helper_files" />
+      <recent name="$PROJECT_DIR$/python_modules/misc_files" />
+      <recent name="$PROJECT_DIR$/python_modules/data_cleaning" />
+      <recent name="$PROJECT_DIR$/python_modules" />
     </key>
   </component>
   <component name="RunManager" selected="Python.top_file">
@@ -201,38 +192,37 @@
     </todo-panel>
   </component>
   <component name="WindowStateProjectService">
-    <state width="1419" height="265" key="GridCell.Tab.0.bottom" timestamp="1618012047418">
+    <state width="1419" height="265" key="GridCell.Tab.0.bottom" timestamp="1618002626606">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1419" height="265" key="GridCell.Tab.0.bottom/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1617910596645" />
-    <state width="1419" height="265" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1618012047418" />
-    <state width="1419" height="265" key="GridCell.Tab.0.center" timestamp="1618012047417">
+    <state width="1419" height="265" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1618002626606" />
+    <state width="1419" height="265" key="GridCell.Tab.0.center" timestamp="1618002626605">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1419" height="265" key="GridCell.Tab.0.center/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1617910596643" />
-    <state width="1419" height="265" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1618012047417" />
-    <state width="1419" height="265" key="GridCell.Tab.0.left" timestamp="1618012047416">
+    <state width="1419" height="265" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1618002626605" />
+    <state width="1419" height="265" key="GridCell.Tab.0.left" timestamp="1618002626604">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1419" height="265" key="GridCell.Tab.0.left/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1617910596642" />
-    <state width="1419" height="265" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1618012047416" />
-    <state width="1419" height="265" key="GridCell.Tab.0.right" timestamp="1618012047417">
+    <state width="1419" height="265" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1618002626604" />
+    <state width="1419" height="265" key="GridCell.Tab.0.right" timestamp="1618002626605">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1419" height="265" key="GridCell.Tab.0.right/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1617910596643" />
-    <state width="1419" height="265" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1618012047417" />
-    <state x="229" y="89" key="SettingsEditor" timestamp="1618012583730">
+    <state width="1419" height="265" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1618002626605" />
+    <state x="229" y="89" key="SettingsEditor" timestamp="1618000899632">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="229" y="89" key="SettingsEditor/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1617901552392" />
     <state x="229" y="89" key="SettingsEditor/0.0.1440.900/1440.23.1920.1057@0.0.1440.900" timestamp="1617825260481" />
-    <state x="229" y="89" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1618012583730" />
-    <state x="399" y="297" key="com.intellij.ide.util.TipDialog" timestamp="1618012058275">
+    <state x="229" y="89" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1618000899632" />
+    <state x="399" y="297" key="com.intellij.ide.util.TipDialog" timestamp="1617901566191">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="399" y="282" key="com.intellij.ide.util.TipDialog/0.0.1440.855/1440.23.1920.1057@0.0.1440.855" timestamp="1617726319281" />
     <state x="399" y="297" key="com.intellij.ide.util.TipDialog/0.0.1440.900/1440.0.1920.1080@0.0.1440.900" timestamp="1617901566191" />
-    <state x="399" y="297" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1618012058275" />
     <state x="371" y="174" key="search.everywhere.popup" timestamp="1617907207355">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -243,79 +233,69 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/python_modules/clean_parcel_data.py</url>
+          <url>file://$PROJECT_DIR$/python_modules/data_cleaning/clean_parcel_data.py</url>
           <line>14</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/python_modules/make_business_vars.py</url>
-          <line>69</line>
+          <url>file://$PROJECT_DIR$/python_modules/helper_files/make_business_vars.py</url>
+          <line>123</line>
           <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/python_modules/clean_business_data.py</url>
-          <line>188</line>
+          <url>file://$PROJECT_DIR$/python_modules/data_cleaning/clean_business_data.py</url>
+          <line>180</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/python_modules/clean_business_data.py</url>
-          <line>296</line>
+          <url>file://$PROJECT_DIR$/python_modules/data_cleaning/clean_business_data.py</url>
+          <line>287</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/python_modules/clean_business_data.py</url>
-          <line>314</line>
+          <url>file://$PROJECT_DIR$/python_modules/data_cleaning/clean_business_data.py</url>
+          <line>305</line>
           <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/python_modules/clean_business_data.py</url>
-          <line>137</line>
+          <url>file://$PROJECT_DIR$/python_modules/data_cleaning/clean_business_data.py</url>
+          <line>131</line>
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/python_modules/clean_business_data.py</url>
-          <line>206</line>
+          <url>file://$PROJECT_DIR$/python_modules/data_cleaning/clean_business_data.py</url>
+          <line>197</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/python_modules/clean_business_data.py</url>
-          <line>158</line>
+          <url>file://$PROJECT_DIR$/python_modules/data_cleaning/clean_business_data.py</url>
+          <line>150</line>
           <option name="timeStamp" value="45" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/python_modules/clean_phonebook_data.py</url>
+          <url>file://$PROJECT_DIR$/python_modules/data_cleaning/clean_phonebook_data.py</url>
           <line>48</line>
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/python_modules/clean_phonebook_data.py</url>
+          <url>file://$PROJECT_DIR$/python_modules/data_cleaning/clean_phonebook_data.py</url>
           <line>72</line>
           <option name="timeStamp" value="57" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/python_modules/clean_phonebook_data.py</url>
+          <url>file://$PROJECT_DIR$/python_modules/data_cleaning/clean_phonebook_data.py</url>
           <line>55</line>
           <option name="timeStamp" value="58" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/python_modules/clean_phonebook_data.py</url>
+          <url>file://$PROJECT_DIR$/python_modules/data_cleaning/clean_phonebook_data.py</url>
           <line>91</line>
           <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/python_modules/clean_business_data.py</url>
-          <line>259</line>
+          <url>file://$PROJECT_DIR$/python_modules/data_cleaning/clean_business_data.py</url>
+          <line>250</line>
           <option name="timeStamp" value="60" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/python_modules/make_business_vars.py</url>
-          <line>7</line>
-          <option name="timeStamp" value="61" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/python_modules/name_parsing.py</url>
-          <line>352</line>
-          <option name="timeStamp" value="64" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
