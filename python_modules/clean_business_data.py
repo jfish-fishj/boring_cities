@@ -1,7 +1,7 @@
 # file cleans business location data and exports back
 import pandas as pd
 import numpy as np
-from python_modules.helper_functions import *
+from helper_functions import *
 from data_constants import make_data_dict, filePrefix, name_parser_files, business_cols, misc_data_dict
 from name_parsing import classify_name, clean_name, combine_names
 from address_parsing import clean_parse_address

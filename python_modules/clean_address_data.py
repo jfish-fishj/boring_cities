@@ -1,11 +1,11 @@
 import pandas as pd
 import numpy as np
 import geopandas as gpd
-from python_modules.helper_functions import add_subset_address_cols, interpolate_polygon
-from python_modules.helper_files.data_constants import default_crs
-from python_modules.name_parsing import combine_names
-from python_modules.helper_files.address_parsing import clean_parse_address
-from python_modules.helper_functions import make_panel
+from helper_functions import add_subset_address_cols, interpolate_polygon
+from data_constants import default_crs
+from name_parsing import combine_names
+from address_parsing import clean_parse_address
+from helper_functions import make_panel
 from pathos.multiprocessing import ProcessingPool as Pool
 import re
 import fiona

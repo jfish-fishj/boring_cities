@@ -2,16 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="32c665b1-7adb-4fc5-acb7-034cc96442bb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/csv-plugin.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/boring_cities.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/boring_cities.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_modules/address_parsing.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/address_parsing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_modules/clean_address_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/clean_address_data.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/python_modules/clean_business_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/clean_business_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_modules/helper_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/helper_functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_modules/make_business_vars.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/make_business_vars.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_modules/merge_address_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/merge_address_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_modules/name_parsing.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/name_parsing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_modules/top_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/top_file.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_modules/clean_parcel_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/clean_parcel_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_modules/clean_permit_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/clean_permit_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_modules/merge_census_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_modules/merge_census_data.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,11 +158,11 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.make_business_vars" />
-      <item itemvalue="Python.make_business_vars (1)" />
       <item itemvalue="Python.clean_address_data" />
-      <item itemvalue="Python.top_file" />
       <item itemvalue="Python.helper_functions" />
+      <item itemvalue="Python.make_business_vars (1)" />
+      <item itemvalue="Python.make_business_vars" />
+      <item itemvalue="Python.top_file" />
     </list>
     <recent_temporary>
       <list>
@@ -199,6 +195,17 @@
       <are-packages-shown value="true" />
       <is-autoscroll-to-source value="true" />
     </todo-panel>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="WindowStateProjectService">
     <state width="1419" height="265" key="GridCell.Tab.0.bottom" timestamp="1618012047418">

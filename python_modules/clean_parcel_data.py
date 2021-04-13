@@ -1,7 +1,7 @@
 # file cleans parcel data and exports back
 import pandas as pd
 import numpy as np
-from python_modules.helper_functions import write_to_log, WTL_TIME
+from helper_functions import write_to_log, WTL_TIME
 from data_constants import make_data_dict, filePrefix, name_parser_files
 
 write_to_log(f'Starting clean business data at {WTL_TIME}')
