@@ -5,6 +5,10 @@ import numpy as np
 from data_constants import filePrefix, name_parser_files
 from helper_functions import write_to_log
 
+import warnings
+warnings.filterwarnings("ignore", 'This pattern has match groups')
+
+
 # Regex Definitions
 ANY_NAME = r'([a-z-]+)'
 NOT_MI = r'([a-z-]{2,})'
@@ -73,19 +77,19 @@ def clean_name_vectorized(column:pd.Series) -> pd.Series:
         return column
 
     if pd.api.types.is_string_dtype(column) is False:
-        raise ValueError("column is not of type object/string")
+        return column
     else:
         column = column.str.lower()
-        column = column.str.replace(r'\.|\!|@|#|\$|~|\(|\)|\\|\||\*|/|"|`|\[|\]', "")
-        column = column.str.replace(r',{2,}',  ",")
-        column = column.str.replace(r"'", "")
+        column = column.str.replace(r'\.|\!|@|#|\$|~|\(|\)|\\|\||\*|/|"|`|\[|\]|\?', "", regex=True)
+        column = column.str.replace(r',{2,}',  ",", regex=True)
+        column = column.str.replace(r"'", "", regex=True)
         column = column.str.strip()
-        column = column.str.replace(r'(IRREV(ocable)?)\s?(REAL)?\s?EST(ate)?\s?TR(ust)?$', "", flags=re.IGNORECASE)
-        column = column.str.replace(r'trustees?', "", flags=re.IGNORECASE)
-        column = column.str.replace(r'\str\s', "", flags=re.IGNORECASE)
-        column = column.str.replace(r'([a-z]+\s)(tr,?\s)([a-z]\s+)', r'\g<1>\g<2>', flags=re.IGNORECASE)
-        column = column.str.replace(r'life tenant?', "", flags=re.IGNORECASE)
-        column = column.str.replace(r'(life)?\s?(estate)', "", flags=re.IGNORECASE)
+        column = column.str.replace(r'(IRREV(ocable)?)\s?(REAL)?\s?EST(ate)?\s?TR(ust)?$', "", flags=re.IGNORECASE, regex=True)
+        column = column.str.replace(r'trustees?', "", flags=re.IGNORECASE, regex=True)
+        column = column.str.replace(r'\str\s', "", flags=re.IGNORECASE, regex=True)
+        column = column.str.replace(r'([a-z]+\s)(tr,?\s)([a-z]\s+)', r'\g<1>\g<2>', flags=re.IGNORECASE, regex=True)
+        column = column.str.replace(r'life tenant?', "", flags=re.IGNORECASE, regex=True)
+        column = column.str.replace(r'(life)?\s?(estate)', "", flags=re.IGNORECASE, regex=True)
 
         # replace other deliminators eg + or % w/ &
         column = column.str.replace(r'\+|%|;|\{|\}', '&', regex=True)
@@ -140,17 +144,17 @@ def clean_name_vectorized(column:pd.Series) -> pd.Series:
                                                           flags=re.IGNORECASE)
         column = column.str.replace(r'(\s$|^\s)', '', regex=True, flags=re.IGNORECASE)
         column = column.str.strip()
-        column = column.str.replace(r'\b([a-z])\s([a-z])\b', r'\g<1>\g<2>')
+        column = column.str.replace(r'\b([a-z])\s([a-z])\b', r'\g<1>\g<2>', regex=True)
         column = column.str.replace(r'(\s$|^\s)', '', regex=True,
                                                                         flags=re.IGNORECASE)
-        column = column.str.replace(r'\ste$', "", flags=re.IGNORECASE)
-        column = column.str.replace(r'\ste\s', " ", flags=re.IGNORECASE)
-        column = column.str.replace(r'\sts$', "", flags=re.IGNORECASE)
-        column = column.str.replace(r'\sts\s', " ", flags=re.IGNORECASE)
-        column = column.str.replace(r'\str$', "", flags=re.IGNORECASE)
-        column = column.str.replace(r'\str\s', " ", flags=re.IGNORECASE)
-        column = column.str.replace(r'\sfm$', "", flags=re.IGNORECASE)
-        column = column.str.replace(r'\setux$', "", flags=re.IGNORECASE)
+        column = column.str.replace(r'\ste$', "", flags=re.IGNORECASE, regex=True)
+        column = column.str.replace(r'\ste\s', " ", flags=re.IGNORECASE, regex=True)
+        column = column.str.replace(r'\sts$', "", flags=re.IGNORECASE, regex=True)
+        column = column.str.replace(r'\sts\s', " ", flags=re.IGNORECASE, regex=True)
+        column = column.str.replace(r'\str$', "", flags=re.IGNORECASE, regex=True)
+        column = column.str.replace(r'\str\s', " ", flags=re.IGNORECASE, regex=True)
+        column = column.str.replace(r'\sfm$', "", flags=re.IGNORECASE, regex=True)
+        column = column.str.replace(r'\setux$', "", flags=re.IGNORECASE, regex=True)
         column = column.str.strip()
         return column
 
@@ -159,7 +163,7 @@ def string_standardize_name(column:pd.Series) -> pd.Series:
     """Standardizes strings in dataframe according to a replacement dictionary."""
     # create column with prefix and old column name
     if column.isnull().all() is True:
-        write_to_log('column is completely NA... Not attempting to clean')
+        write_to_log('column is completely NA... Not attempting to clean1')
         return column
     if pd.api.types.is_string_dtype(column) is not True:
         return column
@@ -300,7 +304,7 @@ def classify_name(dataframe, name_cols,type_col = 'type_name', weight_format=Fal
     # classify new column as business or name
         # create temp concatenation column
     dataframe_dd = dataframe[name_cols].drop_duplicates(subset=name_cols)
-    dataframe['temp_name'] = combine_names(dataframe_dd[name_cols], name_cols=name_cols)
+    dataframe_dd['temp_name'] = combine_names(dataframe_dd[name_cols], name_cols=name_cols)
     # read in lists of words that flag each type of string, e.g. business, professional, name, etc.
     with open(name_parser_files['non names'], 'r') as textfile:
         non_names = textfile.read().replace('\n', r'|(^|\s|-)')
@@ -347,7 +351,7 @@ def classify_name(dataframe, name_cols,type_col = 'type_name', weight_format=Fal
         )
     dataframe_dd.drop(columns='temp_name', inplace=True)
     dataframe = pd.merge(dataframe, dataframe_dd, how='left', on=name_cols)
-    return pd.Series(dataframe[type_col])
+    return pd.Series(dataframe[type_col], index=dataframe.index)
 
 
 def combine_names(dataframe, name_cols = None, fill = ''):
@@ -357,7 +361,7 @@ def combine_names(dataframe, name_cols = None, fill = ''):
     for col in name_cols:
         temp_col = (
             temp_col.fillna(dataframe[col].fillna(fill).astype(str)).
-                str.replace(' {2,}', ' ').str.strip().
+                str.replace(' {2,}', ' ', regex=True).str.strip().
                 replace(r'^(\s+)?$', np.nan, regex=True).
                 replace(fill, np.nan, regex=False)
 
@@ -839,7 +843,7 @@ def parse_person(person_df, name_col, first_name_col, middle_name_col,
 def clean_business_name(business_name_col:pd.Series, numbers_format=False) -> pd.Series:
     # business_name_col = business_name_col.apply(remove_commas)
     if not pd.api.types.is_string_dtype(business_name_col):
-        write_to_log(f"{business_name_col} is not string type. not attempting to clean")
+        # write_to_log(f"{business_name_col} is not string type. not attempting to clean2")
         return pd.Series(index=business_name_col.index, data = np.nan)
     business_name_col = business_name_col.str.replace(r',|-|:|;|\?|\.', ' ',  regex=True)
     business_name_col = business_name_col.str.replace(r'(\s)(no\s|number\s|unit\s)(0-9+)', r'g<1>#\g<3>', regex=True)
@@ -873,8 +877,8 @@ def clean_business_name(business_name_col:pd.Series, numbers_format=False) -> pd
 
 def make_business_main_type_col(business_name_col:pd.Series) -> pd.Series:
     if not pd.api.types.is_string_dtype(business_name_col):
-        write_to_log(f"{business_name_col} is not string type. not attempting to clean")
-        return pd.Series(np.full(business_name_col.shape[0], np.nan))
+        write_to_log(f"{business_name_col.name} is not string type. not attempting to clean3")
+        return pd.Series(np.full(business_name_col.shape[0], np.nan), index=business_name_col.index)
     else:
         return (pd.Series(
             np.where(
@@ -934,14 +938,14 @@ def make_business_main_type_col(business_name_col:pd.Series) -> pd.Series:
                     )
                 )
             )
-        )
+        , index=business_name_col.index)
     )
 
 
 def make_business_sub_type_col(business_name_col:pd.Series) -> pd.Series:
     if not pd.api.types.is_string_dtype(business_name_col):
-        write_to_log(f"{business_name_col} is not string type. not attempting to clean returning np.nan")
-        return pd.Series(np.full(business_name_col.shape[0], np.nan))
+        write_to_log(f"{business_name_col.name} is not string type. not attempting to clean returning np.nan4")
+        return pd.Series(np.full(business_name_col.shape[0], np.nan), index=business_name_col.index)
     else:
         return (pd.Series(
             np.where(
@@ -968,51 +972,46 @@ def make_business_sub_type_col(business_name_col:pd.Series) -> pd.Series:
 def make_business_short_name_col(business_name_col:pd.Series, business_sub_type_col:pd.Series,
                                  bank_names:list) -> pd.Series:
 
-    business_short_name_col = pd.Series(index=business_name_col.index, data = np.nan)
+    business_short_name_col = business_name_col.copy(deep=True)
     if not pd.api.types.is_string_dtype(business_name_col):
-        write_to_log(f"{business_name_col} is not string type. not attempting to clean")
+        write_to_log(f"{business_name_col.name} is not string type. not attempting to clean5")
         return business_short_name_col
 
-    business_short_name_col = business_short_name_col.fillna(business_name_col.str.extract(
-        r'(.+)(\sof(boston|ma|new\sengland|lowell|meord|chelsea))',  # make sure to add more city names
-        flags=re.IGNORECASE).iloc[:, 0])
-
-    business_short_name_col = business_short_name_col.fillna(business_name_col)
     # consolodate bank names i.e bank of america & bank of america na
     business_short_name_col = pd.Series(np.where(business_sub_type_col == 'bank',
                                            business_name_col.str.extract('(' +
                                                                              r'|'.join(bank_names) + ')'
                                                                              ).iloc[:, 0],
-                                           business_short_name_col))
+                                           business_short_name_col), index=business_name_col.index)
     business_short_name_col = business_short_name_col.str.replace(
         r'^(.+)\s(0-9{1,4}a-z?|ii?i?v?|vi?i?i?|xi?i?|one|two|'
-        r'three|four|five|six|seven|eight|nine|ten|et\s?al)$', r'\g<1>')
+        r'three|four|five|six|seven|eight|nine|ten|et\s?al)$', r'\g<1>', regex=True)
     # remove leading and trailing business words like llc
     business_short_name_col = business_short_name_col.str.replace(
         r'\b(inc|incorporated|(living)?\s?((ir)?rev(ocable)?\s|living\s)?trust|llc|lp|corporate|corp(oration)?|'
         r'estate of power|(life\s?)?estate(\sof)?|co-?oprative{5,9}|trust|(city|town)\sof|limited|llp|partnership|company)$',
         "",
-        flags=re.IGNORECASE)
+        flags=re.IGNORECASE, regex=True)
     business_short_name_col = business_short_name_col.str.replace(
         r'^(inc|incorporated|(living)?\s?((ir)?rev(ocable)?\s|living\s)?trust|llc|lp|corporate|corp(oration)?|'
         r'estate of power|(life\s?)?estate(\sof)?|co-?oprative{5,9}|trust|(city|town)\sof|limited|llp|partnership|company)\b',
         "",
-        flags=re.IGNORECASE)
+        flags=re.IGNORECASE, regex=True)
     # repeat one more time for stuff like corporation llc
     business_short_name_col = business_short_name_col.str.replace(
         r'\b(inc|incorporated|(living)?\s?((ir)?rev(ocable)?\s|living\s)?trust|llc|lp|corporate|corp(oration)?|'
         r'estate of power|(life\s?)?estate(\sof)?|co-?oprative{5,9}|trust|(city|town)\sof|limited|llp|partnership|company)$',
         "",
-        flags=re.IGNORECASE)
+        flags=re.IGNORECASE, regex=True)
     business_short_name_col = business_short_name_col.str.replace(
         r'^(inc|incorporated|(living)?\s?((ir)?rev(ocable)?\s|living\s)?trust|llc|lp|corporate|corp(oration)?|'
         r'estate of power|(life\s?)?estate(\sof)?|co-?oprative{5,9}|trust|(city|town)\sof|limited|llp|partnership|company)\b',
         "",
-        flags=re.IGNORECASE)
+        flags=re.IGNORECASE, regex=True)
     # remove words that come after store
     business_short_name_col = business_short_name_col.str.replace(
         r'^(.+)\s(stores?.+)$',r'\g<1>',
-        flags=re.IGNORECASE)
+        flags=re.IGNORECASE, regex=True)
     # remove cities (note this assumes an exhaustive list of cities and needs to always be thoroughly checked on new data
     # but its good for going from starbucks of pasadena -> starbucks
     cities = pd.read_csv(filePrefix + "/name_parser_files/city_list.csv")
@@ -1020,12 +1019,12 @@ def make_business_short_name_col(business_name_col:pd.Series, business_sub_type_
     city_list = '|'.join(cities['primary_addr_city'])
     business_short_name_col = business_short_name_col.str.replace(
         f'^(.+)\s((of\s)?{city_list})$', r'\g<1>',
-        flags=re.IGNORECASE)
+        flags=re.IGNORECASE, regex=True)
 
 
-    business_short_name_col = business_short_name_col.str.replace(r' {2,}', r' ')
+    business_short_name_col = business_short_name_col.str.replace(r' {2,}', r' ', regex=True)
     business_short_name_col = business_short_name_col.str.strip()
-    business_short_name_col = business_short_name_col.str.replace(r'^(a-z\s+)(\s)(city|town)$', r'\g<1>')
+    business_short_name_col = business_short_name_col.str.replace(r'^(a-z\s+)(\s)(city|town)$', r'\g<1>', regex=True)
 
     # clean superfluous words from short name
     business_short_name_col = business_short_name_col.str.replace(
@@ -1040,25 +1039,26 @@ def make_business_short_name_col(business_name_col:pd.Series, business_sub_type_
                                            business_name_col.str.contains('freddie mac'),
                                            'federal home loan mortgage',
                                            business_short_name_col
-                                           ))
+                                           ), index=business_name_col.index)
     business_short_name_col = pd.Series(np.where((business_name_col.str.contains('federal national') &
                                             business_name_col.str.contains('mort')) |
                                            business_name_col.str.contains('fannie mae'),
                                            'federal national mortgage association',
                                            business_short_name_col
-                                           ))
+                                           ), index=business_name_col.index)
+                                           
     business_short_name_col = business_short_name_col.str.strip()
+
     business_short_name_col = business_short_name_col.replace(r'^(\s+)?$', np.nan, regex=True)
     business_short_name_col = business_short_name_col.replace(r'', np.nan, regex=False)
-    business_short_name_col = business_short_name_col.fillna(business_name_col.str.extract(
-        r'^((\w+\s){1,2})(.+)$').iloc[:, 0])
-    return business_short_name_col
+    business_short_name_col = business_short_name_col.fillna(business_name_col.str.extract(r'^((\w+\s){1,2})(.+)$').iloc[:, 0])
+    return pd.Series(business_short_name_col, index=business_name_col.index)
 
 
 def make_business_proper_name_col( business_name_col,business_short_name_col, business_main_type_col):
     business_proper_name_col = business_short_name_col
     if not pd.api.types.is_string_dtype(business_name_col):
-        write_to_log(f"{business_name_col} is not string type. not attempting to clean")
+        write_to_log(f"{business_name_col.name} is not string type. not attempting to clean99")
         return np.full(business_name_col.shape[0], np.nan)
     business_proper_name_col = business_proper_name_col.str.replace(
         r'\b(realty|real|leasing|groups?|assoc?i?a?t?i?o?n?s?|assoc?i?a?t?e?s?|condos?|owners?|(asset)?\s?ma?na?ge?me?nt|'
@@ -1083,12 +1083,12 @@ def make_business_proper_name_col( business_name_col,business_short_name_col, bu
     business_proper_name_col = business_proper_name_col.str.strip()
 
     # remove certain trailing letters/suffixes
-    business_proper_name_col = pd.Series(np.where(business_main_type_col.isin('trust', 'family', 'condo trust', 'other'),
+    business_proper_name_col = pd.Series(np.where(business_main_type_col.isin(['trust', 'family', 'condo trust', 'other']),
                                           business_proper_name_col.str.replace(
                                               r'\b(a-z)\b',
                                               '', regex=True
                                           ),
-                                          business_proper_name_col))
+                                          business_proper_name_col), index=business_name_col.index)
     # filter out municipalities (note this requires an exhaustive list of cities)
     business_proper_name_col = pd.Series(np.where(business_main_type_col == 'municipality',
                                           business_proper_name_col.str.replace(
@@ -1103,7 +1103,7 @@ def make_business_proper_name_col( business_name_col,business_short_name_col, bu
                                               r'needham|dedham|dover|milton|quincy|randolph'
                                               r'|braintree|weymoth|holbrook|abington|'
                                               r'brockton)(.+)$', r'\g<1>', regex=True),
-                                          business_proper_name_col))
+                                          business_proper_name_col), index=business_name_col.index)
     business_proper_name_col = pd.Series(np.where(business_main_type_col == 'municipality',
                                           business_proper_name_col.str.replace(
                                               r'^(town\sof\s)(chelsea|boston|cambridge|arlington|'
@@ -1117,7 +1117,7 @@ def make_business_proper_name_col( business_name_col,business_short_name_col, bu
                                               r'needham|dedham|dover|milton|quincy|randolph'
                                               r'|braintree|weymoth|holbrook|abington|'
                                               r'brockton)(.+)$', r'\g<2>', regex=True),
-                                          business_proper_name_col))
+                                          business_proper_name_col), index=business_name_col.index)
     # replace empty strings w/ nas
     business_proper_name_col = business_proper_name_col.replace(r'^(\s+)?$', np.nan, regex=True)
     business_proper_name_col = business_proper_name_col.replace(r'', np.nan, regex=False)
@@ -1130,10 +1130,10 @@ def make_business_proper_name_col( business_name_col,business_short_name_col, bu
 
 def make_alphabetized_name(name_column):
     if not pd.api.types.is_string_dtype(name_column):
-        write_to_log(f"{name_column} is not string type. not attempting to clean")
+        write_to_log(f"{name_column.name} is not string type. not attempting to alphabetize")
         alphabetized_col = np.full(name_column.shape[0], np.nan)
         return alphabetized_col
-    splitCol = name_column.str.split(' ')
+    splitCol = name_column.fillna("").astype(str).str.split(' ')
     splitCol = splitCol.sort_values().apply(lambda x: sorted(x))
     alphabetized_col = splitCol.str.join(' ')
     alphabetized_col = alphabetized_col.str.replace(' {2,}', ' ', regex=True)
@@ -1149,16 +1149,16 @@ def parse_business(df, business_name_col, business_main_type_col = 'business_mai
         business_sub_type_col = business_name_col + "_sub_type"
         business_short_name_col = business_name_col + "_short_name"
         business_proper_name_col = business_name_col + "_proper_name"
-    for col in [business_short_name_col, business_sub_type_col, business_main_type_col]:
-        if col not in list(df.columns):
-            df[col] = np.nan
+        alphabetized_col = business_name_col + "_alphabetized"
+        business_proper_name_alp_col = business_proper_name_col + "_alphabetized"
+
     if df.shape[0] == 0:
         if log is not False:
             write_to_log('Dataframe has no shape not trying to parse')
         return df
-    df[business_name_col] = clean_business_name(business_name_col=df[business_name_col],
-                             numbers_format=numbers_format)
-    df_full = df.drop(columns=[business_short_name_col, business_sub_type_col, business_main_type_col]).copy(deep=True)
+    # df[business_name_col] = clean_business_name(business_name_col=df[business_name_col],
+    #                          numbers_format=numbers_format)
+    df_full = df.copy(deep=True)
     df = df[[business_name_col]].drop_duplicates(subset=[business_name_col])
     df[business_main_type_col] = make_business_main_type_col(business_name_col=df[business_name_col])
     # subtype
@@ -1175,7 +1175,7 @@ def parse_business(df, business_name_col, business_main_type_col = 'business_mai
     # create alphabetized full name column
     df[alphabetized_col] = make_alphabetized_name(name_column=df[business_name_col])
     # make alphabetized proper name column
-    df['business_proper_name_alphabetized'] = make_alphabetized_name(name_column=df[business_proper_name_col])
+    df[business_proper_name_alp_col] = make_alphabetized_name(name_column=df[business_proper_name_col])
     df_full = df_full.merge(df, on=business_name_col, how='left')
     return df_full
 

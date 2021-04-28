@@ -67,7 +67,7 @@ if __name__ == "__main__":
 
             ) if os.path.exists(data_dict['intermediate'][city]['parcel'] + '/addresses.csv') else
             filter_df(
-                pd.read_csv(data_dict['intermediate'][city]['business location'] + '/business_location.csv',
+                pd.read_csv(data_dict['intermediate'][city]['business_location'] + '/business_location.csv',
                             usecols=['primary_cleaned_addr_zip' ,'primary_cleaned_city']).rename(columns={
                 'primary_cleaned_addr_zip': "parsed_addr_zip", 'primary_cleaned_city': "parsed_city"
             }).assign(parsed_city = "philadelphia"),

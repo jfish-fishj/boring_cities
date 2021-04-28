@@ -9,6 +9,7 @@ from fuzzywuzzy import fuzz
 import data_constants
 import numpy as np
 from typing import Union
+import sqlite3
 WTL_TIME = datetime.today().strftime('%Y-%m-%d')
 
 
@@ -162,6 +163,8 @@ def make_panel(df:pd.DataFrame, start_year:str, end_year:str, current_year:Union
     :return: expanded dataframe
     """
     # drop any with no startyear
+    print("making panel")
+    og_rows = df.shape[0]
     df = df[~ df[start_year].isna()]
     if type(current_year) is pd.core.series.Series:
         current_year = current_year.dropna()
@@ -169,24 +172,32 @@ def make_panel(df:pd.DataFrame, start_year:str, end_year:str, current_year:Union
         df = df[df[start_year] <= current_year]
     # fill in end year with current year if missing
     df[end_year] = df[end_year].fillna(current_year)
+    print("filled in end year")
     # make a number of years var
     df['numYears'] = df[end_year] - df[start_year] + 1
+    print(df['numYears'].value_counts().head(10))
     df = df[df['numYears'] > 0]
     if limit is not False:
+        # this will limit from most recent
         df= df[df['numYears'] < limit]
     # make a row for every year
     df = df.loc[df.index.repeat(df.numYears)]
+    print("repeated index")
     # make the year variable
     df['one'] = 1
     df['addToYear'] = df.groupby(df.index)['one'].cumsum()
+    print("added to year")
     df['year'] = df[start_year] + df['addToYear'] - 1
     if evens_and_odds is not False:
         df = df[df['addToYear'] % 2 ==1]
-
     if keep_cum_count is not False:
         df = df.drop(columns=[ 'one', 'addToYear', start_year, end_year])
     else:
         df = df.drop(columns = ['numYears','one','addToYear',start_year,end_year])
+    if df.shape[0] < og_rows:
+        print("Number of post panel decreased from {og_rows} to {df.shape[0]}")
+        warnings.warn(f"Number of post panel decreased from {og_rows} to {df.shape[0]}")
+    print(f"returned df to merge {df.shape[0]}")
     return df
 
 
@@ -231,11 +242,11 @@ def add_subset_business_cols(df:pd.DataFrame):
 # make naics vars (uses 2017 NAICS codes)
 # helper function for seeing how much granulairity is contained within an naics col
 def get_naics_depth(naics_col:pd.Series) -> pd.Series:
-    return naics_col.fillna("").astype(str).str.replace("[0\D]+", "").str.len()
+    return naics_col.fillna("").astype(str).str.replace("[0\D]+", "", regex=True).str.len()
 
 
 def subset_naics_col(naics_col:pd.Series, depth:int) -> pd.Series:
-    col = naics_col.fillna("").astype(str).str.replace("[0\D]+", "").str.slice(0, depth)
+    col = naics_col.fillna("").astype(str).str.replace("[0\D]+", "", regex=True).str.slice(0, depth)
     col =pd.Series(np.where(
         col.str.len() < depth, np.nan, col
     ))
@@ -260,7 +271,7 @@ def get_naics_descr(naics_col:pd.Series) -> pd.Series:
     naics["31"] = "Manufacturing"
     naics["32"] = "Manufacturing"
     naics["33"] = "Manufacturing"
-    return naics_col.fillna("").astype(str).str.replace("[0\D]+", "").map(naics)
+    return naics_col.fillna("").astype(str).str.replace("[0\D]+", "", regex=True).map(naics)
 
 
 # function takes df and naics column and returns that dataframe with the following columns:
@@ -343,8 +354,10 @@ def fuzzy_merge(df1:pd.DataFrame, df2:pd.DataFrame, left_fuzzy_col:str,
     df1['index'] = np.arange(df1.shape[0])
     df_m = pd.merge(df1, df2, left_on=left_cols, right_on=right_cols, how="left")
     # make difference columns
-    df_m[left_fuzzy_col] = df_m[left_fuzzy_col].astype(str)
-    df_m[right_fuzzy_col] = df_m[right_fuzzy_col].astype(str)
+    df_m[left_fuzzy_col] = df_m[left_fuzzy_col].fillna("").astype(str)
+    df_m[right_fuzzy_col] = df_m[right_fuzzy_col].fillna("").astype(str)
+    print(df_m[[left_fuzzy_col, right_fuzzy_col]])
+    print(left_fuzzy_col, right_fuzzy_col)
     df_m['similarity'] = df_m.apply(lambda x: fuzz.ratio(x[left_fuzzy_col], x[right_fuzzy_col]), axis=1)
     df_m['max_similarity'] = df_m.groupby('index')['similarity'].transform('max')
     # filter where difference is minimum & below threshold
@@ -377,14 +390,14 @@ def get_nearest_address(df1:pd.DataFrame,df2:pd.DataFrame, n1_col_left:str, n1_c
     # make difference columns
     # this is way too much effort to convert a column to numeric...
     if pd.api.types.is_string_dtype(df_m[n1_col_left]):
-        df_m[n1_col_left] = df_m[n1_col_left].str.replace('\.0+', '')
-        df_m[n1_col_left] = df_m[n1_col_left].str.replace('\D', '')
+        df_m[n1_col_left] = df_m[n1_col_left].str.replace('\.0+', '', regex=True)
+        df_m[n1_col_left] = df_m[n1_col_left].str.replace('\D', '', regex=True)
         df_m[n1_col_left] = df_m[n1_col_left].replace("", np.nan, regex=False)
         df_m[n1_col_left] = pd.to_numeric(df_m[n1_col_left], errors='coerce')
         df_m[n1_col_left] = df_m[n1_col_left].astype('Int64')
     if pd.api.types.is_string_dtype(df_m[n1_col_right]):
-        df_m[n1_col_right] = df_m[n1_col_right].str.replace('\.0+', '')
-        df_m[n1_col_right] = df_m[n1_col_right].str.replace('\D', '')
+        df_m[n1_col_right] = df_m[n1_col_right].str.replace('\.0+', '', regex=True)
+        df_m[n1_col_right] = df_m[n1_col_right].str.replace('\D', '', regex=True)
         df_m[n1_col_right] = df_m[n1_col_right].replace("", np.nan, regex=False)
         df_m[n1_col_right] = pd.to_numeric(df_m[n1_col_right], errors='coerce')
         df_m[n1_col_right] = df_m[n1_col_right].astype('Int64')
@@ -400,4 +413,24 @@ def get_nearest_address(df1:pd.DataFrame,df2:pd.DataFrame, n1_col_left:str, n1_c
     df1.drop(columns = 'index', inplace = True)
     df1 = pd.merge(left=df1_copy, right=df1,on=[n1_col_left] + left_cols, how='left' , suffixes=suffixes)
     return df1
+
+
+# replace str nan w/ np.nan in all columns in df
+def replace_nan(df: pd.DataFrame) -> pd.DataFrame:
+    for col in df.columns:
+        if pd.api.types.is_string_dtype(col) is True:
+            df[col] = df[col].replace("nan", np.nan, regex=False)
+            df[col] = df[col].replace("NA", np.nan, regex=False)
+    return df
+
+
+# sends business location df to sql database
+def business_loc_to_sql(df: pd.DataFrame, table="business_locations_flat", mode="append"):
+    print("appending df")
+    con = sqlite3.connect(data_constants.dataPrefix + "/data/business_locations.db")
+    df = replace_nan(df)
+    df.to_sql(table, con, if_exists=mode, index=False)
+    con.close()
+    print("df appended")
+    
 

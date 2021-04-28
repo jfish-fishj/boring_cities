@@ -1,0 +1,74 @@
+
+Starting clean business data at 2021-04-25
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+All parsable address components are completely NA! Returning dataframe
+
+column is not of type object/string
+
+All parsable address components are completely NA! Returning dataframe
+
+column is not of type object/string
+
+All parsable address components are completely NA! Returning dataframe
+
+column is not of type object/string
+
+All parsable address components are completely NA! Returning dataframe
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string

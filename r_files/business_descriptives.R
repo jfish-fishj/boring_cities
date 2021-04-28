@@ -4,50 +4,95 @@
 # Created on: 2/24/21
 
 library(tidyverse)
+library(dbplyr)
 library(data.table)
 library(sf)
+library(DBI)
+library(dtplyr)
 
-# san diego business non panel
-sd_bp = fread("/Volumes/Seagate Portable Drive/boring_cities/data/final/sd/business location/business_location_panel.csv", data.table = F)
-sd_sf = read_sf("/Volumes/Seagate Portable Drive/boring_cities/data/census/shapefiles/tl_2010_06_bg10/tl_2010_06_bg10.shp")
-# filter for just places in san diego
-sd_bp_f %>% filter(primary_cleaned_city == "san diego" & year %in% seq(2000,2018))%>%
-  distinct(cleaned_dba_name,cleaned_ownership_name, year, primary_cleaned_addr_n1,
-           primary_cleaned_addr_sn, primary_cleaned_addr_ss, .keep_all = T)%>% 
-  group_by(year, cleaned_ownership_name) %>%
-  mutate(num_locs = n() ) %>%
-  ungroup() %>%
-  mutate(
-    location_start_year = as.numeric(str_extract(location_start_date, "[0-9]{4}")),
-    location_end_year = as.numeric(str_extract(location_end_date, "[0-9]{4}"))
+if (Sys.info()['sysname']=="Linux"){
+  file_prefix = "/home/jfish/project_data/"  
+} else {
+  file_prefix = "/Volumes/Seagate Portable Drive/"
+}
+get_mode <- function(x) {
+  ux <- unique(na.omit(x))
+  tx <- tabulate(match(x, ux))
+  if(length(ux) != 1 & sum(max(tx) == tx) > 1) {
+    if (is.character(ux)) return(NA_character_) else return(NA_real_)
+  }
+  max_tx <- tx == max(tx)
+  return(ux[max_tx])
+}
+
+setwd(str_interp("${file_prefix}boring_cities/data/"))
+bloc_con <- dbConnect(RSQLite::SQLite(), "business_locations.db")
+b_flat <- tbl(bloc_con, "business_locations_panel")
+census_con <-  dbConnect(RSQLite::SQLite(), "census.db")
+census = tbl(census_con, "acs") %>%
+  select(GEOID10,year,blk, wht, asn, hsp, pop, medhhinc, pac, imm, oth, two) %>%
+  collect()
+  
+city = c("sacramento", "san diego")
+years = seq(2000,2018)
+bp <- b_flat %>%
+  filter(
+    year %in% years & source %in% city
   ) %>%
-  group_by(year, location_id) %>%
-  mutate(num_locs = n() ) %>%
-  ungroup() %>% 
-  group_by(location_id) %>% mutate(
-    first_year = min(location_start_year, na.rm = T),
-    last_year = max(location_end_year, na.rm = T),
-    years_running = year - first_year
-  ) %>% ungroup()-> sd_bp_f
+  select(
+    contains("date"),
+    contains("year"),
+    matches("cleaned.+name"),
+    contains("num_loc"),
+    contains("publically_traded"),
+    contains("city"),
+    contains("ID"),
+    contains("type"),
+    source
+    ) %>%
+  collect()
+
+if (nrow(bp) > 1e7){
+  bp <- lazy_dt(bp)
+}
+
+bp = bp %>% group_by(location_id) %>% 
+  arrange(year, .by_group = TRUE) %>%
+  mutate(
+    first_year_at_location = min(location_start_year, na.rm = T),
+    last_year_at_location = max(replace_na(location_end_year, 2020)),
+    years_running =(year-first_year_at_location) + seq(n())
+  ) %>% ungroup() %>%
+  left_join(
+    census, by = c("CT_ID_10"="GEOID10", "year"="year")
+  )
+
+sf = read_sf(paste0(file_prefix,"boring_cities/data/census/shapefiles/tl_2010_06_bg10/tl_2010_06_bg10.shp"))
 
 # check proportion geocoded
-table(sd_bp$merged_from) # geocode rate about 95%
-sum(is.na(sd_bp$pop)) / nrow(sd_bp)
-
-
+# table(bp$merged_from) # geocode rate about 95%
+sum(is.na(bp$pop)) / nrow(bp)
 
 # year descriptives
-sd_bp_f  %>% 
-  group_by(year, cleaned_business_name) %>%
-  mutate(num_locs = n() ) %>%
-  ungroup() %>% 
-  group_by( year) %>%
+year_agg <- bp  %>%
+  group_by( year, source ) %>%
   summarise(
+    # business vars
     num_locations = n(),
     num_businesses = n_distinct(business_id),
-    num_is_publically_traded = sum(dba_is_publicly_traded == "is publically traded" | business_name_is_publicly_traded == "is publically traded", na.rm = T),
-    num_chain = sum((num_locs > 1)),
-    percent_chain = num_chain  / num_locations,
+    num_is_publically_traded = sum(
+      (cleaned_dba_name_is_publically_traded == "is publically traded") |
+        (cleaned_business_name_is_publically_traded == "is publically traded") |
+        (cleaned_ownership_name_is_publically_traded == "is publically traded"), na.rm = T),
+    num_chain_dba_business = sum(
+      (num_locations_cleaned_business_name > 1) |(num_locations_cleaned_dba_name > 1) |(num_locations_business_id > 1),
+      na.rm = T),
+    num_chain_owner = sum((num_locations_cleaned_ownership_name > 1), na.rm = T),
+    num_new_locations = sum(first_year_at_location==year),
+    num_closed_locations = sum(last_year_at_location==year),
+    percent_chain_dba_locations = num_chain_dba_business  / num_locations,
+    percent_chain_owner_locations = num_chain_owner / num_locations,
+    # demographic vars
     med_pop = median(pop, na.rm = T),
     medhhinc = median(medhhinc, na.rm = T),
     med_pct_black = median(blk / pop, na.rm = T),
@@ -58,57 +103,50 @@ sd_bp_f  %>%
     med_pct_pac = median(pac / pop, na.rm = T),
     med_pct_imm = median(imm / pop, na.rm = T),
     med_pct_two = median(two / pop, na.rm = T),
-    modal_first_year = get_mode(first_year),
-    modal_last_year = get_mode(last_year),
-    median_first_year = median(first_year),
-    median_last_year = median(last_year),
+    # time vars
+    modal_first_year = get_mode(first_year_at_location),
+    modal_last_year = get_mode(last_year_at_location),
+    median_first_year = median(first_year_at_location),
+    median_last_year = median(last_year_at_location),
     modal_years_existed = get_mode(years_running),
     median_years_existed = median(years_running)
-  ) -> sd_year_agg
-
-
-
-sd_bp_f %>% filter(year %in% seq(2000, 2018)) %>% group_by( year, naics_descr) %>% summarise(
-  num_businesses = n(),
-  num_is_publically_traded = sum(dba_is_publicly_traded == "is publically traded" | business_name_is_publicly_traded == "is publically traded", na.rm = T),
-  num_chain = sum(num_locations > 1, na.rm = T),
-  num_chain2 = sum(num_locs > 1),
-  percent_chain = num_chain  / num_businesses,
-  med_pop = median(pop, na.rm = T),
-  medhhinc = median(medhhinc, na.rm = T)
-) -> sd_year_naics_agg
+  ) %>% as_tibble()
 
 # census tract descriptives 
-sd_bp_f %>% filter(year %in% seq(2000, 2018) & CT_ID_10 != 0 & !is.na(pop)) %>% group_by(
-  location_id
-) %>%
-  mutate(
-    first_year_at_location = ifelse(year == min(year, na.rm=T),1,0),
-    last_year_at_location = ifelse(year == max(year, na.rm=T),1,0)
-  ) %>% ungroup() %>%
-  group_by(year, CT_ID_10) %>%
+bp %>% filter(!is.na(pop)) %>% 
+  group_by(year,source, CT_ID_10) %>%
   summarise(
-    num_businesses = n(),
-    num_is_publically_traded = sum(dba_is_publicly_traded == "is publically traded" | 
-                                     business_name_is_publicly_traded == "is publically traded", na.rm = T),
-    num_chain = sum(num_locations > 1, na.rm = T),
-    num_new_businesses = sum(first_year_at_location),
-    num_closed_businesses = sum(last_year_at_location),
-    percent_chain = num_chain  / num_businesses,
-    pop = first(pop),
-    medhhinc = first(medhhinc),
+    # business vars
+    num_locations = n(),
+    num_businesses = n_distinct(business_id),
+    num_is_publically_traded = sum(
+      (cleaned_dba_name_is_publically_traded == "is publically traded") |
+        (cleaned_business_name_is_publically_traded == "is publically traded") |
+        (cleaned_ownership_name_is_publically_traded == "is publically traded"), na.rm = T),
+    num_chain_dba_business = sum(
+      (num_locations_cleaned_business_name > 1) |(num_locations_cleaned_dba_name > 1) |(num_locations_business_id > 1),
+      na.rm = T),
+    num_chain_owner = sum((num_locations_cleaned_ownership_name > 1), na.rm = T),
+    num_new_locations = sum(first_year_at_location==year),
+    num_closed_locations = sum(last_year_at_location==year),
+    percent_chain_dba_locations = num_chain_dba_business  / num_locations,
+    percent_chain_owner_locations = num_chain_owner / num_locations,
+    # demographic vars
+    med_pop = median(pop, na.rm = T),
+    medhhinc = median(medhhinc, na.rm = T),
     med_pct_black = median(blk / pop, na.rm = T),
     med_pct_white = median(wht / pop, na.rm = T),
     med_pct_asian = median(asn / pop, na.rm = T),
     med_pct_hisp = median(hsp / pop, na.rm = T),
-    # med_pct_other = median(oth / pop, na.rm = T),
+    med_pct_other = median(oth / pop, na.rm = T),
     med_pct_pac = median(pac / pop, na.rm = T),
     med_pct_imm = median(imm / pop, na.rm = T),
     med_pct_two = median(two / pop, na.rm = T),
-    modal_first_year = get_mode(first_year),
-    modal_last_year = get_mode(last_year),
-    median_first_year = median(first_year),
-    median_last_year = median(last_year),
+    # time vars
+    modal_first_year = get_mode(first_year_at_location),
+    modal_last_year = get_mode(last_year_at_location),
+    median_first_year = median(first_year_at_location),
+    median_last_year = median(last_year_at_location),
     modal_years_existed = get_mode(years_running),
     median_years_existed = median(years_running),
     business_per_cap = num_businesses / pop,
@@ -132,61 +170,58 @@ sd_bp_f %>% filter(year %in% seq(2000, 2018) & CT_ID_10 != 0 & !is.na(pop)) %>% 
   group_by(year) %>%
   mutate(
     income_decile = ntile(medhhinc, 10),
-    pop_decile = ntile(pop, 10),
-    chain_decile = ntile(percent_chain, 10),
+    pop_decile = ntile(med_pop, 10),
+    chain_decile = ntile(percent_chain_dba_locations, 10),
     
-  ) %>% ungroup() -> sd_ct_agg
+  ) %>% ungroup() -> ct_agg
 
-View(sd_ct_agg %>% group_by(year) %>% 
-       summarise(across(matches("chain|pct|pop|first_year|existed|decile"),
-                        ~ weighted.mean(.x,w=num_businesses, na.rm = T))))
+ct_agg_year <- ct_agg %>% group_by(year, source) %>% 
+  summarise(across(matches("chain|pct|pop|first_year|existed|decile"),
+                   ~ weighted.mean(.x,w=num_businesses, na.rm = T)))
+View(ct_agg_year)
+
+ggplot(data=ct_agg_year, aes(x=year, y=median_years_existed,
+                             group=as.factor(source), colour=source)) + 
+         geom_line()
 
 # inner join w/ shapefile to get map 
 # aggregate sf up to tract
-sd_sf %>% mutate(
+temp<- sf %>% 
+  st_transform(4326) %>%
+  st_set_crs(4326) %>%
+  select(GEOID10, geometry) %>%
+  mutate(
   tract_id = str_sub(GEOID10, 1, 11),
-  area = st_area(geometry)
-) %>% group_by(tract_id) %>% summarise(
-  area = sum(area)
-) -> sd_sf_ct
+  # area = st_area(geometry)
+)  %>%
+  group_by(tract_id) %>%
+  slice(
+    1
+  #area = sum(area)
+)
 
-sd_ct_agg %>% 
+sf_ct_d <- ct_agg %>% 
   mutate(tract_id = str_pad(as.character(CT_ID_10), 11, "left", "0")) %>%
-  inner_join(sd_sf_ct, by = c("tract_id" = "tract_id")) %>% st_as_sf() -> sd_sf_ct_d
+  inner_join(sf_ct %>% select(tract_id, area, geometry), by = c("tract_id" = "tract_id")) %>% st_as_sf()
 
 cowplot::plot_grid(
-  sd_sf_ct_d %>% filter(year == 2000 ) %>% 
+  sf_ct_d %>% filter(year == 2005 ) %>% 
   ggplot() + 
   geom_sf(aes(fill = num_businesses)), 
-  sd_sf_ct_d %>% filter(year == 2010 ) %>% 
+  sf_ct_d %>% filter(year == 2010 ) %>% 
     ggplot() + 
     geom_sf(aes(fill = num_businesses)),
-  sd_sf_ct_d %>% filter(year == 2018) %>% 
+  sf_ct_d %>% filter(year == 2018) %>% 
     ggplot() + 
     geom_sf(aes(fill = num_businesses))
 )
 
-ggplot(sd_sf_ct_d %>% filter(year == 2018 ) %>%
+ggplot(sf_ct_d %>% filter(year == 2018 ) %>%
          mutate(business_cut = as.factor(cut(cum_change_businesses,
                                              breaks = c(min(cum_change_businesses, na.rm = T),-200,-100,-50,0,100,200,300, 
                                                         max(cum_change_businesses, na.rm = T))))), 
        aes(fill = business_cut)) + 
   geom_sf(lwd = 0) 
 
-
-sd_ct_agg %>% group_by( income_decile, year) %>% filter(!is.na(income_decile)) %>% summarise(
-  num_businesses = sum(num_businesses),
-  num_new_businesses = sum(num_new_businesses),
-  num_closed_businesses = sum(num_closed_businesses),
-  num_chain = sum(num_chain),
-  num_is_publically_traded = sum(num_is_publically_traded),
-  num_5_business = sum(pop * more_5_business_per_cap),
-  pop = sum(pop),
-  .groups = "drop_last"
-) %>% mutate( 
-  percent_5_business = num_5_business / pop,
-  change_businesses = num_businesses - lag(num_businesses),
-  percent_change_businesses = change_businesses / lag(num_businesses)
-) %>% View()
 
 

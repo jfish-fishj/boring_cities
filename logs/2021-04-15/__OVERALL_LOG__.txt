@@ -1,0 +1,107 @@
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+      df_shp1 crs  is EPSG:4326, assigning EPSG:4326
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+      df_shp1 crs  is EPSG:4326, assigning EPSG:4326
+   0 rows in df_shp1 intersected a shape in df_shp2, 0 intersected multiple shapes, 0 intersected no shapes
+
+Starting clean business data at 2021-04-15
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-15
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+All parsable address components are completely NA! Returning dataframe
+
+column is not of type object/string
+
+All parsable address components are completely NA! Returning dataframe
+
+column is not of type object/string
+
+All parsable address components are completely NA! Returning dataframe
+
+column is not of type object/string
+
+All parsable address components are completely NA! Returning dataframe

@@ -14,8 +14,8 @@ File is split into four groups:
 
 import os
 
-linux = False
-if linux:
+linux = True
+if linux is True:
     filePrefix = "/home/jfish/evictionlab-projects/boring_cities"
     dataPrefix = "/home/jfish/project_data/boring_cities"
 
@@ -63,7 +63,7 @@ bls_data_dict = {
 
 misc_data_dict = {
     'zip county xwalk': dataPrefix + "/data/misc/zipcode_xwalk/ZIP_CBSA_032015.csv",
-    "naics": dataPrefix + "/data/misc/naics/2-6 digit_2017_Codes.csv"
+    "naics": dataPrefix + "/data/misc/naics/2-6_digit_2017_Codes.csv"
 }
 
 
@@ -74,7 +74,7 @@ data_stages = [
 ]
 
 data_types = [
-    'business location',
+    'business_location',
     'parcel',
     'permit',
     'phonebook'
@@ -94,7 +94,8 @@ cities = [
     'tuscon',
     'hartford',
     'baton_rouge',
-    'orlando'
+    'orlando',
+    "miami"
 ]
 
 # address columns
@@ -118,6 +119,7 @@ address_cols = [
 ]
 
 business_cols = [
+    "source",
      "business_id",
      "business_name",
      "dba_name",
@@ -145,9 +147,7 @@ business_cols = [
      "mail_address_city",
      "mail_address_country",
      "mail_address_fa",
-     "mail_address_fa1",
-     "mail_address_fa2",
-     "mail_address_n",
+     "mail_address_n1",
      "mail_address_n2",
      "mail_address_sd",
      "mail_address_sn",
@@ -165,7 +165,6 @@ business_cols = [
      "mail_cleaned_addr_zip",
      "mail_cleaned_city",
      "mail_cleaned_fullAddress",
-     "mail_cleaned_mail_address_n",
      "mail_cleaned_state",
      "naics",
      "naics_descr",

@@ -1,0 +1,410 @@
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+      df_shp1 crs  is EPSG:4326, assigning EPSG:4326
+   97336 rows in df_shp1 intersected a shape in df_shp2, 0 intersected multiple shapes, 0 intersected no shapes
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean returning np.nan
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name_proper_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean returning np.nan
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name_proper_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean returning np.nan
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name_proper_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean returning np.nan
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name is not string type. not attempting to clean
+
+cleaned_business_name_proper_name is not string type. not attempting to clean
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+      df_shp1 crs  is EPSG:4326, assigning EPSG:4326
+   653900 rows in df_shp1 intersected a shape in df_shp2, 0 intersected multiple shapes, 0 intersected no shapes
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to alphabetize
+
+cleaned_ownership_name_proper_name is not string type. not attempting to alphabetize
+
+cleaned_ownership_name_proper_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name is not string type. not attempting to clean3
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan4
+
+cleaned_dba_name is not string type. not attempting to clean5
+
+cleaned_dba_name is not string type. not attempting to clean99
+
+cleaned_dba_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name_proper_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name is not string type. not attempting to clean3
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan4
+
+cleaned_dba_name is not string type. not attempting to clean5
+
+cleaned_dba_name is not string type. not attempting to clean99
+
+cleaned_dba_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name_proper_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name is not string type. not attempting to clean3
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan4
+
+cleaned_dba_name is not string type. not attempting to clean5
+
+cleaned_dba_name is not string type. not attempting to clean99
+
+cleaned_dba_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name_proper_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name is not string type. not attempting to clean3
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan4
+
+cleaned_dba_name is not string type. not attempting to clean5
+
+cleaned_dba_name is not string type. not attempting to clean99
+
+cleaned_dba_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name_proper_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name is not string type. not attempting to clean3
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan4
+
+cleaned_dba_name is not string type. not attempting to clean5
+
+cleaned_dba_name is not string type. not attempting to clean99
+
+cleaned_dba_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name_proper_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name is not string type. not attempting to clean3
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan4
+
+cleaned_dba_name is not string type. not attempting to clean5
+
+cleaned_dba_name is not string type. not attempting to clean99
+
+cleaned_dba_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name_proper_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name is not string type. not attempting to clean3
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan4
+
+cleaned_dba_name is not string type. not attempting to clean5
+
+cleaned_dba_name is not string type. not attempting to clean99
+
+cleaned_dba_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name_proper_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name is not string type. not attempting to clean3
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan4
+
+cleaned_dba_name is not string type. not attempting to clean5
+
+cleaned_dba_name is not string type. not attempting to clean99
+
+cleaned_dba_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name_proper_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name is not string type. not attempting to clean3
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan4
+
+cleaned_dba_name is not string type. not attempting to clean5
+
+cleaned_dba_name is not string type. not attempting to clean99
+
+cleaned_dba_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name_proper_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name is not string type. not attempting to clean3
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan4
+
+cleaned_dba_name is not string type. not attempting to clean5
+
+cleaned_dba_name is not string type. not attempting to clean99
+
+cleaned_dba_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name_proper_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name is not string type. not attempting to clean3
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan4
+
+cleaned_dba_name is not string type. not attempting to clean5
+
+cleaned_dba_name is not string type. not attempting to clean99
+
+cleaned_dba_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name_proper_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name is not string type. not attempting to clean3
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan4
+
+cleaned_dba_name is not string type. not attempting to clean5
+
+cleaned_dba_name is not string type. not attempting to clean99
+
+cleaned_dba_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name_proper_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name is not string type. not attempting to clean3
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan4
+
+cleaned_dba_name is not string type. not attempting to clean5
+
+cleaned_dba_name is not string type. not attempting to clean99
+
+cleaned_dba_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name_proper_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name is not string type. not attempting to clean3
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan4
+
+cleaned_dba_name is not string type. not attempting to clean5
+
+cleaned_dba_name is not string type. not attempting to clean99
+
+cleaned_dba_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name_proper_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name is not string type. not attempting to clean3
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan4
+
+cleaned_dba_name is not string type. not attempting to clean5
+
+cleaned_dba_name is not string type. not attempting to clean99
+
+cleaned_dba_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name_proper_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name is not string type. not attempting to clean3
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan4
+
+cleaned_dba_name is not string type. not attempting to clean5
+
+cleaned_dba_name is not string type. not attempting to clean99
+
+cleaned_dba_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name_proper_name is not string type. not attempting to alphabetize
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+      df_shp1 crs  is EPSG:4326, assigning EPSG:4326
+   864053 rows in df_shp1 intersected a shape in df_shp2, 0 intersected multiple shapes, 0 intersected no shapes
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+cleaned_dba_name is not string type. not attempting to clean3
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan4
+
+cleaned_dba_name is not string type. not attempting to clean5
+
+cleaned_dba_name is not string type. not attempting to clean99
+
+cleaned_dba_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name_proper_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name is not string type. not attempting to clean3
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan4
+
+cleaned_dba_name is not string type. not attempting to clean5
+
+cleaned_dba_name is not string type. not attempting to clean99
+
+cleaned_dba_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name_proper_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name is not string type. not attempting to clean3
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan4
+
+cleaned_dba_name is not string type. not attempting to clean5
+
+cleaned_dba_name is not string type. not attempting to clean99
+
+cleaned_dba_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name_proper_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name is not string type. not attempting to clean3
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan4
+
+cleaned_dba_name is not string type. not attempting to clean5
+
+cleaned_dba_name is not string type. not attempting to clean99
+
+cleaned_dba_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name_proper_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name is not string type. not attempting to clean3
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan4
+
+cleaned_dba_name is not string type. not attempting to clean5
+
+cleaned_dba_name is not string type. not attempting to clean99
+
+cleaned_dba_name is not string type. not attempting to alphabetize
+
+cleaned_dba_name_proper_name is not string type. not attempting to alphabetize

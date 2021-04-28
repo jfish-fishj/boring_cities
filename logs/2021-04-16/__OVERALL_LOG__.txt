@@ -1,0 +1,667 @@
+
+Starting clean business data at 2021-04-16
+
+250   NaN
+251   NaN
+252   NaN
+253   NaN
+254   NaN
+       ..
+493   NaN
+496   NaN
+497   NaN
+498   NaN
+499   NaN
+Name: cleaned_ownership_name_proper_name, Length: 205, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+751   NaN
+752   NaN
+753   NaN
+754   NaN
+       ..
+995   NaN
+996   NaN
+997   NaN
+998   NaN
+999   NaN
+Name: cleaned_ownership_name_proper_name, Length: 192, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+501   NaN
+502   NaN
+503   NaN
+504   NaN
+       ..
+744   NaN
+745   NaN
+746   NaN
+747   NaN
+749   NaN
+Name: cleaned_ownership_name_proper_name, Length: 207, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-16
+
+250   NaN
+251   NaN
+252   NaN
+253   NaN
+254   NaN
+       ..
+493   NaN
+496   NaN
+497   NaN
+498   NaN
+499   NaN
+Name: cleaned_ownership_name_proper_name, Length: 205, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+751   NaN
+752   NaN
+753   NaN
+754   NaN
+       ..
+995   NaN
+996   NaN
+997   NaN
+998   NaN
+999   NaN
+Name: cleaned_ownership_name_proper_name, Length: 192, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+501   NaN
+502   NaN
+503   NaN
+504   NaN
+       ..
+744   NaN
+745   NaN
+746   NaN
+747   NaN
+749   NaN
+Name: cleaned_ownership_name_proper_name, Length: 207, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-16
+
+500   NaN
+501   NaN
+502   NaN
+503   NaN
+504   NaN
+       ..
+744   NaN
+745   NaN
+746   NaN
+747   NaN
+749   NaN
+Name: cleaned_ownership_name_proper_name, Length: 207, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+251   NaN
+252   NaN
+253   NaN
+254   NaN
+       ..
+493   NaN
+496   NaN
+497   NaN
+498   NaN
+499   NaN
+Name: cleaned_ownership_name_proper_name, Length: 205, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+751   NaN
+752   NaN
+753   NaN
+754   NaN
+       ..
+995   NaN
+996   NaN
+997   NaN
+998   NaN
+999   NaN
+Name: cleaned_ownership_name_proper_name, Length: 192, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-16
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-16
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-16
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-16
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-16
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-16
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-16
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_ownership_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean returning np.nan
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name is not string type. not attempting to clean
+
+cleaned_dba_name_proper_name is not string type. not attempting to clean
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+      df_shp1 crs  is EPSG:4326, assigning EPSG:4326
+   0 rows in df_shp1 intersected a shape in df_shp2, 0 intersected multiple shapes, 0 intersected no shapes
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+      df_shp1 crs  is EPSG:4326, assigning EPSG:4326
+   0 rows in df_shp1 intersected a shape in df_shp2, 0 intersected multiple shapes, 0 intersected no shapes
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string

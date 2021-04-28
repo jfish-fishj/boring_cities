@@ -42,8 +42,10 @@ def get_var_from_overlay(df_shp1, df_shp2, varsToGet):
     df_shp1_overlay = df_shp1_overlay.drop_duplicates(subset= ['__ID__']).drop(columns = ['__ID__'])
     return(df_shp1_overlay)
 
-def merge_GEOID(df, census_shp):
+def merge_GEOID(df, census_shp, reset=True):
     # convert dataframe to geodataframe to do overlay
+    if reset is True:
+        df = df.drop(columns=[col for col in ['index', 'Blk_ID_10', 'BG_ID_10', 'CT_ID_10'] if col in df.columns])
     df['index'] = np.arange(len(df))
     df_overlay = df[(df["long_from_address"].notnull()) & (df["lat_from_address"].notnull())]
     df_overlay = gpd.GeoDataFrame(df_overlay, geometry=gpd.points_from_xy(df_overlay.long_from_address, df_overlay.lat_from_address))
@@ -54,14 +56,14 @@ def merge_GEOID(df, census_shp):
 
     # get bg, tract from overlay
     # substring GEOID10 to get block and tract
-    df_overlay['Blk_ID_10'] = '_' + df_overlay['GEOID10']
+    df_overlay['Blk_ID_10'] = df_overlay['GEOID10']
     df_overlay['BG_ID_10'] = df_overlay['GEOID10'].str.slice(start=0, stop = 12).astype(str)
     df_overlay['CT_ID_10'] = df_overlay['GEOID10'].str.slice(start=0, stop = 11).astype(str)
     df = pd.merge(df, df_overlay[['index', 'Blk_ID_10', 'BG_ID_10', 'CT_ID_10']], how="left", on="index").drop(columns="index")
 
     return df
 
-def merge_census_tract_data(df, census_df, panel=False, base_year=2010):
+def merge_census_tract_data(df, census_df, panel=False, base_year=2010, reset=True):
     census_df = census_df.rename(columns = {'GEOID10': 'CT_ID_10'})
     # merge census data onto df
     if panel is not False:
@@ -69,14 +71,16 @@ def merge_census_tract_data(df, census_df, panel=False, base_year=2010):
     else:
         merge_vars = ['CT_ID_10']
         census_df = census_df[census_df['year']==base_year]
+    if reset is True:
+        df = df.drop(columns=[col for col in census_df.columns if col in df.columns and col not in merge_vars])
     df = pd.merge(df, census_df, how='left', on=merge_vars)
     return df
 
 if __name__ == "__main__":
-    data_dict = make_data_dict(use_seagate=True)
+    data_dict = make_data_dict(use_seagate=False)
 
     # # read in  business data
-    # sd_bus = pd.read_csv(data_dict['final']['sd']['business location'] + 'business_locations.csv', dtype = {'CT_ID_10': str})
+    # sd_bus = pd.read_csv(data_dict['final']['sd']['business_location'] + 'business_locations.csv', dtype = {'CT_ID_10': str})
     # # read in census data
     # ca_shp = gpd.read_file(census_data_dict['ca bg shp'])
     # census_tracts = pd.read_csv(census_data_dict['census tract data'], dtype = {'GEOID10': str})
@@ -88,13 +92,16 @@ if __name__ == "__main__":
     # print(sd_bus['CT_ID_10'].str.len().value_counts())
     # sd_bus = merge_census_tract_data(sd_bus, census_tracts, panel=True)
     # print(sum(sd_bus['pop'].isna()))
-    # sd_bus.to_csv(data_dict['final']['sd']['business location'] + '/business_location_panel.csv', index = False)
+    # sd_bus.to_csv(data_dict['final']['sd']['business_location'] + '/business_location_panel.csv', index = False)
     # read in  business data
-    # philly_bus = (pd.read_csv(data_dict['final']['philly']['business location'] + 'business_locations.csv').
+    # philly_bus = (pd.read_csv(data_dict['final']['philly']['business_location'] + 'business_locations.csv').
     #               rename(columns = {"lat": "lat_from_address", "long": "long_from_address"})
     #               )
-    sf_bus = pd.read_csv(data_dict['final']['sf']['business location'] + 'business_locations.csv', dtype = {'CT_ID_10': str}).rename(
-       columns = { "long": "long_from_address", "lat":"lat_from_address"}
+    # sf_bus = pd.read_csv(data_dict['final']['sf']['business_location'] + 'business_locations.csv', dtype = {'CT_ID_10': str}).rename(
+    #    columns = { "long": "long_from_address", "lat":"lat_from_address"}
+    # )
+    sac_bus = (pd.read_csv(data_dict['final']['sac']['business_location'] + 'business_locations.csv', 
+    dtype = {'CT_ID_10': str})
     )
     # read in census data
     ca_shp = gpd.read_file(census_data_dict['ca bg shp'])
@@ -103,12 +110,18 @@ if __name__ == "__main__":
     print(census_tracts['GEOID10'].str.len().value_counts())
 
     # overlay GEOID
-    sf_bus = merge_GEOID(sf_bus, ca_shp)
-    print(sf_bus['CT_ID_10'].str.len().value_counts())
-    sf_bus = merge_census_tract_data(sf_bus, census_tracts, panel=True)
-    print(sum(sf_bus['pop'].isna()))
-    sf_bus.to_csv(data_dict['final']['sf']['business location'] + '/business_location_panel.csv', index = False)
-    # philly_bus = (pd.read_csv(data_dict['final']['philly']['business location'] + 'business_locations.csv').
+    # sf_bus = merge_GEOID(sf_bus, ca_shp)
+    # print(sf_bus['CT_ID_10'].str.len().value_counts())
+    # sf_bus = merge_census_tract_data(sf_bus, census_tracts, panel=True)
+    # print(sum(sf_bus['pop'].isna()))
+    # sf_bus.to_csv(data_dict['final']['sf']['business_location'] + '/business_location_panel.csv', index = False)
+    # overlay GEOID
+    sac_bus = merge_GEOID(sac_bus, ca_shp)
+    print(sac_bus['CT_ID_10'].str.len().value_counts())
+    sac_bus = merge_census_tract_data(sac_bus, census_tracts, panel=True)
+    print(sum(sac_bus['pop'].isna()))
+    sac_bus.to_csv(data_dict['final']['sac']['business_location'] + '/business_location_panel_census_merge.csv', index = False)
+    # philly_bus = (pd.read_csv(data_dict['final']['philly']['business_location'] + 'business_locations.csv').
     #               rename(columns = {"lat": "lat_from_address", "long": "long_from_address"})
     #               )
     # # read in census data
@@ -122,9 +135,9 @@ if __name__ == "__main__":
     # print(philly_bus['CT_ID_10'].str.len().value_counts())
     # philly_bus = merge_census_tract_data(philly_bus, census_tracts, panel=True)
     # print(sum(philly_bus['pop'].isna()))
-    # philly_bus.to_csv(data_dict['final']['philly']['business location'] + '/business_location_panel.csv', index=False)
+    # philly_bus.to_csv(data_dict['final']['philly']['business_location'] + '/business_location_panel.csv', index=False)
 
-    # chicago_bus = (pd.read_csv(data_dict['final']['chicago']['business location'] + '/business_locations.csv'))
+    # chicago_bus = (pd.read_csv(data_dict['final']['chicago']['business_location'] + '/business_locations.csv'))
     # print(chicago_bus['lat_from_address'].isna().sum() / chicago_bus.shape[0])
     # chicago_bus['long_from_address'] = -1*chicago_bus['long_from_address']
     # # read in census data
@@ -136,8 +149,8 @@ if __name__ == "__main__":
     # chicago_bus = merge_GEOID(chicago_bus, il_shp)
     # chicago_bus = merge_census_tract_data(chicago_bus, census_tracts, panel=True)
     # print(sum(chicago_bus['pop'].isna()))
-    # chicago_bus.to_csv(data_dict['final']['chicago']['business location'] + '/business_location_panel.csv', index=False)
-    # baton_rouge_bus = (pd.read_csv(data_dict['final']['baton_rouge']['business location'] + '/business_locations.csv'))
+    # chicago_bus.to_csv(data_dict['final']['chicago']['business_location'] + '/business_location_panel.csv', index=False)
+    # baton_rouge_bus = (pd.read_csv(data_dict['final']['baton_rouge']['business_location'] + '/business_locations.csv'))
     # baton_rouge_bus['long_from_address'] = baton_rouge_bus['long_from_address']
     # # read in census data
     # la_shp = gpd.read_file(census_data_dict['la bg shp'])
@@ -148,8 +161,8 @@ if __name__ == "__main__":
     # baton_rouge_bus = merge_GEOID(baton_rouge_bus, la_shp)
     # baton_rouge_bus = merge_census_tract_data(baton_rouge_bus, census_tracts, panel=True)
     # print(sum(baton_rouge_bus['pop'].isna()))
-    # baton_rouge_bus.to_csv(data_dict['final']['baton_rouge']['business location'] + '/business_location_panel.csv', index=False)
-    # stl_bus = (pd.read_csv(data_dict['final']['stl']['business location'] + '/business_locations.csv'))
+    # baton_rouge_bus.to_csv(data_dict['final']['baton_rouge']['business_location'] + '/business_location_panel.csv', index=False)
+    # stl_bus = (pd.read_csv(data_dict['final']['stl']['business_location'] + '/business_locations.csv'))
     # stl_bus['long_from_address'] = -1*(stl_bus['long_from_address'])
     #
     # # read in census data
@@ -160,5 +173,5 @@ if __name__ == "__main__":
     # # overlay GEOID
     # stl_bus = merge_GEOID(stl_bus, mo_shp)
     # stl_bus = merge_census_tract_data(stl_bus, census_tracts, panel=True)
-    # stl_bus.to_csv(data_dict['final']['stl']['business location'] + '/business_location_panel.csv', index=False)
+    # stl_bus.to_csv(data_dict['final']['stl']['business_location'] + '/business_location_panel.csv', index=False)
 

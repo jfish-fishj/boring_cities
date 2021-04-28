@@ -9,6 +9,6 @@ write_to_log(f'Starting clean business data at {WTL_TIME}')
 # initialize data dict
 data_dict = make_data_dict(use_seagate=True)
 
-sf_bus = data_dict['intermediate']['sf']['business location'] + '/business_location.csv'
-la_bus = data_dict['intermediate']['la']['business location'] + '/business_location.csv'
+sf_bus = data_dict['intermediate']['sf']['business_location'] + '/business_location.csv'
+la_bus = data_dict['intermediate']['la']['business_location'] + '/business_location.csv'
 

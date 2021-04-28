@@ -9,7 +9,7 @@ import numpy as np
 # generic function for comparing business data to bls estimates
 def make_qc_aggs(bls_df:pd.DataFrame, city:str, make_naics_aggs=False):
     data_dict = make_data_dict(use_seagate=True)
-    bus_df = pd.read_csv(data_dict['final'][city]['business location'] + "business_locations.csv",
+    bus_df = pd.read_csv(data_dict['final'][city]['business_location'] + "business_locations.csv",
                          usecols=["year", "parsed_city", "parsed_addr_zip","is_business",
                                   "cleaned_business_name", "cleaned_dba_name", "primary_cleaned_fullAddress"]).\
         drop_duplicates(subset = ["cleaned_business_name", "cleaned_dba_name", "primary_cleaned_fullAddress", "year"])

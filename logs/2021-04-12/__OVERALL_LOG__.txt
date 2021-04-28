@@ -1,0 +1,2066 @@
+
+Starting clean business data at 2021-04-12
+
+Starting clean business data at 2021-04-12
+
+Starting clean business data at 2021-04-12
+
+Starting clean business data at 2021-04-12
+
+Starting clean business data at 2021-04-12
+
+Starting clean business data at 2021-04-12
+
+Starting clean business data at 2021-04-12
+
+Starting clean business data at 2021-04-12
+
+Starting clean business data at 2021-04-12
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-12
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-12
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-12
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+500   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-12
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-12
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-12
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-12
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-12
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+250   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-12
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-12
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-12
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+250   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+500   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-12
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+250   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+500   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name, dtype: float64 is not string type. not attempting to clean
+
+750   NaN
+Name: cleaned_ownership_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean returning np.nan
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name, dtype: float64 is not string type. not attempting to clean
+
+0   NaN
+Name: cleaned_dba_name_proper_name, dtype: float64 is not string type. not attempting to clean
+
+Starting clean business data at 2021-04-12
+
+Starting clean business data at 2021-04-12
+
+Starting clean business data at 2021-04-12
+
+Starting clean business data at 2021-04-12
+
+Starting clean business data at 2021-04-12
+
+Starting clean business data at 2021-04-12
+
+Starting clean business data at 2021-04-12
+
+Starting clean business data at 2021-04-12
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+Starting clean business data at 2021-04-12
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+column is not of type object/string
+
+All parsable address components are completely NA! Returning dataframe
+
+column is not of type object/string
+
+All parsable address components are completely NA! Returning dataframe
+
+column is not of type object/string
+
+All parsable address components are completely NA! Returning dataframe
+
+column is not of type object/string
+
+All parsable address components are completely NA! Returning dataframe
