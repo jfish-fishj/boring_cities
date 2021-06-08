@@ -1,0 +1,39 @@
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+      df_shp1 crs  is EPSG:4326, assigning EPSG:4326
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+      df_shp1 crs  is EPSG:4326, assigning EPSG:4326
+   236471 rows in df_shp1 intersected a shape in df_shp2, 0 intersected multiple shapes, 0 intersected no shapes
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+      df_shp1 crs  is EPSG:4326, assigning EPSG:4326
+   236471 rows in df_shp1 intersected a shape in df_shp2, 0 intersected multiple shapes, 0 intersected no shapes
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+      df_shp1 crs  is EPSG:4326, assigning EPSG:4326
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+      df_shp1 crs  is EPSG:4326, assigning EPSG:4326
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+   112145 rows in df_shp1 intersected a shape in df_shp2, 0 intersected multiple shapes, 0 intersected no shapes
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+   236471 rows in df_shp1 intersected a shape in df_shp2, 0 intersected multiple shapes, 0 intersected no shapes
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+   236471 rows in df_shp1 intersected a shape in df_shp2, 0 intersected multiple shapes, 0 intersected no shapes
+
+Starting clean business data at 2021-05-07
+
+Starting clean business data at 2021-05-07
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+   37364 rows in df_shp1 intersected a shape in df_shp2, 0 intersected multiple shapes, 0 intersected no shapes
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+   37364 rows in df_shp1 intersected a shape in df_shp2, 0 intersected multiple shapes, 0 intersected no shapes
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+   37364 rows in df_shp1 intersected a shape in df_shp2, 0 intersected multiple shapes, 0 intersected no shapes

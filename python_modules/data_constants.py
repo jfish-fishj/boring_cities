@@ -51,7 +51,8 @@ census_data_dict = {
     'la bg shp': dataPrefix + "/data/census/shapefiles/tl_2010_22_bg10/tl_2010_22_bg10.shp",
     'mo bg shp': dataPrefix + "/data/census/shapefiles/tl_2010_29_bg10/tl_2010_29_bg10.shp",
 
-    'pa bg shp':dataPrefix + "/data/census/shapefiles/tl_2010_42_bg10/tl_2010_42_bg10.shp"
+    'pa bg shp':dataPrefix + "/data/census/shapefiles/tl_2010_42_bg10/tl_2010_42_bg10.shp",
+    "wa bg shp":dataPrefix + "/data/census/shapefiles/tl_2010_53_bg10/tl_2010_53_bg10.shp",
 }
 
 
@@ -95,7 +96,8 @@ cities = [
     'hartford',
     'baton_rouge',
     'orlando',
-    "miami"
+    "miami",
+    "long_beach"
 ]
 
 # address columns

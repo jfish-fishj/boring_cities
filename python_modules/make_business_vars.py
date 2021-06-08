@@ -35,7 +35,7 @@ def make_chain_var(df, name_col='business_id', time_col='year',
     # replace empty strings w/ NAs
     df[name_col] = df[name_col].replace("", np.nan)
     df[loc_col] = df.groupby([time_col,name_col])['index'].transform('count')
-    df[loc_col] = df[loc_col].where(
+    df[loc_col] = np.where(
         df[name_col].isna(), np.nan, df[loc_col]
     )
     df.drop(columns='index', inplace=True)

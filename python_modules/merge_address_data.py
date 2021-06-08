@@ -151,14 +151,16 @@ def misc_seattle_cleaning(df):
 
 
 def misc_baton_rouge_cleaning(bus_df, add_df):
-    bus_df['primary_cleaned_addr_n1'] = bus_df['primary_cleaned_addr_n1'].str.replace("[a-z]", "")
-    bus_df['primary_cleaned_addr_n1'] = bus_df['primary_cleaned_addr_n1'].str.replace("^(0+)([1-9][0-9]+)", r"\g<2>")
+    if pd.api.types.is_string_dtype(bus_df['primary_cleaned_addr_n1']) is True:
+        bus_df['primary_cleaned_addr_n1'] = bus_df['primary_cleaned_addr_n1'].fillna("").astype(str).str.replace("[a-z]", "", regex=True)
+        bus_df['primary_cleaned_addr_n1'] = bus_df['primary_cleaned_addr_n1'].fillna("").astype(str).str.replace("^(0+)([1-9][0-9]+)", r"\g<2>", regex=True)
     # bus_df['primary_cleaned_addr_ss'] = np.where(
     #     bus_df['primary_cleaned_addr_sn'].str.contains("sherwood forest",na = False, regex=True),
     #     "blvd",
     #     bus_df['primary_cleaned_addr_ss']
     #
     # )
+    og_cols = bus_df.columns
     add_df = add_df[add_df['parsed_city'] == "baton rouge"]
     add_df['index1'] = np.arange(add_df.shape[0])
 
@@ -170,6 +172,7 @@ def misc_baton_rouge_cleaning(bus_df, add_df):
             drop(columns="count").assign(fill_col=add_df['parsed_addr_ss'])
 
     ), how="left", left_on='primary_cleaned_addr_sn', right_on=['parsed_addr_sn'])
+
     bus_df['primary_cleaned_addr_ss'] = bus_df['primary_cleaned_addr_ss'].replace("", np.nan).fillna(bus_df['fill_col'])
     bus_df['primary_cleaned_addr_ss'] = np.where(
         bus_df['primary_cleaned_addr_sn'].str.contains("acadian", na=False, regex=True),
@@ -220,12 +223,12 @@ def misc_baton_rouge_cleaning(bus_df, add_df):
     )
 
 
-    return bus_df
+    return bus_df[og_cols]
 
 
 def misc_chi_cleaning(add_df, bus_df):
-    add_df["parsed_addr_n1"] = add_df["parsed_addr_n1"].astype(str).str.replace("\.0", "")
-    bus_df["primary_cleaned_addr_n1"] = bus_df["primary_cleaned_addr_n1"].astype(str).str.replace("\.0", "")
+    add_df["parsed_addr_n1"] = add_df["parsed_addr_n1"].astype(str).str.replace("\.0", "", regex=True)
+    bus_df["primary_cleaned_addr_n1"] = bus_df["primary_cleaned_addr_n1"].astype(str).str.replace("\.0", "", regex=True)
     # replace broadway
     bus_df['primary_cleaned_addr_ss'] = np.where(
         bus_df['primary_cleaned_addr_sn'] == "broadway", "st", bus_df['primary_cleaned_addr_ss']

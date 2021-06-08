@@ -514,8 +514,7 @@ def parse_address(dataframe, address_col, unit_col, st_num_col, st_name_col, st_
         dataframe[parsed_zip_col] = dataframe[parsed_zip_col].str.replace(r'([0-9]{5})-([0-9]+)?', r'\g<1>', regex=True)
         dataframe[parsed_zip_col] = '_' + dataframe[parsed_zip_col]
         dataframe[parsed_zip_col] = dataframe[parsed_zip_col].str.replace(r'^(_)\s?([0-9]{4})$', r'\g<1>0\g<2>', regex=True)
-    else:
-        raise ValueError("This shouldnt be happening!")
+
     # extract unit_col from address column
     dataframe[parsed_unit_col] = np.where(
         dataframe[parsed_unit_col] == '',

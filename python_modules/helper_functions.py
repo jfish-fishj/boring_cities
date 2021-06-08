@@ -418,7 +418,7 @@ def get_nearest_address(df1:pd.DataFrame,df2:pd.DataFrame, n1_col_left:str, n1_c
 # replace str nan w/ np.nan in all columns in df
 def replace_nan(df: pd.DataFrame) -> pd.DataFrame:
     for col in df.columns:
-        if pd.api.types.is_string_dtype(col) is True:
+        if pd.api.types.is_string_dtype(col) == True:
             df[col] = df[col].replace("nan", np.nan, regex=False)
             df[col] = df[col].replace("NA", np.nan, regex=False)
     return df

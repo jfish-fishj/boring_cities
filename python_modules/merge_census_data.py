@@ -21,12 +21,12 @@ def get_var_from_overlay(df_shp1, df_shp2, varsToGet):
     df_shp1 = df_shp1[ ~df_shp1.geometry.type.isnull()]
     df_shp2 = df_shp2[ ~df_shp2.geometry.type.isnull()]
 
-    if (df_shp1.crs is not default_crs):
+    if (str(df_shp1.crs) != default_crs):
         write_to_log(f"df_shp1 crs  is {str(df_shp1.crs)}, assigning {default_crs}",2, doPrint=True)
         df_shp2 = df_shp2.to_crs(default_crs)
         df_shp1.crs = default_crs
 
-    if (df_shp2.crs is not default_crs):
+    if (str(df_shp2.crs) != default_crs):
         write_to_log(f"df_shp1 crs  is {str(df_shp2.crs)}, assigning {default_crs}",2, doPrint=True)
         df_shp2 = df_shp2.to_crs(default_crs)
         df_shp1.crs = default_crs
@@ -47,7 +47,11 @@ def merge_GEOID(df, census_shp, reset=True):
     if reset is True:
         df = df.drop(columns=[col for col in ['index', 'Blk_ID_10', 'BG_ID_10', 'CT_ID_10'] if col in df.columns])
     df['index'] = np.arange(len(df))
+    df['long_from_address'] = df['long_from_address'].fillna(df['long'])
+    df['lat_from_address'] = df['lat_from_address'].fillna(df['lat'])
     df_overlay = df[(df["long_from_address"].notnull()) & (df["lat_from_address"].notnull())]
+
+        
     df_overlay = gpd.GeoDataFrame(df_overlay, geometry=gpd.points_from_xy(df_overlay.long_from_address, df_overlay.lat_from_address))
     # get vars by overlaying parcel shapefiles onto blk shapefiles
     varsToGet = ['GEOID10']
@@ -59,7 +63,8 @@ def merge_GEOID(df, census_shp, reset=True):
     df_overlay['Blk_ID_10'] = df_overlay['GEOID10']
     df_overlay['BG_ID_10'] = df_overlay['GEOID10'].str.slice(start=0, stop = 12).astype(str)
     df_overlay['CT_ID_10'] = df_overlay['GEOID10'].str.slice(start=0, stop = 11).astype(str)
-    df = pd.merge(df, df_overlay[['index', 'Blk_ID_10', 'BG_ID_10', 'CT_ID_10']], how="left", on="index").drop(columns="index")
+    df = pd.merge(df, df_overlay[['index', 'Blk_ID_10', 'BG_ID_10', 'CT_ID_10']],
+     how="left", on="index").drop(columns="index")
 
     return df
 

@@ -1,0 +1,110 @@
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+Starting clean business data at 2021-05-12
+
+All parsable address components are completely NA! Returning dataframe
+
+Starting clean business data at 2021-05-12
+
+Starting clean business data at 2021-05-12
+
+Starting clean business data at 2021-05-12
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+   862154 rows in df_shp1 intersected a shape in df_shp2, 0 intersected multiple shapes, 0 intersected no shapes
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+Starting clean business data at 2021-05-12
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+   149534 rows in df_shp1 intersected a shape in df_shp2, 0 intersected multiple shapes, 0 intersected no shapes
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+   149534 rows in df_shp1 intersected a shape in df_shp2, 0 intersected multiple shapes, 0 intersected no shapes
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+   944143 rows in df_shp1 intersected a shape in df_shp2, 0 intersected multiple shapes, 0 intersected no shapes
