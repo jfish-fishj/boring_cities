@@ -7,10 +7,8 @@ Last Updated: 6/27
 import re
 import pandas as pd
 import numpy as np
-from data_constants import filePrefix
 from name_parsing import combine_names
 from pandas.api.types import is_string_dtype
-import time
 from helper_functions import write_to_log
 
 # get rid of setting with copy warnings
@@ -115,11 +113,11 @@ def clean_unit_vectorized(column:pd.Series) -> pd.Series:
 def string_standardize_column_vectorized(column:pd.Series,  log=False) -> pd.Series:
     """Standardizes strings to be in accordance with US Postal Standards."""
     # create column with prefix and old column name
-    if column.isna().all() == True:
+    if column.isna().all():
         if log is not False:
             write_to_log('{} is completely NA... Not attempting to clean'.format(column))
         return column
-    if is_string_dtype(column) == False:
+    if not is_string_dtype(column):
         return column
     replacement_dict = {
         'apt': ['apa?rtme?nt', 'apts'],
