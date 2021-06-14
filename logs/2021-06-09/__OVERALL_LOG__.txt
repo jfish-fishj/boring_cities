@@ -1,0 +1,29 @@
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+   131496 rows in df_shp1 intersected a shape in df_shp2, 0 intersected multiple shapes, 0 intersected no shapes
+
+Starting clean business data at 2021-06-09
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+   111580 rows in df_shp1 intersected a shape in df_shp2, 0 intersected multiple shapes, 0 intersected no shapes
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+
+All parsable address components are completely NA! Returning dataframe
+      Droppping 0 and 0 rows from df_shp1 and df_shp2 whose geometries are None
+      df_shp1 crs  is None, assigning EPSG:4326
+   909168 rows in df_shp1 intersected a shape in df_shp2, 0 intersected multiple shapes, 0 intersected no shapes

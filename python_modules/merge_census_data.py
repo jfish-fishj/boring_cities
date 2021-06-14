@@ -47,8 +47,8 @@ def merge_GEOID(df, census_shp, reset=True):
     if reset is True:
         df = df.drop(columns=[col for col in ['index', 'Blk_ID_10', 'BG_ID_10', 'CT_ID_10'] if col in df.columns])
     df['index'] = np.arange(len(df))
-    df['long_from_address'] = df['long_from_address'].fillna(df['long'])
-    df['lat_from_address'] = df['lat_from_address'].fillna(df['lat'])
+    df['long_from_address'] = df['long_from_address']#.fillna(df['long'])
+    df['lat_from_address'] = df['lat_from_address']#.fillna(df['lat'])
     df_overlay = df[(df["long_from_address"].notnull()) & (df["lat_from_address"].notnull())]
 
         

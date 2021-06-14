@@ -239,6 +239,11 @@ def misc_chi_cleaning(add_df, bus_df):
         "85th",
         bus_df['primary_cleaned_addr_sn']
     )
+    bus_df['primary_cleaned_addr_n2'] = np.where(
+        (bus_df['primary_cleaned_addr_sn'] == "touhy") & (bus_df['primary_cleaned_addr_n1'].astype(str) == "11555") ,
+        "11611",
+        bus_df['primary_cleaned_addr_n2']
+    )
     # replace large office buildings
     bus_df['primary_cleaned_addr_sn'] = np.where(
         (bus_df['primary_cleaned_addr_sn'] == "cityfront") ,
@@ -260,6 +265,12 @@ def misc_chi_cleaning(add_df, bus_df):
     add_df['parsed_addr_sn'] = np.where(
         add_df['parsed_addr_sn'].str.contains("martin luther"),
         "martin luther king",
+        add_df['parsed_addr_sn']
+    )
+
+    add_df['parsed_addr_sn'] = np.where(
+        add_df['parsed_addr_sn'].str.contains("ln salle|lasalle"),
+        "la salle",
         add_df['parsed_addr_sn']
     )
     # add threshold column

@@ -780,7 +780,8 @@ def parse_address(dataframe, address_col, unit_col, st_num_col, st_name_col, st_
         print('{} is not string type, not attempting to remove whitespace'.format(col))
     # standardize street name
     dataframe[parsed_st_name_col] = string_standardize_column_vectorized(dataframe[parsed_st_name_col])
-    dataframe[prefix + 'fullAddress'] = combine_names(dataframe[[parsed_unit_col, parsed_st_num1_col, parsed_sd_col, parsed_st_name_col, parsed_ss_col,
+    dataframe[prefix + 'fullAddress'] = combine_names(dataframe[[parsed_unit_col, parsed_st_num1_col,
+     parsed_sd_col, parsed_st_name_col, parsed_ss_col,
                              parsed_zip_col, parsed_city_col]],
                   name_cols=[parsed_unit_col, parsed_st_num1_col, parsed_sd_col, parsed_st_name_col, parsed_ss_col,
                              parsed_zip_col, parsed_city_col],  fill='empty'

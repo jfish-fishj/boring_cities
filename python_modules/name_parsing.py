@@ -357,15 +357,17 @@ def classify_name(dataframe, name_cols,type_col = 'type_name', weight_format=Fal
 def combine_names(dataframe, name_cols = None, fill = ''):
     if name_cols is None:
         name_cols = ['firstName', 'lastName']
-    temp_col = pd.Series(index=dataframe.index,data = np.nan)
-    for col in name_cols:
+    temp_col = pd.Series(index=dataframe.index,data = dataframe[name_cols[0]]).fillna(fill)
+    for col in name_cols[1:]:
         temp_col = (
-            temp_col.fillna(dataframe[col].fillna(fill).astype(str)).
-                str.replace(' {2,}', ' ', regex=True).str.strip().
-                replace(r'^(\s+)?$', np.nan, regex=True).
-                replace(fill, np.nan, regex=False)
+            temp_col +' ' + dataframe[col].fillna(fill).astype(str)
 
                     )
+    temp_col = (temp_col.
+                str.replace(' {2,}', ' ', regex=True).str.strip().
+                replace(r'^(\s+)?$', np.nan, regex=True).
+                replace(rf"^({fill}\s?)+$", np.nan, regex=True).
+                replace(fill, np.nan, regex=False))
     return temp_col
 
 

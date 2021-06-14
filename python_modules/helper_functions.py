@@ -149,7 +149,7 @@ def interpolate_polygon(df:pd.DataFrame, id_col:str, direction:str):
 
 # function that takes creates a panel based on a start column and an end column
 # so a row with start = 1 and end = 10 gets turned into 10 rows begining at 1 and ending at 10
-def make_panel(df:pd.DataFrame, start_year:str, end_year:str, current_year:Union[int, pd.Series] = 2020,
+def make_panel(df:pd.DataFrame, start_year:str, end_year:str, current_year:Union[int, pd.Series] = 2021,
                keep_cum_count=False, limit=False, drop_future=True, evens_and_odds = False):
     """
     :param df: dataframe to be made into panel
@@ -419,8 +419,8 @@ def get_nearest_address(df1:pd.DataFrame,df2:pd.DataFrame, n1_col_left:str, n1_c
 def replace_nan(df: pd.DataFrame) -> pd.DataFrame:
     for col in df.columns:
         if pd.api.types.is_string_dtype(col) == True:
-            df[col] = df[col].replace("nan", np.nan, regex=False)
-            df[col] = df[col].replace("NA", np.nan, regex=False)
+            df[col] = df[col].str.lower().replace("nan", np.nan, regex=False)
+            df[col] = df[col].str.upper().replace("NA", np.nan, regex=False)
     return df
 
 

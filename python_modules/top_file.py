@@ -73,7 +73,8 @@ def run_sd():
     sd_add = pd.read_csv(data_dict['intermediate']['sd']['parcel'] + 'addresses.csv')
 
     sd_bus = merge_addresses(
-            sd_bus, sd_add, fuzzy=True, nearest_n1=True,
+            sd_bus, sd_add[sd_add['parsed_city'].isin(['san diego', 'la jolla'])], 
+            fuzzy=True, nearest_n1=True,
             fuzzy_threshold=90, n1_threshold=5,
             add_merge_cols=['parsed_addr_n1', 'parsed_addr_sn', 'parsed_addr_ss'],
             bus_merge_cols=['primary_cleaned_addr_n1', 'primary_cleaned_addr_sn', 'primary_cleaned_addr_ss'],
@@ -300,11 +301,11 @@ def run_baton_rouge():
 
 # CHICAGO
 def run_chicago():
-    print("running chicago")
+    # print("running chicago")
     chicago_bus = clean_chicago_bus()
     print("cleaned businesses")
-    chicago_bus = pd.read_csv(data_dict['intermediate']['chicago']['business_location'] + '/business_location.csv')
-    chicago_add = pd.read_csv(data_dict['intermediate']['chicago']['parcel'] + 'addresses.csv')
+    # chicago_bus = pd.read_csv(data_dict['intermediate']['chicago']['business_location'] + '/business_location.csv')
+    chicago_add = pd.read_csv(data_dict['intermediate']['chicago']['parcel'] + 'addresses_concat.csv')
     chicago_add, chicago_bus  = misc_chi_cleaning(bus_df=chicago_bus, 
     add_df=chicago_add)
     print("misc add")
@@ -331,7 +332,7 @@ def run_chicago():
 
     # print(census_tracts['GEOID10'].str.len().value_counts())
     chicago_bus['long_from_address'] = chicago_bus['long_from_address'].abs()
-    chicago_bus['long'] = chicago_bus['long'].abs()
+    chicago_bus['lat_from_address'] = chicago_bus['lat_from_address'].abs()
     chicago_bus = merge_GEOID(chicago_bus, il_shp, reset=True)
     business_loc_to_sql(chicago_bus, table="business_locations_flat", mode="append")
     print("exported to int")
@@ -360,7 +361,7 @@ def run_long_beach():
     print("misc add")
 
     long_beach_bus = merge_addresses(
-            long_beach_bus, long_beach_add, fuzzy=True, nearest_n1=True,
+            long_beach_bus, long_beach_add[long_beach_add['parsed_city']=="long beach"], fuzzy=True, nearest_n1=True,
             fuzzy_threshold=90, n1_threshold=5,
             add_merge_cols=['parsed_addr_n1', 'parsed_addr_sn', 'parsed_addr_ss'],
             bus_merge_cols=['primary_cleaned_addr_n1', 'primary_cleaned_addr_sn', 'primary_cleaned_addr_ss'],
@@ -370,10 +371,10 @@ def run_long_beach():
     long_beach_bus.to_csv(data_dict['intermediate']['long_beach']['business_location'] + '/business_location_addresses_merged.csv', 
     index=False)
     print("merged addresses")
-    # long_beach_bus = pd.read_csv('/home/jfish/project_data/boring_cities/data/intermediate/long_beach/business_location/business_location_addresses_merged.csv')
+    #long_beach_bus = pd.read_csv('/home/jfish/project_data/boring_cities/data/intermediate/long_beach/business_location/business_location_addresses_merged.csv')
     print(len(long_beach_bus))
     print(long_beach_bus.shape)
-    if long_beach_bus.shape[0] > 300000:
+    if long_beach_bus.shape[0] > 150000:
         raise ValueError
     # print(long_beach_bus.shape)
     # read in census data
@@ -405,7 +406,7 @@ if __name__ == "__main__":
     # run_stl()
     # run_baton_rouge()
     print("running?")
-    run_sac()
-    run_sd()
-    #run_chicago()
-    run_long_beach()
+    # run_sac()
+    # run_sd()
+    run_chicago()
+    # run_long_beach()

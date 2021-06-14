@@ -39,18 +39,22 @@ def clean_parse_parallel(df:pd.DataFrame, standardization_dict:dict = None):
     # sole proprietorships are flagged as "person"
     # make business columns
     # naics codes
+    print('making naics')
     df = make_naics_vars(df, "naics")
     # business types
     df['business_type_standardized'] = standardize_business_type(df["business_type"],
                                                                  standardize_dict=standardization_dict)
+    print('standarizing bus')                                                    
     # clean up standardization dict w/ regex based cleaning
     df = get_business_type(df=df, naics_col="naics_descr3_standardized", business_type_col='business_type_standardized')
     # clean name columns
+    print('cleaning names')
     df["cleaned_dba_name"] = clean_name(df['dba_name'])
     df["cleaned_ownership_name"] = clean_name(df['ownership_name'])
     df["cleaned_business_name"] = clean_name(df['business_name'])
     if og_shape != df.shape[0]:
         raise ValueError(f"Number of rows has changed from {og_shape} to {df.shape[0]}")
+    print('classify business')
     df["is_business"] = classify_name(
         # reminder that probabilistic means names like "Uber" will be flagged as businesses
         # also means uncommon names like Matinee Apinwasree will get flagged as businesses
@@ -63,6 +67,7 @@ def clean_parse_parallel(df:pd.DataFrame, standardization_dict:dict = None):
         raise ValueError(f"Number of rows has changed from {og_shape} to {df.shape[0]}")
 
     # primary address
+    print('parse prumary addr')
     df = clean_parse_address(
         dataframe=df, address_col='primary_address_fa',st_name="primary_address_sn", st_sfx="primary_address_ss",
         st_d="primary_address_sd", unit='primary_address_u', st_num='primary_address_n1',
@@ -73,6 +78,7 @@ def clean_parse_parallel(df:pd.DataFrame, standardization_dict:dict = None):
         raise ValueError(f"Number of rows has changed from {og_shape} to {df.shape[0]}")
 
     # mailing address
+    print('parse mailaddr')
     df = clean_parse_address(
         dataframe=df, address_col='mail_address_fa', city='mail_address_city',st_name="mail_address_sn", st_sfx="mail_address_ss",
         st_d="mail_address_sd", unit='mail_address_u',
@@ -134,7 +140,7 @@ def clean_sf_bus():
         'num_ended': ('location_end_year', lambda x: x.notnull().sum()),
     }
                                                                   )
-    sf_start_year_agg.to_csv(filePrefix + "/qc/sf_start_year_agg.csv")
+    sf_start_year_agg.to_csv(filePrefix + "/output/qc_output/sf_start_year_agg.csv")
     sf_bus.to_csv(data_dict['intermediate']['sf']['business_location'] + '/business_location.csv', index=False)
     return sf_bus
 
@@ -186,7 +192,7 @@ def clean_la_bus():
     }
                                                                   )
 
-    la_start_year_agg.to_csv(filePrefix + "/qc/la_start_year_agg.csv")
+    la_start_year_agg.to_csv(filePrefix + "/output/qc_output/la_start_year_agg.csv")
 
     la_bus.to_csv(data_dict['intermediate']['la']['business_location'] + '/business_location.csv', index=False)
     return la_bus
@@ -205,8 +211,8 @@ def clean_chicago_bus():
         'LICENSE TERM START DATE': 'location_start_date',
         'LICENSE TERM EXPIRATION DATE': 'location_end_date',
         'BUSINESS ACTIVITY': 'business_type',
-        'LONGITUDE':'long',
-        'LATITUDE':'lat'
+        # 'LONGITUDE':'long',
+        # 'LATITUDE':'lat'
         # ignore all columns not in rename dict
     }
     chicago_bus.rename(columns=chi_rename_dict, inplace=True)
@@ -219,6 +225,9 @@ def clean_chicago_bus():
     chicago_biz_type_dict = {
 
     }
+    lat_long = chicago_bus['LOCATION'].str.extract(r'([-0-9\.]+)[\s,]+([0-9\.-]+)')
+    chicago_bus['lat'] = lat_long.iloc[:, 0]
+    chicago_bus['long'] = lat_long.iloc[:, 1]
     # make year variables from dates
     chicago_bus['location_start_year'] = make_year_var(chicago_bus['location_start_date'])
     chicago_bus['location_end_year'] = make_year_var(chicago_bus['location_end_date'], round_down=True)
@@ -229,9 +238,9 @@ def clean_chicago_bus():
     )
     chicago_bus['business_start_year'] = chicago_bus.groupby("business_id")['location_start_year'].transform("min")
     chicago_bus['business_end_year'] = chicago_bus.groupby("business_id")['location_end_year'].transform("min")
-    
+    print('set to parallelize')
     chicago_bus = parallelize_dataframe(df=chicago_bus, func=clean_parse_parallel, n_cores=4)
-    
+    print('parallelizewd')
     chicago_bus ['location_id'] = chicago_bus.groupby(
         ["cleaned_dba_name","cleaned_business_name",  "primary_cleaned_fullAddress"]).ngroup()
     chicago_bus['location_id'] = chicago_bus['location_id'].astype(str) + "_chicago"
@@ -248,7 +257,7 @@ def clean_chicago_bus():
     }
                                                                   )
 
-    chi_start_year_agg.to_csv(filePrefix + "/qc/chi_start_year_agg.csv")
+    chi_start_year_agg.to_csv(filePrefix + "/output/qc_output/chi_start_year_agg.csv")
 
     chicago_bus.to_csv(data_dict['intermediate']['chicago']['business_location'] + '/business_location.csv', index=False)
     return chicago_bus
@@ -287,7 +296,7 @@ def clean_philly_bus():
     }
                                                                    )
 
-    philly_start_year_agg.to_csv(filePrefix + "/qc/philly_start_year_agg.csv")
+    philly_start_year_agg.to_csv(filePrefix + "/output/qc_output/philly_start_year_agg.csv")
 
     df.to_csv(data_dict['intermediate']['philly']['business_location'] + '/business_location.csv', index=False)
 
@@ -311,6 +320,10 @@ def clean_long_beach_bus():
     })
     df['location_start_year'] = make_year_var(df['location_start_date'])
     df['location_end_year'] = make_year_var(df['location_end_date'])
+    df['location_end_year_alt'] = make_year_var(df['INACTVDTTM'])
+    df['location_end_year'] = np.where(
+        df['location_end_year_alt'] == 1970, 2021, df['location_end_year']
+    )
     df['primary_address_city'] = np.where(
         df['OUTSIDECITY'] == 'No',
         "Long Beach",
@@ -338,7 +351,7 @@ def clean_long_beach_bus():
     }
                                                                    )
 
-    long_beach_start_year_agg.to_csv(filePrefix + "/qc/long_beach_start_year_agg.csv")
+    long_beach_start_year_agg.to_csv(filePrefix + "/output/qc_output/long_beach_start_year_agg.csv")
     print("pre return shape", df.shape[0])
     df = add_subset_business_cols(df)
     df.to_csv(data_dict['intermediate']['long_beach']['business_location'] + '/business_location.csv', index=False)
@@ -400,7 +413,7 @@ def clean_baton_rouge_bus():
     }
                                                                    )
 
-    baton_rouge_start_year_agg.to_csv(filePrefix + "/qc/baton_rouge_start_year_agg.csv")
+    baton_rouge_start_year_agg.to_csv(filePrefix + "/output/qc_output/baton_rouge_start_year_agg.csv")
     df = add_subset_business_cols(df)
     df.to_csv(data_dict['intermediate']['baton_rouge']['business_location'] + '/business_location.csv', index=False)
     return df
@@ -468,7 +481,7 @@ def clean_stl_bus():
     }
     )
 
-    stl_start_year_agg.to_csv(filePrefix + "/qc/stl_start_year_agg.csv")
+    stl_start_year_agg.to_csv(filePrefix + "/output/qc_output/stl_start_year_agg.csv")
     df.to_csv(data_dict['intermediate']['stl']['business_location'] + '/business_location.csv', index=False)
     return df
 
@@ -526,7 +539,7 @@ def clean_sd_bus():
     }
                                                                   )
 
-    sd_start_year_agg.to_csv(filePrefix + "/qc/sd_start_year_agg.csv")
+    sd_start_year_agg.to_csv(filePrefix + "/output/qc_output/sd_start_year_agg.csv")
 
     sd_bus.to_csv(data_dict['intermediate']['sd']['business_location'] + '/business_location.csv', index=False)
     return sd_bus
@@ -599,7 +612,7 @@ def clean_seattle_bus():
         'num_ended': ('location_end_year', lambda x: x.notnull().sum()),
     }
                                                                    )
-    seattle_start_year_agg.to_csv(filePrefix + "/qc/seattle_start_year_agg.csv")
+    seattle_start_year_agg.to_csv(filePrefix + "/output/qc_output/seattle_start_year_agg.csv")
 
     df.to_csv(data_dict['intermediate']['seattle']['business_location'] + '/business_location.csv', index=False)
     return df
@@ -643,7 +656,7 @@ def clean_orlando_bus():
     }
                                                                    )
 
-    orlando_start_year_agg.to_csv(filePrefix + "/qc/orlando_start_year_agg.csv")
+    orlando_start_year_agg.to_csv(filePrefix + "/output/qc_output/orlando_start_year_agg.csv")
 
     df.to_csv(data_dict['intermediate']['orlando']['business_location'] + '/business_location.csv', index=False)
 
@@ -737,7 +750,7 @@ def clean_sac_bus():
     }
                                                                         )
 
-    df_start_year_agg.to_csv(filePrefix + "/qc/df_start_year_agg.csv")
+    df_start_year_agg.to_csv(filePrefix + "/output/qc_output/df_start_year_agg.csv")
 
     df.to_csv(data_dict['intermediate']['sac']['business_location'] + '/business_location.csv', index=False)
     return df

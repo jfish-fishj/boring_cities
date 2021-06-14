@@ -1,18 +1,18 @@
 library(zipcodeR)
 bls = fread("bls/appended_zipcode/appended_zip.csv", colClasses = c("zip"="character"))
-bls = bls %>% merge(zipcodeR::zip_code_db, by.x="zip", by.y="zipcode")
-bls_agg = bls[,list(bls_est=sum(est,na.rm=T)), by = .(zip,naics, year, major_city, county, state)]
+bls = bls %>% merge(zipcodeR::zip_code_db %>% select(zipcode:state, population), by.x="zip", by.y="zipcode")
+bls_agg = bls[,list(bls_est=sum(est,na.rm=T), pop=first(population)), by = .(zip, year, major_city, county, state)]
 #View(bls_agg[order(-bls_est)])
 bls_agg[,min_year := min(year), by = zip]
-bls_agg[order(year, zip,naics),lag_businesses :=  shift(bls_est, type="lag"), by = .(zip, naics)]
-bls_agg[order(year, zip,naics),change_businesses := replace_na(bls_est -lag_businesses,0), by = .(zip,naics)]
-bls_agg[order(year, zip, naics), cum_change_businesses := cumsum(replace_na(change_businesses,0)), by = .(zip,naics)]
+bls_agg[order(year, zip),lag_businesses :=  shift(bls_est, type="lag"), by = .(zip)]
+bls_agg[order(year, zip),change_businesses := replace_na(bls_est -lag_businesses,0), by = .(zip)]
+bls_agg[order(year, zip), cum_change_businesses := cumsum(replace_na(change_businesses,0)), by = .(zip)]
 #View(bls_agg[zip %in% unique(bls_agg[order(-abs(bls_est))], by = "zip")[1:100,zip]])
 
 city_agg = bls_agg[,list(bls_est = sum(bls_est),
                          change_businesses = sum(change_businesses),
                          cum_change_businesses = sum(cum_change_businesses)),
-                   by = .(major_city, year,naics)]
+                   by = .(major_city,state, year)]
 
 top_ten_cities = (city_agg[
                              
