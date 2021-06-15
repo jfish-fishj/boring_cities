@@ -14,9 +14,9 @@ Data are from business license and permitting data for the following cities:
 - Seattle
 - Baton Rouge
 - Saint Louis
-- *Philadelphia*
-- *Chicago*
-- *Albuquerque*
+- **Philadelphia**
+- **Chicago**
+- **Albuquerque*
 Bold cities indicate that the data are from permits and may not contain the universe of all businesses.
 # Project Status:
 The business data has been cleaned, geocoded, standardized, and linked with parcel records in each of the cities. For each of the cities I now have a business level panel that details each year in which the business existed with other variables such as the business’ census tract, linked parcelID, geolocation, number of businesses with the same name, and information about business tenure (when the business started, how long it has existed, etc.)
@@ -40,24 +40,24 @@ The script then makes various data aggregations, usually at the year or tract-ye
 10. These aggregations are saved and analysis is performed on them.
 ## Descriptions of files:
 ### Python Modules
-*TOP_FILE.py* runs the full cleaning and standardizing process for each metro
+**TOP_FILE.py** runs the full cleaning and standardizing process for each metro
 #### Helper Files:
 These are files that contain functions that are called by other scripts but that do not actually create any output
-- *Address_parsing.py* contains the functions needed to parse and standardize addresses
-- *Name_parsing.py* contains the functions needed to parse and standardize names
-- *Data_constants.py* contains things like file paths and the list of cities that are being analyzed. Done in data constants so that code is easily transferable between computers
-- *Helper_functions.py* contains useful functions that are called through cleaning
-- *make_business_vars.py* contains functions that are used to do things like check if a business is publicly traded.
+- **Address_parsing.py** contains the functions needed to parse and standardize addresses
+- **Name_parsing.py** contains the functions needed to parse and standardize names
+- **Data_constants.py** contains things like file paths and the list of cities that are being analyzed. Done in data constants so that code is easily transferable between computers
+- **Helper_functions.py** contains useful functions that are called through cleaning
+- **make_business_vars.py** contains functions that are used to do things like check if a business is publicly traded.
 #### Cleaning Files:
 These are files that are typically wrappers around the helper files, with extra city specific code as needed. These are the files that clean and process the business, address, and parel data.
-- *Clean_business_data.py* takes in raw business data and cleans and standardizes it
-- *Clean_address_data.py* takes in raw address data and cleans and standardizes it
-- *Merge_address_data.py* merges address data onto the cleaned business data
-- *Merge_census_data.py* merges the census tract and Block ID onto the cleaned business data
+- **Clean_business_data.py** takes in raw business data and cleans and standardizes it
+- **Clean_address_data.py** takes in raw address data and cleans and standardizes it
+- **Merge_address_data.py** merges address data onto the cleaned business data
+- **Merge_census_data.py** merges the census tract and Block ID onto the cleaned business data
 
 ### R Scripts
-- *business_descriptives.R* Reads in business panel data and performs various data aggregations and analysis
-- *make_la_panel.R* is equivalent to making the panel in python but the LA file is huge and R is way more memory efficient than Pandas.
+- **business_descriptives.R** Reads in business panel data and performs various data aggregations and analysis
+- **make_la_panel.R** is equivalent to making the panel in python but the LA file is huge and R is way more memory efficient than Pandas.
 
 
 
